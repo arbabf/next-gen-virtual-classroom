@@ -1,0 +1,14 @@
+:root {
+	--spacing-xl: 8em;
+	--spacing-l: 4em;
+	--spacing-m: 2em;
+	--spacing-s: 1em;
+
+	--text-l: 4em;
+	--text-m: 2em;
+	--text-s: 1em;
+	--text-xs: 0.75em;
+	--text-xxs: 0.5em;
+
+	--max-content-width: 900px;
+}

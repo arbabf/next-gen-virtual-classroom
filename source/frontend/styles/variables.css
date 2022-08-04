@@ -1,0 +1,64 @@
+/* Define base variable assignments */
+:root {
+	--background: white;
+	--foreground: var(--gray-900);
+
+	--vertical-padding: var(--spacing-m);
+	--horizontal-padding: var(--spacing-m);
+
+	--vertical-text-padding: var(--spacing-s);
+	--horizontal-text-padding: var(--spacing-m);
+
+	--max-width: var(--max-content-width);
+
+	--link-color: var(--blue-500);
+	--link-color-hover: var(--blue-700);
+
+	--padding: var(--vertical-padding) var(--horizontal-padding);
+	--text-padding: var(--vertical-text-padding) var(--horizontal-text-padding);
+
+	--border-rounding-small: 8px;
+	--border-rounding: 12px;
+	--border-rounding-large: 24px;
+
+	--border-color-light: var(--gray-100);
+	--border-color-medium: var(--gray-200);
+	--border-color-strong: var(--gray-300);
+
+	--border-light: 1px solid var(--border-color-light);
+	--border-medium: 2px solid var(--border-color-medium);
+	--border-strong: 3px solid var(--border-color-strong);
+
+	--button-fill: var(--blue-500);
+	--button-fill-hover: var(--blue-600);
+	--button-foreground: white;
+	--button-unfilled-hover: var(--accent-tp-25);
+}
+
+/* Dark theme switch */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--gray-900);
+		--foreground: var(--gray-50);
+		--link-color: var(--blue-300);
+		--link-color-hover: var(--blue-500);
+
+		--border-color-light: var(--grey-900);
+		--border-color-medium: var(--grey-800);
+		--border-color-strong: var(--grey-700);
+	}
+}
+
+/* Responsive variables */
+@media only screen and (max-width: 480px) {
+	:root {
+		--horizontal-padding: var(--spacing-s);
+		--vertical-padding: var(--spacing-s);
+		--horizontal-text-padding: var(--spacing-s);
+	}
+}
+
+/* Style settings, such as wide UI, etc. */
+body.wide {
+	--max-width: none;
+}

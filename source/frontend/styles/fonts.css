@@ -1,0 +1,9 @@
+@font-face {
+	font-family: Inter;
+	src: url(/font/inter.ttf);
+}
+
+@font-face {
+	font-family: "Material Symbols Rounded";
+	src: url(/font/material-symbols-rounded.ttf);
+}
