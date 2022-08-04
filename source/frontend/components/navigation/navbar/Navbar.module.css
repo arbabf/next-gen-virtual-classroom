@@ -1,0 +1,27 @@
+.navbar {
+	width: 100%;
+	margin: 0;
+	background-color: var(--background);
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.left {
+	padding: var(--spacing-s);
+}
+
+.left h1 {
+	margin: 0;
+}
+
+.right {
+	width: auto;
+	margin-left: auto;
+	padding: var(--spacing-s);
+}
+
+.right a {
+	margin: 0;
+}

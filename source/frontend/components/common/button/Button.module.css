@@ -1,0 +1,57 @@
+.button {
+	background-color: var(--button-fill);
+	color: var(--button-foreground);
+	font-weight: bold;
+
+	padding: var(--spacing-s);
+	flex-shrink: 0;
+
+	border-radius: var(--border-rounding);
+	outline: none;
+	border: none;
+
+	transition: 0.2s background-color;
+}
+
+.button[disabled]:hover {
+	cursor: not-allowed;
+}
+
+.button:hover {
+	cursor: pointer;
+}
+
+.filled {
+	background-color: var(--button-fill);
+	color: var(--button-foreground);
+}
+
+.filled[disabled] {
+	background-color: var(--button-fill-disabled);
+	color: var(--button-foreground-disabled);
+}
+
+.filled:hover {
+	background-color: var(--button-fill-hover);
+}
+
+.filled[disabled]:hover {
+	background-color: var(--button-fill-disabled);
+}
+
+.unfilled {
+	background-color: transparent;
+	color: var(--link-color);
+}
+
+.unfilled[disabled] {
+	color: var(--link-color-disabled);
+}
+
+.unfilled:hover {
+	background-color: var(--button-unfilled-hover);
+}
+
+.unfilled[disabled]:hover {
+	background-color: transparent;
+}
