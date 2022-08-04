@@ -13,6 +13,7 @@
 
 	--link-color: var(--blue-500);
 	--link-color-hover: var(--blue-700);
+	--link-color-disabled: var(--blue-500-faded);
 
 	--padding: var(--vertical-padding) var(--horizontal-padding);
 	--text-padding: var(--vertical-text-padding) var(--horizontal-text-padding);
@@ -30,9 +31,12 @@
 	--border-strong: 3px solid var(--border-color-strong);
 
 	--button-fill: var(--blue-500);
+	--button-fill-disabled: var(--blue-200);
 	--button-fill-hover: var(--blue-600);
 	--button-foreground: white;
+	--button-foreground-disabled: #fff4;
 	--button-unfilled-hover: var(--accent-tp-25);
+	--button-fill-disabled: var(--blue-300);
 }
 
 /* Dark theme switch */
@@ -42,10 +46,12 @@
 		--foreground: var(--gray-50);
 		--link-color: var(--blue-300);
 		--link-color-hover: var(--blue-500);
+		--link-color-disabled: var(--blue-300-faded);
+		--button-fill-disabled: var(--blue-800);
 
-		--border-color-light: var(--grey-900);
-		--border-color-medium: var(--grey-800);
-		--border-color-strong: var(--grey-700);
+		--border-color-light: var(--gray-800);
+		--border-color-medium: var(--gray-700);
+		--border-color-strong: var(--gray-600);
 	}
 }
 
