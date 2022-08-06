@@ -5,7 +5,16 @@ import Button from '../components/common/button/button';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Card from '../components/common/card/card';
 import Navbar from '../components/navigation/navbar/navbar';
+import Panel from '../components/common/panel/panel';
 import styles from '../styles/pages/Home.module.css';
+
+function openScreen(){
+	console.log("I have clicked a button.")
+}
+
+function closeScreen(){
+	console.log("I have clicked a different button.")
+}
 
 const Home: NextPage = () => {
 	return (
@@ -27,11 +36,10 @@ const Home: NextPage = () => {
 					<p>Below is a set of buttons.</p>
 
 					<ButtonSet>
-						<Button label="Filled button" />
-						<Button label="Unfilled button" unfilled />
-						<Button label="Filled &amp; disabled" disabled />
-						<Button label="Unfilled &amp; disabled" unfilled disabled />
+						<Button onClick={openScreen} label="Share screen" />
+						<Button onClick={closeScreen} label="Unshare screen" unfilled />
 					</ButtonSet>
+					<Panel label="Ascended"/>
 				</Card>
 			</main>
 		</>
