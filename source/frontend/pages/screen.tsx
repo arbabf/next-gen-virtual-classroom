@@ -7,6 +7,7 @@ import Card from '../components/common/card/card';
 import Navbar from '../components/navigation/navbar/navbar';
 import Panel from '../components/common/panel/panel';
 import styles from '../styles/pages/Home.module.css';
+import { loadGetInitialProps } from 'next/dist/shared/lib/utils';
 
 function openScreen(){
 	console.log("I have clicked a button.")
@@ -14,6 +15,10 @@ function openScreen(){
 
 function closeScreen(){
 	console.log("I have clicked a different button.")
+}
+
+function screenClick(){
+	console.log("I have clicked the panel.")
 }
 
 const Home: NextPage = () => {
@@ -39,8 +44,8 @@ const Home: NextPage = () => {
 						<Button onClick={openScreen} label="Share screen" />
 						<Button onClick={closeScreen} label="Unshare screen" unfilled />
 					</ButtonSet>
-					<Panel label="Ascended"/>
 				</Card>
+				<Panel onClick={screenClick} label="Screen"/>
 			</main>
 		</>
 	);
