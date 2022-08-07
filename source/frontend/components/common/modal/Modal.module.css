@@ -1,0 +1,21 @@
+.modal {
+	border-radius: var(--border-rounding-large);
+	max-width: var(--max-width);
+	padding: var(--padding);
+	margin: var(--padding);
+	outline: none;
+	background-color: var(--background);
+	border: var(--border-medium);
+
+	display: none;
+}
+
+.open {
+	display: block;
+}
+
+@media only screen and (max-width: 768px) {
+	.modal {
+		margin: 0;
+	}
+}
