@@ -6,3 +6,18 @@
     width:400px;
     height:225px;
 }
+.expandedscreen{
+    background-color: white;
+    background-image: url("/favicon.ico");
+    color:white;
+    outline:4px;
+    border: var(--border-light);
+    width:1280px;
+    height:720px;
+}
+.screen:hover{
+    cursor: pointer;
+}
+.expandedscreen:hover{
+    cursor: pointer;
+}

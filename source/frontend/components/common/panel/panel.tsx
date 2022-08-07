@@ -7,10 +7,11 @@ import styles from './Panel.module.css';
  type PanelProps = {
 
     label: string;
+	expanded?: boolean;
 	/**
 	 * A click handler to make this button do something should it be pressed.
 	 */
-	onClick?: MouseEventHandler<HTMLButtonElement>;
+	onClick?: MouseEventHandler<HTMLElement>;
 };
 
 class Panel extends Component<PanelProps> {
@@ -20,14 +21,14 @@ class Panel extends Component<PanelProps> {
 
 	render() {
 		return (
-			<button
+			<div
 				className={
-					styles.screen
+					styles.screen + ' ' + (this.props.expanded === undefined ? styles.screen : styles.expandedscreen)
 				}
-				onClick={this.props.onClick}
+				onClick={this.props.onClick}				
 			>
                 {this.props.label}
-			</button>
+			</div>
 		);
 	}
 }
