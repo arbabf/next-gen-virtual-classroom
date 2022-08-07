@@ -1,6 +1,7 @@
 /* Define base variable assignments */
 :root {
 	--background: white;
+	--background-tint-faint: var(--accent-tint-light);
 	--foreground: var(--gray-900);
 
 	--vertical-padding: var(--spacing-m);
@@ -17,6 +18,9 @@
 
 	--padding: var(--vertical-padding) var(--horizontal-padding);
 	--text-padding: var(--vertical-text-padding) var(--horizontal-text-padding);
+
+	--navbar-text-padding: var(--spacing-s);
+	--navbar-icon-padding: var(--spacing-xs);
 
 	--border-rounding-small: 8px;
 	--border-rounding: 12px;
@@ -43,6 +47,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background: var(--gray-900);
+		--background-tint-faint: var(--accent-tint-dark);
 		--foreground: var(--gray-50);
 		--link-color: var(--blue-300);
 		--link-color-hover: var(--blue-500);
@@ -61,6 +66,12 @@
 		--horizontal-padding: var(--spacing-s);
 		--vertical-padding: var(--spacing-s);
 		--horizontal-text-padding: var(--spacing-s);
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	:root {
+		--navbar-text-padding: var(--spacing-xs);
 	}
 }
 

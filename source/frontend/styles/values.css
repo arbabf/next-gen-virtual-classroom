@@ -3,6 +3,7 @@
 	--spacing-l: 4em;
 	--spacing-m: 2em;
 	--spacing-s: 1em;
+	--spacing-xs: 0.5em;
 
 	--text-l: 4em;
 	--text-m: 2em;
@@ -11,4 +12,6 @@
 	--text-xxs: 0.5em;
 
 	--max-content-width: 900px;
+
+	--mobile-mode-max-width: 768px;
 }

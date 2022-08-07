@@ -148,4 +148,7 @@
 	--cyan-700: #008999;
 	--cyan-800: #005c66;
 	--cyan-900: #002e33;
+
+	--accent-tint-light: var(--blue-50);
+	--accent-tint-dark: #24282f;
 }
