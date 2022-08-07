@@ -1,3 +1,8 @@
 .container {
 	display: block;
 }
+
+.named {
+	font-family: 'Material Symbols';
+	font-variation-settings: 'FILL' 1;
+}

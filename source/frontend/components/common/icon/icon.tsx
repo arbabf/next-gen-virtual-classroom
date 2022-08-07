@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, CSSProperties } from 'react';
 import Image from 'next/image';
 import styles from './Icon.module.css';
 
@@ -40,6 +40,10 @@ class Icon extends Component<IconProps> {
 		let size = '1em';
 		let altText = '';
 
+		let iconFontStyle: CSSProperties = {
+			fontSize: size,
+		};
+
 		if (this.props.size !== undefined) {
 			size = this.props.size;
 		}
@@ -51,7 +55,14 @@ class Icon extends Component<IconProps> {
 		if (this.props.imageSrc !== undefined) {
 			return <Image src={this.props.imageSrc} height={size} width={size} alt={altText} />;
 		} else if (this.props.iconName !== undefined) {
-			return <span>{this.props.iconName}</span>;
+			return (
+				<span
+					className={styles.named}
+					style={this.props.size !== undefined ? iconFontStyle : undefined}
+				>
+					{this.props.iconName}
+				</span>
+			);
 		}
 
 		return <div className={styles.container}>{this.props.imageSrc !== undefined}</div>;
