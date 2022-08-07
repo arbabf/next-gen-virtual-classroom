@@ -2,4 +2,6 @@
 	padding: var(--text-padding);
 	border-radius: var(--border-rounding);
 	border: var(--border-light);
+	max-width: var(--max-width);
+	margin: var(--padding);
 }
