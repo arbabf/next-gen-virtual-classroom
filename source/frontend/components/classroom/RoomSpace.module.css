@@ -1,0 +1,21 @@
+.header {
+	display: none;
+	margin: 0;
+	padding: var(--navbar-text-padding);
+}
+
+.header h1 {
+	font-size: 1em;
+	text-align: center;
+}
+
+.card {
+	max-width: var(--max-content-width);
+	margin: var(--spacing-m) auto;
+}
+
+@media only screen and (max-width: 768px) {
+	.header {
+		display: block;
+	}
+}

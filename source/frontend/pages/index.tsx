@@ -1,10 +1,8 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import Button from '../components/common/button/button';
-import ButtonSet from '../components/common/buttonset/buttonset';
-import Card from '../components/common/card/card';
-import Navbar from '../components/navigation/navbar/navbar';
+import RoomView from '../components/classroom/RoomView';
+import { testRoom } from '../entities/Room';
 import styles from '../styles/pages/Home.module.css';
 
 const Home: NextPage = () => {
@@ -16,24 +14,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Navbar classroomName="Classroom Name" />
-
-			<main className={styles.main}>
-				<Card>
-					<h1>Component test</h1>
-
-					<p>This is a paragraph within a card.</p>
-
-					<p>Below is a set of buttons.</p>
-
-					<ButtonSet>
-						<Button label="Filled button" />
-						<Button label="Unfilled button" unfilled />
-						<Button label="Filled &amp; disabled" disabled />
-						<Button label="Unfilled &amp; disabled" unfilled disabled />
-					</ButtonSet>
-				</Card>
-			</main>
+			<RoomView room={testRoom} />
 		</>
 	);
 };
