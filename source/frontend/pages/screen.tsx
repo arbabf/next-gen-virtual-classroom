@@ -7,6 +7,7 @@ import Card from '../components/common/card/card';
 import Navbar from '../components/navigation/navbar/navbar';
 import Panel from '../components/common/panel/panel';
 import styles from '../styles/pages/Home.module.css';
+import ReactDOM from 'react-dom/client';
 
 function openScreen(){
 	console.log("I have clicked a button.")
@@ -18,13 +19,12 @@ function closeScreen(){
 
 function screenClick(){
 	console.log("I have clicked the panel.")
-	const link = document.getElementById("screen")
-	if (link != null){
-		link.remove()
-		console.log("e")
-		const newlink = document.createElement("Panel")
-		newlink.style.width = "1280"
-		newlink.style.height = "720"
+	const elem = document.getElementById('root')
+	if (elem !== null){
+		console.log('e')
+		const root = ReactDOM.createRoot(elem)
+		const scrn = <Panel id='screen' label="Screen" onClick={screenClick} expanded/>
+		root.render(scrn)
 	}
 }
 
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
 						<Button onClick={closeScreen} label="Unshare screen" unfilled />
 					</ButtonSet>
 				</Card>
-				<Panel id='screen' label="Screen" onClick={screenClick}/>
+				<Panel id='screen' label="Screen"/>
 			</main>
 		</>
 	);

@@ -1,11 +1,15 @@
 import { Component, MouseEventHandler } from 'react';
+import React from 'react';
 import styles from './Panel.module.css';
+
+const elem = React.createElement
 
 /**
  * Panel properties.
  */
  type PanelProps = {
 
+	id: string;
     label: string;
 	expanded?: boolean;
 	/**
@@ -25,7 +29,8 @@ class Panel extends Component<PanelProps> {
 				className={
 					styles.screen + ' ' + (this.props.expanded === undefined ? styles.screen : styles.expandedscreen)
 				}
-				onClick={this.props.onClick}				
+				onClick={() => this.setState({expanded: !this.props.expanded})}
+								
 			>
                 {this.props.label}
 			</div>
