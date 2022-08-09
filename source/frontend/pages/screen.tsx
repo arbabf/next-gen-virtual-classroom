@@ -7,7 +7,6 @@ import Card from '../components/common/card/card';
 import Navbar from '../components/navigation/navbar/navbar';
 import Panel from '../components/common/panel/panel';
 import styles from '../styles/pages/Home.module.css';
-import ReactDOM from 'react-dom/client';
 
 function openScreen(){
 	console.log("I have clicked a button.")
@@ -17,15 +16,8 @@ function closeScreen(){
 	console.log("I have clicked a different button.")
 }
 
-function screenClick(){
-	console.log("I have clicked the panel.")
-	const elem = document.getElementById('root')
-	if (elem !== null){
-		console.log('e')
-		const root = ReactDOM.createRoot(elem)
-		const scrn = <Panel id='screen' label="Screen" onClick={screenClick} expanded/>
-		root.render(scrn)
-	}
+function changeScreen(){
+	console.log("I have clicked the third button.")
 }
 
 const Home: NextPage = () => {
@@ -50,9 +42,10 @@ const Home: NextPage = () => {
 					<ButtonSet>
 						<Button onClick={openScreen} label="Share screen" />
 						<Button onClick={closeScreen} label="Unshare screen" unfilled />
+						<Button onClick={changeScreen} label="Change screen medium" />
 					</ButtonSet>
 				</Card>
-				<Panel id='screen' label="Screen"/>
+				<Panel label="Screen"/>
 			</main>
 		</>
 	);
