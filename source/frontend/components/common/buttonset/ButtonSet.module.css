@@ -4,3 +4,7 @@
 	flex-wrap: wrap;
 	margin: var(--vertical-padding) 0;
 }
+
+.buttons:last-child {
+	margin-bottom: var(--vertical-text-padding);
+}
