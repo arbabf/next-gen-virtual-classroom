@@ -1,4 +1,4 @@
-export default class User {
+export class User {
 	id: string;
 	name: string;
 	email?: string;
@@ -9,3 +9,5 @@ export default class User {
 		this.email = email;
 	}
 }
+
+export const testUser = new User("0", "John Smith", "john@example.com");

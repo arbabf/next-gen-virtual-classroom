@@ -1,19 +1,16 @@
-:root {
-	--page-spacing: var(--vertical-padding);
-}
-
 .page {
 	position: fixed;
-	top: 0;
-	left: 0;
+	background: var(--background);
+	border-radius: var(--border-rounding-large);
+	border: var(--border-medium);
+	padding: var(--text-padding);
+	top: var(--spacing-m);
+	right: var(--spacing-s);
 	margin: var(--page-spacing) auto;
+	overflow: scroll;
 }
 
 @media only screen and (max-width: 768px) {
-	:root {
-		--page-spacing: 0;
-	}
-
 	.page {
 		right: 0;
 		bottom: 0;

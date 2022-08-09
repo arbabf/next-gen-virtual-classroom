@@ -1,9 +1,11 @@
 import { Component, ReactNode } from 'react';
 import { Room } from '../../entities/Room';
+import { testUser } from '../../entities/User';
 import Icon from '../common/icon/icon';
 import Navbar from '../navigation/navbar/navbar';
 import NavbarHeader from '../navigation/navbar/NavbarHeader';
 import NavbarItem from '../navigation/navbar/NavbarItem';
+import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
 
 type RoomViewProps = {
@@ -32,6 +34,7 @@ export default class RoomView extends Component<RoomViewProps> {
 					</NavbarItem>
 				</Navbar>
 				<RoomSpace room={this.props.room} />
+				<SettingsPage user={testUser} />
 			</>
 		);
 	}
