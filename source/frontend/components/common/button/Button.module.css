@@ -11,6 +11,12 @@
 	border: none;
 
 	transition: 0.2s background-color;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: var(--spacing-xs);
 }
 
 .button[disabled]:hover {

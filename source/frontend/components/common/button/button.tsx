@@ -1,4 +1,4 @@
-import { Component, MouseEventHandler } from 'react';
+import { Component, MouseEventHandler, PropsWithChildren } from 'react';
 import Icon from '../icon/icon';
 import styles from './Button.module.css';
 
@@ -6,11 +6,6 @@ import styles from './Button.module.css';
  * Button properties.
  */
 type ButtonProps = {
-	/**
-	 * Text to show in the button
-	 */
-	label: string;
-
 	/**
 	 * A click handler to make this button do something should it be pressed.
 	 */
@@ -20,16 +15,6 @@ type ButtonProps = {
 	 * Whether to show button as disabled or not. Defaults to false if not specified.
 	 */
 	disabled?: boolean;
-
-	/**
-	 * Icon at the start (left side) of the icon. Optional.
-	 */
-	startIcon?: Icon;
-
-	/**
-	 * Icon at the end (right side) of the icon. Optional.
-	 */
-	endIcon?: Icon;
 
 	/**
 	 * Don't show a background fill to make it blend in better. Defaults to false.
@@ -53,7 +38,7 @@ type ButtonState = {
  * It can be disabled (preventing clicks and greying itself out) and it can have a filled in or
  * unfilled style.
  */
-class Button extends Component<ButtonProps, ButtonState> {
+class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
 	constructor(props: ButtonProps) {
 		super(props);
 
@@ -74,7 +59,7 @@ class Button extends Component<ButtonProps, ButtonState> {
 				onClick={this.state.disabled ? undefined : this.props.onClick}
 				disabled={this.state.disabled}
 			>
-				{this.props.label}
+				{this.props.children}
 			</button>
 		);
 	}

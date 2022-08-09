@@ -40,7 +40,8 @@
 	--button-foreground: white;
 	--button-foreground-disabled: #fff4;
 	--button-unfilled-hover: var(--accent-tp-25);
-	--button-fill-disabled: var(--blue-300);
+
+	--page-spacing: var(--vertical-padding);
 }
 
 /* Dark theme switch */
@@ -66,6 +67,8 @@
 		--horizontal-padding: var(--spacing-s);
 		--vertical-padding: var(--spacing-s);
 		--horizontal-text-padding: var(--spacing-s);
+
+		--page-spacing: 0;
 	}
 }
 

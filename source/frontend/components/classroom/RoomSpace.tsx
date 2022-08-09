@@ -33,14 +33,21 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 
 						<ButtonSet>
 							<Button
-								label="Filled button"
 								onClick={() => {
 									console.log('HI');
 								}}
-							/>
-							<Button label="Unfilled button" unfilled />
-							<Button label="Filled &amp; disabled" disabled />
-							<Button label="Unfilled &amp; disabled" unfilled disabled />
+							>
+								<span>Filled button</span>
+							</Button>
+							<Button unfilled>
+								<span>Unfilled button</span>
+							</Button>
+							<Button disabled>
+								<span>Filled &amp; disabled</span>
+							</Button>
+							<Button unfilled disabled>
+								<span>Unfilled &amp; disabled</span>
+							</Button>
 						</ButtonSet>
 					</Modal>
 				</main>
