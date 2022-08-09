@@ -1,0 +1,21 @@
+:root {
+	--page-spacing: var(--vertical-padding);
+}
+
+.page {
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: var(--page-spacing) auto;
+}
+
+@media only screen and (max-width: 768px) {
+	:root {
+		--page-spacing: 0;
+	}
+
+	.page {
+		right: 0;
+		bottom: 0;
+	}
+}
