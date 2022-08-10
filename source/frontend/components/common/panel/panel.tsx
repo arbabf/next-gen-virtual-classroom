@@ -12,14 +12,24 @@ import styles from './Panel.module.css';
  * Panel properties.
  */
  type PanelProps = {
-    label: string;
 	expanded?: boolean;
+	media: boolean;
+    label: string;
 };
 
-class Panel extends Component<PanelProps> {
+/**
+ * Panel state - dynamically assigned.
+ */
+type PanelState = {
+	expanded: boolean;
+}
+
+class Panel extends Component<PanelProps, PanelState> {
 	constructor(props: PanelProps) {
 		super(props);
-		this.state = {expanded: this.props.expanded === undefined ? false : this.props.expanded}
+		this.state = {
+					expanded: this.props.expanded === undefined ? false : this.props.expanded
+					}
 	} 
 
 	// If using vscode with ts-react plugin, this will throw an error (alongside the classname code). But it works perfectly and is the way we should do it.
@@ -31,9 +41,12 @@ class Panel extends Component<PanelProps> {
 		return (
 			<div
 				className={
-					styles.screen + ' ' + (this.state.expanded === false ? styles.screen : styles.expandedscreen)
+					styles.screen + 
+					' ' + 
+					(this.state.expanded === false ? styles.screen : styles.expandedscreen)
 				}
 				onClick={this.expandScreen}
+				media={this.props.media.toString()} // State doesn't work here. Why? I don't know. But we're going to use props anyway.
 			>
                 {this.props.label}
 			</div>

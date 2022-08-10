@@ -16,6 +16,17 @@
     top: 0;
     left: 0;
 }
+
+.screen[media="true"]{
+    background-image: url("../../../public/favicon.ico");
+    background-color: black;
+}
+
+.expandedscreen[media="true"]{
+    background-image: url("../../../public/favicon.ico");
+    background-color: black;
+}
+
 .screen:hover{
     cursor: pointer;
 }
