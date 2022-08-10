@@ -12,6 +12,17 @@ type RoomViewProps = {
 	 */
 	room: Room;
 };
+
+/**
+ * Current state of the room
+ */
+type RoomState = {
+	/**
+	 * Who is in the room
+	 */
+	participants: string[];
+}
+
 /**
  * Views a room. Main view of the overall app.
  */
