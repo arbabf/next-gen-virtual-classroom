@@ -16,17 +16,33 @@ type RoomViewProps = {
 /**
  * Current state of the room
  */
-type RoomState = {
+type RoomViewState = {
 	/**
 	 * Who is in the room
 	 */
 	participants: string[];
-}
+
+	/**
+	 * Whether the chat is visible
+	 */
+	chatVisible: boolean;
+
+	/**
+	 * Whether settings are visible
+	 */
+	settingsVisible: boolean;
+};
 
 /**
  * Views a room. Main view of the overall app.
  */
-export default class RoomView extends Component<RoomViewProps> {
+export default class RoomView extends Component<RoomViewProps, RoomViewState> {
+	state = {
+		participants: [],
+		chatVisible: false,
+		settingsVisible: false,
+	};
+
 	render(): ReactNode {
 		return (
 			<>
@@ -35,10 +51,18 @@ export default class RoomView extends Component<RoomViewProps> {
 					<NavbarItem mobile active>
 						<Icon iconName="home" />
 					</NavbarItem>
-					<NavbarItem>
+					<NavbarItem
+						onClick={() => {
+							this.setState({ chatVisible: !this.state.chatVisible });
+						}}
+					>
 						<Icon iconName="forum" />
 					</NavbarItem>
-					<NavbarItem>
+					<NavbarItem
+						onClick={() => {
+							this.setState({ settingsVisible: !this.state.settingsVisible });
+						}}
+					>
 						<Icon iconName="settings" />
 					</NavbarItem>
 				</Navbar>
