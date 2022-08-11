@@ -7,9 +7,24 @@ import { Organisation, testOrganisation } from './Organisation';
  * All rooms are hosted by their respective organisation.
  */
 export class Room {
+	/**
+	 * Unique room ID
+	 */
 	id: string;
+
+	/**
+	 * A label given to the room
+	 */
 	name: string;
+
+	/**
+	 * Short description
+	 */
 	description: string;
+
+	/**
+	 * Organisations group rooms
+	 */
 	organisation: Organisation;
 
 	constructor(id: string, name: string, description: string, organisation: Organisation) {
