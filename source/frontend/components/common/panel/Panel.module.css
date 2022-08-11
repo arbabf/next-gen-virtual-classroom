@@ -27,9 +27,9 @@
     background-color: black;
 }
 
-.screen:hover{
+.screen[expandable="true"]:hover{
     cursor: pointer;
 }
-.expandedscreen:hover{
+.expandedscreen[expandable="true"]:hover{
     cursor: pointer;
 }

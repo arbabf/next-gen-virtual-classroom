@@ -1,7 +1,7 @@
 /**
- * Panels. These can be clicked to be expanded and clicked again to be shrunken.
+ * Panels. These can be clicked to be expanded and clicked again to be shrunken, but by default they do nothing.
  * Author: Arbab Ahmed, Group 15 [Project 5]
- * Last modified: 09/08/2022
+ * Last modified: 11/08/2022
  */
 
 import { Component } from 'react';
@@ -13,6 +13,7 @@ import styles from './Panel.module.css';
  */
  type PanelProps = {
 	expanded?: boolean;
+	expandable?: boolean;
 	media: boolean;
     label: string;
 };
@@ -45,8 +46,9 @@ class Panel extends Component<PanelProps, PanelState> {
 					' ' + 
 					(this.state.expanded === false ? styles.screen : styles.expandedscreen)
 				}
-				onClick={this.expandScreen}
+				onClick={this.props.expandable === true ? this.expandScreen : undefined}
 				media={this.props.media.toString()} // State doesn't work here. Why? I don't know. But we're going to use props anyway.
+				expandable={this.props.expandable === undefined ? "false" : this.props.expandable.toString()}
 			>
                 {this.props.label}
 			</div>

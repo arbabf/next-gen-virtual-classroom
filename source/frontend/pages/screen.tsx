@@ -17,7 +17,7 @@ const Home: NextPage = () => {
 			<Navbar classroomName="Classroom Name" />
 
 			<main className={styles.main}>
-				<ScreenContainer screenOn mediaOn/>
+				<ScreenContainer screenOn/>
 			</main>
 		</>
 	);

@@ -1,7 +1,7 @@
 /**
- * Screen container; contains and controls a Panel (the screen) and the buttons that interact with it.
+ * Screen container; contains and controls a Panel (the screen) and the buttons (and other Panels) that interact with it.
  * Author: Arbab Ahmed, Group 15 [Project 5]
- * Last modified: 10/08/2022
+ * Last modified: 11/08/2022
  */
 
 import { Component } from 'react';
@@ -13,11 +13,12 @@ import Card from '../../common/card/card';
 import Panel from '../../common/panel/panel';
 
 /**
- * Screen container props. Mostly useless.
+ * Screen container props.
  */
 type ScreenContainerProps = {
     screenOn?: boolean;
     mediaOn?: boolean;
+    mediaSelectorOn?: boolean
 }
 
 class ScreenContainer extends Component<ScreenContainerProps> {
@@ -25,7 +26,8 @@ class ScreenContainer extends Component<ScreenContainerProps> {
         super(props);
         this.state = {
             screenOn: this.props.screenOn === undefined ? false : this.props.screenOn,
-            mediaOn: this.props.mediaOn === undefined ? false : this.props.mediaOn
+            mediaOn: this.props.mediaOn === undefined ? false : this.props.mediaOn,
+            mediaSelectorOn: this.props.mediaSelectorOn === undefined ? false : this.props.mediaSelectorOn
         }
     } 
     
@@ -35,6 +37,10 @@ class ScreenContainer extends Component<ScreenContainerProps> {
 
     toggleMedia = () => {
         this.setState({mediaOn: !this.state.mediaOn})
+    }
+
+    toggleMediaSelector = () => {
+        this.setState({mediaSelectorOn: !this.state.mediaSelectorOn})
     }
 
     render() {
@@ -53,10 +59,17 @@ class ScreenContainer extends Component<ScreenContainerProps> {
 
 					<ButtonSet>
 						<Button onClick={this.toggleScreen} label={this.state.screenOn ? "Hide screen" : "Show screen"}/>
-						<Button onClick={this.toggleMedia} label="Change screen medium" />
+						<Button onClick={this.toggleMediaSelector} label="Change screen medium" />
 					</ButtonSet>
 				</Card>
-				{this.state.screenOn ? <Panel label="Screen" media={this.state.mediaOn}/> : null}
+				{this.state.screenOn ? <Panel label="Screen" media={this.state.mediaOn} expandable/> : null}
+                {this.state.mediaSelectorOn ? 
+                <Card>
+                        <Panel label="Screen Example" media={false}/>
+                        <Button onClick={this.toggleMedia} label="Toggle media"/>
+                </Card> 
+                : null}
+
             </div>
         );
     }
