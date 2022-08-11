@@ -7,7 +7,7 @@ import Modal from '../common/modal/Modal';
 import Navbar from '../navigation/navbar/navbar';
 import NavbarHeader from '../navigation/navbar/NavbarHeader';
 import NavbarItem from '../navigation/navbar/NavbarItem';
-import PartMenu from '../participantMenu/partMenu';
+import PartMenu from '../participantMenu/PartMenu';
 import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
 
