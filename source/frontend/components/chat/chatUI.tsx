@@ -25,7 +25,7 @@ export default class chatUI extends Component<chatUIProps> {
 
         return(
             <div className={classes}>
-                <p>Chat</p>
+                <h2>Chat</h2>
 				<ChatDisplay/>
 			</div>
         );

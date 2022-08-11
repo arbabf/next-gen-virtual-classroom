@@ -7,6 +7,8 @@
 	top: var(--spacing-m);
 	right: var(--spacing-s);
 	margin: var(--page-spacing) auto;
+	height: 600px;
+	width: 200px;
 }
 
 .hidden {

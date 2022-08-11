@@ -6,9 +6,8 @@ export default class AppSettings extends Component {
 		return (
 			<>
 				<section>
-                    <Card>
-                        HI
-                    </Card>
+                    <p>John Smith:</p>
+                    <Card>Hello World</Card>
 
 				</section>
 
