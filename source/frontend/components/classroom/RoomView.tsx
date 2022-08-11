@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import { Room } from '../../entities/Room';
 import { testUser, User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
+import ChatUI from '../chat/chatUI';
 import Icon from '../common/icon/icon';
 import Modal from '../common/modal/Modal';
 import Navbar from '../navigation/navbar/navbar';
@@ -88,7 +89,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 				<Modal open>
 					<h2>Temp Space</h2>
 					<p>For Participant context menu</p>
-					<p>Once Avatars exist, move this function to it.</p>
+					<p>Once Avatars exist, move this function into it.</p>
 
 					<NavbarItem
 						onClick={() => {
@@ -102,8 +103,9 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 				</Modal>
 
 				<SettingsPage user={testUser} hidden={!this.state.settingsVisible} />
-
+				
 				<PartMenu user={testUser} hidden={!this.state.partMenuVis} />
+				<ChatUI user={testUser} hidden={!this.state.chatVisible}/>
 
 
 			</>
