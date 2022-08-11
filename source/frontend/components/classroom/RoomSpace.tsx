@@ -1,9 +1,13 @@
 import { Component, ReactNode } from 'react';
 import { Room } from '../../entities/Room';
+import { testUser } from '../../entities/User';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
+import Icon from '../common/icon/icon';
 import Modal from '../common/modal/Modal';
+import NavbarItem from '../navigation/navbar/NavbarItem';
+import SettingsPage from '../settings/SettingsPage';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -17,6 +21,10 @@ type RoomSpaceProps = {
  * The render space for a Room.
  */
 export default class RoomSpace extends Component<RoomSpaceProps> {
+	show = {
+		isVisible: false,
+
+	}
 	render(): ReactNode {
 		return (
 			<>
@@ -50,6 +58,7 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 							</Button>
 						</ButtonSet>
 					</Modal>
+
 				</main>
 			</>
 		);

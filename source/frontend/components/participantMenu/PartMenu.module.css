@@ -1,0 +1,16 @@
+.page {
+	position: fixed;
+	background: var(--background);
+	border-radius: var(--border-rounding-large);
+	border: var(--border-medium);
+	padding: 2px;
+	top: 580px;
+	left: 120px;
+	margin: var(--page-spacing) auto;
+	color: black;
+
+}
+
+.hidden {
+	display: none;
+}
