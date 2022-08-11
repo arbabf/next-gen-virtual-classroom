@@ -69,7 +69,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					</NavbarItem>
 				</Navbar>
 				<RoomSpace room={this.props.room} />
-				<SettingsPage user={testUser} />
+				<SettingsPage user={testUser} hidden={!this.state.settingsVisible} />
 			</>
 		);
 	}
