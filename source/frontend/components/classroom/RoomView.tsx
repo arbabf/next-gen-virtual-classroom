@@ -2,10 +2,13 @@ import { Component, ReactNode } from 'react';
 import { Room } from '../../entities/Room';
 import { testUser, User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
+import ChatUI from '../chat/chatUI';
 import Icon from '../common/icon/icon';
+import Modal from '../common/modal/Modal';
 import Navbar from '../navigation/navbar/navbar';
 import NavbarHeader from '../navigation/navbar/NavbarHeader';
 import NavbarItem from '../navigation/navbar/NavbarItem';
+import PartMenu from '../participantMenu/PartMenu';
 import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
 
@@ -34,6 +37,9 @@ type RoomViewState = {
 	 * Whether settings are visible
 	 */
 	settingsVisible: boolean;
+
+	//whether show partMenu or not
+	partMenuVis: boolean;
 };
 
 /**
@@ -44,6 +50,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		participants: [],
 		chatVisible: false,
 		settingsVisible: false,
+		partMenuVis: false,
 	};
 
 	render(): ReactNode {
@@ -54,6 +61,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					<NavbarItem mobile active>
 						<Icon iconName="home" />
 					</NavbarItem>
+
 					<NavbarItem
 						onClick={() => {
 							this.setState({ chatVisible: !this.state.chatVisible });
@@ -61,16 +69,45 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					>
 						<Icon iconName="forum" />
 					</NavbarItem>
+					
+					
 					<NavbarItem
 						onClick={() => {
 							this.setState({ settingsVisible: !this.state.settingsVisible });
+							
 						}}
 					>
 						<Icon iconName="settings" />
 					</NavbarItem>
+
+
+					
 				</Navbar>
+
 				<RoomSpace room={this.props.room} />
+
+				<Modal open>
+					<h2>Temp Space</h2>
+					<p>For Participant context menu</p>
+					<p>Once Avatars exist, move this function into it.</p>
+
+					<NavbarItem
+						onClick={() => {
+							this.setState({ partMenuVis: !this.state.partMenuVis });
+						}}
+					>
+						<Icon iconName="person" />
+						
+					</NavbarItem>
+		
+				</Modal>
+
 				<SettingsPage user={testUser} hidden={!this.state.settingsVisible} />
+				
+				<PartMenu user={testUser} hidden={!this.state.partMenuVis} />
+				<ChatUI user={testUser} hidden={!this.state.chatVisible}/>
+
+
 			</>
 		);
 	}

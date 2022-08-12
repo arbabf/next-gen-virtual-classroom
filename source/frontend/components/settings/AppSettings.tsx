@@ -29,6 +29,7 @@ export default class AppSettings extends Component<{}, AppSettingsState> {
 				<section>
 					<h3>Appearance</h3>
 				</section>
+
 				<section>
 					<h3>Audio and Video</h3>
 				</section>
