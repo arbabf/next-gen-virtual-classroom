@@ -1,0 +1,38 @@
+.group {
+	border: var(--border-light);
+	margin-top: var(--spacing-xs);
+	margin-bottom: var(--spacing-xs);
+	border-radius: var(--border-rounding);
+}
+
+.group label {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	padding: var(--spacing-s);
+	gap: var(--spacing-s);
+}
+
+.group label input {
+	width: 1.5em;
+	margin-left: var(--spacing-s);
+}
+
+.labelStack {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: var(--spacing-xs);
+}
+
+.labelStack p {
+	margin: 0;
+}
+
+.description {
+	font-size: 0.9em;
+}
+
+.title {
+	font-weight: 500;
+}
