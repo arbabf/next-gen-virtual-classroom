@@ -58,15 +58,27 @@ class ScreenContainer extends Component<ScreenContainerProps> {
 					<p>Below is a set of buttons.</p>
 
 					<ButtonSet>
-						<Button onClick={this.toggleScreen} label={this.state.screenOn ? "Hide screen" : "Show screen"}/>
-						<Button onClick={this.toggleMediaSelector} label="Change screen medium" />
+						<Button onClick={this.toggleScreen}>
+                            <span>
+                                {this.state.screenOn ? "Hide screen" : "Show screen"}
+                            </span>
+                        </Button>
+						<Button onClick={this.toggleMediaSelector}>
+                            <span>
+                                {"Change screen medium"}
+                            </span>
+                        </Button>
 					</ButtonSet>
 				</Card>
 				{this.state.screenOn ? <Panel label="Screen" media={this.state.mediaOn} expandable/> : null}
                 {this.state.mediaSelectorOn ? 
                 <Card>
                         <Panel label="Screen Example" media={false}/>
-                        <Button onClick={this.toggleMedia} label="Toggle media"/>
+                        <Button onClick={this.toggleMedia}>
+                            <span>
+                                {"Toggle media"}
+                            </span>
+                        </Button>
                 </Card> 
                 : null}
 
