@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { User } from '../../entities/User';
-import ChatDisplay from './chatDisplay';
-import styles from './chatUI.module.css';
+import ChatDisplay from './ChatDisplay';
+import styles from './ChatUI.module.css';
 
 type chatUIProps = {
 	/**
@@ -9,26 +9,25 @@ type chatUIProps = {
 	 */
 	user: User;
 
-    /**
+	/**
 	 * Whether to show this component or not
 	 */
 	hidden?: boolean;
 };
 
 export default class chatUI extends Component<chatUIProps> {
-    render() {
-        let classes = styles.page;
+	render() {
+		let classes = styles.page;
 
 		if (this.props.hidden === true) {
 			classes += ' ' + styles.hidden;
 		}
 
-        return(
-            <div className={classes}>
-                <h2>Chat</h2>
-				<ChatDisplay/>
+		return (
+			<div className={classes}>
+				<h2>Chat</h2>
+				<ChatDisplay />
 			</div>
-        );
-    }
-
+		);
+	}
 }

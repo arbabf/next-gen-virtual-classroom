@@ -2,7 +2,7 @@ import { Component, ReactNode } from 'react';
 import { Room } from '../../entities/Room';
 import { testUser, User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
-import ChatUI from '../chat/chatUI';
+import ChatUI from '../chat/ChatUI';
 import Icon from '../common/icon/icon';
 import Modal from '../common/modal/Modal';
 import Navbar from '../navigation/navbar/navbar';
@@ -69,19 +69,14 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					>
 						<Icon iconName="forum" />
 					</NavbarItem>
-					
-					
+
 					<NavbarItem
 						onClick={() => {
 							this.setState({ settingsVisible: !this.state.settingsVisible });
-							
 						}}
 					>
 						<Icon iconName="settings" />
 					</NavbarItem>
-
-
-					
 				</Navbar>
 
 				<RoomSpace room={this.props.room} />
@@ -97,17 +92,13 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 						}}
 					>
 						<Icon iconName="person" />
-						
 					</NavbarItem>
-		
 				</Modal>
 
 				<SettingsPage user={testUser} hidden={!this.state.settingsVisible} />
-				
+
 				<PartMenu user={testUser} hidden={!this.state.partMenuVis} />
-				<ChatUI user={testUser} hidden={!this.state.chatVisible}/>
-
-
+				<ChatUI user={testUser} hidden={!this.state.chatVisible} />
 			</>
 		);
 	}
