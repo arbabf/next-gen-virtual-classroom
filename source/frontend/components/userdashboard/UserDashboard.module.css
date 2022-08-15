@@ -1,0 +1,9 @@
+.heading {
+}
+
+.roomList {
+	display: flex;
+	gap: var(--spacing-s);
+	flex-direction: row;
+	flex-wrap: wrap;
+}
