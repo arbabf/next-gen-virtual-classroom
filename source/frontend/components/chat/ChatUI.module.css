@@ -1,7 +1,7 @@
 .page {
 	position: fixed;
 	background: var(--background);
-	border-radius: var(--border-rounding-large);
+	border-radius: var(--border-rounding);
 	border: var(--border-medium);
 	padding: var(--text-padding);
 	top: var(--spacing-m);

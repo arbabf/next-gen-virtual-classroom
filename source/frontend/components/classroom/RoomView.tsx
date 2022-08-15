@@ -66,6 +66,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 						onClick={() => {
 							this.setState({ chatVisible: !this.state.chatVisible });
 						}}
+						active={this.state.chatVisible}
 					>
 						<Icon iconName="forum" />
 					</NavbarItem>
@@ -74,6 +75,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 						onClick={() => {
 							this.setState({ settingsVisible: !this.state.settingsVisible });
 						}}
+						active={this.state.settingsVisible}
 					>
 						<Icon iconName="settings" />
 					</NavbarItem>

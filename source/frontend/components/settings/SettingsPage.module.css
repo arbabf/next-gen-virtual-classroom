@@ -1,13 +1,14 @@
 .page {
 	position: fixed;
 	background: var(--background);
-	border-radius: var(--border-rounding-large);
+	border-radius: var(--border-rounding);
 	border: var(--border-medium);
 	padding: var(--text-padding);
 	top: var(--spacing-m);
 	right: var(--spacing-s);
 	margin: var(--page-spacing) auto;
 	overflow: scroll;
+	z-index: 10;
 }
 
 .hidden {
