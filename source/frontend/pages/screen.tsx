@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 			</Head>
 
 			<main className={styles.main}>
-				<ScreenContainer screenOn/>
+				<ScreenContainer/>
 			</main>
 		</>
 	);

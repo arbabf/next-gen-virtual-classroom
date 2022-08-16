@@ -33,6 +33,9 @@ class ScreenContainer extends Component<ScreenContainerProps> {
     
     toggleScreen = () => {
         this.setState({screenOn: !this.state.screenOn})
+        if (this.state.screenOn){
+            this.setState({mediaSelectorOn: false})
+        }
     }
 
     toggleMedia = () => {
@@ -63,11 +66,13 @@ class ScreenContainer extends Component<ScreenContainerProps> {
                                 {this.state.screenOn ? "Hide screen" : "Show screen"}
                             </span>
                         </Button>
-						<Button onClick={this.toggleMediaSelector}>
+                        {this.state.screenOn ? 
+                        <Button onClick={this.toggleMediaSelector}>
                             <span>
                                 {"Change screen medium"}
                             </span>
                         </Button>
+                        : null}
 					</ButtonSet>
 				</Card>
 				{this.state.screenOn ? <Panel label="Screen" media={this.state.mediaOn} expandable/> : null}
