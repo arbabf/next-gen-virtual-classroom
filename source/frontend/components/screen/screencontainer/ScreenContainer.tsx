@@ -1,16 +1,15 @@
 /**
  * Screen container; contains and controls a Panel (the screen) and the buttons (and other Panels) that interact with it.
  * Author: Arbab Ahmed, Group 15 [Project 5]
- * Last modified: 11/08/2022
+ * Last modified: 16/08/2022
  */
 
 import { Component } from 'react';
-import React from 'react';
 import styles from './ScreenContainer.module.css';
 import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
 import Card from '../../common/card/card';
-import Panel from '../../common/panel/panel';
+import Panel from '../panel/panel';
 
 /**
  * Screen container props.
@@ -34,7 +33,7 @@ class ScreenContainer extends Component<ScreenContainerProps> {
     toggleScreen = () => {
         this.setState({screenOn: !this.state.screenOn})
         if (this.state.screenOn){
-            this.setState({mediaSelectorOn: false})
+            this.setState({mediaSelectorOn: false}) // Screen selector shouldn't exist if the screen doesn't exist.
         }
     }
 

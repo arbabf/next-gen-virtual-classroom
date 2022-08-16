@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/pages/Home.module.css';
-import ScreenContainer from '../components/common/screencontainer/ScreenContainer';
+import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 
 const Home: NextPage = () => {
 	return (

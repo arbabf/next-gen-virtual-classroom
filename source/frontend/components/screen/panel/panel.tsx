@@ -33,7 +33,6 @@ class Panel extends Component<PanelProps, PanelState> {
 					}
 	} 
 
-	// If using vscode with ts-react plugin, this will throw an error (alongside the classname code). But it works perfectly and is the way we should do it.
 	expandScreen = () => { 
 		this.setState({expanded: !this.state.expanded})
 	}
