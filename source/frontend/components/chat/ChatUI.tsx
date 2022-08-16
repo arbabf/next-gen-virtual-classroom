@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { User } from '../../entities/User';
+import { ChatMessage } from '../../entities/chat/ChatMessage';
+import { testUser, User } from '../../entities/User';
 import ChatDisplay from './ChatDisplay';
 import styles from './ChatUI.module.css';
 
@@ -26,7 +27,7 @@ export default class chatUI extends Component<chatUIProps> {
 		return (
 			<div className={classes}>
 				<h2>Chat</h2>
-				<ChatDisplay />
+				<ChatDisplay messages={[new ChatMessage(testUser, "Hello")]} />
 			</div>
 		);
 	}
