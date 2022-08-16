@@ -1,0 +1,10 @@
+.container {
+	display: flex;
+	gap: var(--spacing-s);
+	flex-wrap: wrap;
+	margin: var(--vertical-padding) 0;
+}
+
+.hidden {
+    display: none;
+}
