@@ -6,7 +6,7 @@ import { Organisation, testOrganisation } from './Organisation';
  *
  * All rooms are hosted by their respective organisation.
  */
-export class Room {
+export class RoomInfo {
 	/**
 	 * Unique room ID
 	 */
@@ -35,7 +35,7 @@ export class Room {
 	}
 }
 
-export const testRoom = new Room(
+export const testRoom = new RoomInfo(
 	'0',
 	'Test Room',
 	'Room made for testing purposes',

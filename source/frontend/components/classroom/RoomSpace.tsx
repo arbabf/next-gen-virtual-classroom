@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { Room } from '../../entities/Room';
+import { RoomInfo } from '../../entities/Room';
 import { testUser } from '../../entities/User';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
@@ -14,7 +14,7 @@ type RoomSpaceProps = {
 	/**
 	 * Room entity to fill out this space
 	 */
-	room: Room;
+	room: RoomInfo;
 };
 
 /**
@@ -23,8 +23,7 @@ type RoomSpaceProps = {
 export default class RoomSpace extends Component<RoomSpaceProps> {
 	show = {
 		isVisible: false,
-
-	}
+	};
 	render(): ReactNode {
 		return (
 			<>
@@ -58,7 +57,6 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 							</Button>
 						</ButtonSet>
 					</Modal>
-
 				</main>
 			</>
 		);

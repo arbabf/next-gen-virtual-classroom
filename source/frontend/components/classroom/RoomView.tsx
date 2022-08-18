@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { Room } from '../../entities/Room';
+import { RoomInfo } from '../../entities/Room';
 import { testUser, User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
 import ChatUI from '../chat/ChatUI';
@@ -16,7 +16,7 @@ type RoomViewProps = {
 	/**
 	 * The associated Room entity that represents this classroom in the system.
 	 */
-	room: Room;
+	room: RoomInfo;
 };
 
 /**

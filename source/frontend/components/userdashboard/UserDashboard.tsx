@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { Room, testRoom } from '../../entities/Room';
+import { RoomInfo, testRoom } from '../../entities/Room';
 import { User } from '../../entities/User';
 import { UserAPI } from '../../lib/UserAPI';
 import Button from '../common/button/button';
@@ -18,7 +18,7 @@ type UserDashboardState = {
 	/**
 	 * Set of rooms that the user would be a part of
 	 */
-	rooms: Room[];
+	rooms: RoomInfo[];
 };
 
 export default class UserDashboard extends Component<UserDashboardProps, UserDashboardState> {

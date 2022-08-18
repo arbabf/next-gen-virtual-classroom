@@ -1,4 +1,4 @@
-import { Room } from '../entities/Room';
+import { RoomInfo } from '../entities/Room';
 import { testUser, User } from '../entities/User';
 
 /**
@@ -13,7 +13,7 @@ export class RoomStateAPI {
 	 * @param room The room you want to get the participant list for.
 	 * @returns An async promise which will deliver the User list.
 	 */
-	static async getParticipants(room: Room): Promise<User[]> {
+	static async getParticipants(room: RoomInfo): Promise<User[]> {
 		return new Promise<User[]>((resolve, reject) => {
 			// make the fetch
 			console.log('(Test) Fetching participants for room with ID: ' + room.id);
