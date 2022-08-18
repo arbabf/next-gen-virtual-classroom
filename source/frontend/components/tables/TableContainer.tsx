@@ -4,33 +4,30 @@ import styles from './TableContainer.module.css';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
+import { TableState } from '../../entities/Table';
 
 /**
  * Table Container props.
  */
 
 type TableContainerProps = {
-	participants?: number;
 	showEditor?: boolean;
-	tables: string[];
+	tables: TableState[];
 };
 
 type TableContainerState = {
 	/**
-	 * Current set of participants
-	 */
-	participants: number;
-	/**
 	 * Whether the editor is visible
 	 */
 	showEditor: boolean;
+
 	/**
 	 * Current set of tables
 	 */
-	tables: string[];
+	tables: TableState[];
 };
 
-const EditParticipants = ({ show = false, currentTable = 'Table name' }) => (
+export const TableEditor = ({ show = false, currentTable = 'Table name' }) => (
 	<div className={show ? '' : styles.hidden}>
 		<Card>
 			<h1>Edit participants</h1>
@@ -63,8 +60,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 	constructor(props: TableContainerProps) {
 		super(props);
 		this.state = {
-			participants: this.props.participants === undefined ? 0 : this.props.participants,
-			showEditor: this.props.showEditor === undefined ? false : this.props.showEditor,
+			showEditor: this.props.showEditor || false,
 			tables: this.props.tables,
 		};
 	}
@@ -73,8 +69,14 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		return (
 			<div className={styles.container}>
 				{this.props.tables.map((table) => (
-					<Card key={table}>
-						<h1>{table}</h1>
+					<Card key={table.info.id}>
+						<div className="participants">
+							{table.participants.map((participant, index) => (
+								<div key={participant.id}>
+									<p>{participant.name}</p>
+								</div>
+							))}
+						</div>
 
 						<ButtonSet>
 							<Button onClick={() => this.setState({ showEditor: !this.state.showEditor })}>
@@ -84,7 +86,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 					</Card>
 				))}
 
-				<EditParticipants show={!this.state.showEditor} currentTable={'test'}></EditParticipants>
+				<TableEditor show={this.state.showEditor} currentTable={'test'}></TableEditor>
 			</div>
 		);
 	}

@@ -1,16 +1,32 @@
-import {User} from './User';
+import { RoomInfo, testRoom } from './Room';
+import { testUserList, User } from './User';
 
-export class Table {
-	id: string;
+/**
+ * Current live state of a table, being the inclusion of users, etc.
+ */
+export class TableState {
+	info: TableInfo;
 	participants: User[];
 
-	constructor(id: string, participants:User[]) {
-		this.id = id;
-        this.participants = participants
-		
+	constructor(tableInfo: TableInfo, participants?: User[]) {
+		this.info = tableInfo;
+		this.participants = participants || [];
 	}
 }
 
-export const testUser0 = new User("0", "John Smith", "john@example.com");
-export const testUser1 = new User("0", "Will Smith", "john@example.com");
-export const testUser2 = new User("0", "Kelvin Smith", "kelvin@example.com");
+/**
+ * A table is a group of users who are able to communicate with one another. This is the static
+ * definition of a table as held within RoomInfo.
+ */
+export class TableInfo {
+	id: string;
+	room: RoomInfo;
+
+	constructor(id: string, room: RoomInfo) {
+		this.id = id;
+		this.room = room;
+	}
+}
+
+export const testTableInfo = new TableInfo('0', testRoom);
+export const testTableState = new TableState(testTableInfo, testUserList);

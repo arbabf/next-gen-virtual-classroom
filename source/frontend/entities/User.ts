@@ -10,4 +10,8 @@ export class User {
 	}
 }
 
-export const testUser = new User("0", "John Smith", "john@example.com");
+export const testUser = new User('0', 'John Smith', 'john@example.com');
+export const testUser2 = new User('0', 'Will Smith', 'john@example.com');
+export const testUser3 = new User('0', 'Kelvin Smith', 'kelvin@example.com');
+
+export const testUserList = [testUser, testUser2, testUser3];

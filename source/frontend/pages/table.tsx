@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/pages/Home.module.css';
 import { TableContainer } from '../components/tables/TableContainer';
+import { testTableState } from '../entities/Table';
 //import TableContainer from
 
 const Home: NextPage = () => {
@@ -19,7 +20,7 @@ const Home: NextPage = () => {
 			</main>
 
 			<main className={styles.main}>
-				<TableContainer participants={4} tables={['test table 1', 'test table 2']} />
+				<TableContainer tables={[testTableState]} />
 			</main>
 		</>
 	);
