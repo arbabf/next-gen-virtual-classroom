@@ -9,25 +9,24 @@ type PartMenuProps = {
 	 */
 	user: User;
 
-    /**
+	/**
 	 * Whether to show this component or not
 	 */
 	hidden?: boolean;
 };
 
 export default class PartMenu extends Component<PartMenuProps> {
-    render() {
-        let classes = styles.page;
+	render() {
+		let classes = styles.page;
 
 		if (this.props.hidden === true) {
 			classes += ' ' + styles.hidden;
 		}
 
-        return(
-            <div className={classes}>
-				<PartSetting/>
+		return (
+			<div className={classes}>
+				<PartSetting />
 			</div>
-        );
-    }
-
+		);
+	}
 }

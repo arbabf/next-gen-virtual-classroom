@@ -1,16 +1,16 @@
-import { Component } from "react";
-import { User } from "../../entities/User";
-import Button from "../common/button/button";
-import ButtonSet from "../common/buttonset/buttonset";
-import Card from "../common/card/card";
-import Icon from "../common/icon/icon";
+import { Component } from 'react';
+import { User } from '../../entities/User';
+import Button from '../common/button/button';
+import ButtonSet from '../common/buttonset/buttonset';
+import Card from '../common/card/card';
+import Icon from '../common/icon/icon';
 
 type UserSettingsProps = {
 	/**
 	 * Subject of the settings section
 	 */
 	user: User;
-}
+};
 
 export default class UserSettings extends Component<UserSettingsProps> {
 	render() {
@@ -31,6 +31,6 @@ export default class UserSettings extends Component<UserSettingsProps> {
 					</ButtonSet>
 				</Card>
 			</section>
-		)
+		);
 	}
 }

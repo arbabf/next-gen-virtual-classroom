@@ -27,7 +27,7 @@ export default class chatUI extends Component<chatUIProps> {
 		return (
 			<div className={classes}>
 				<h2>Chat</h2>
-				<ChatDisplay messages={[new ChatMessage(testUser, "Hello")]} />
+				<ChatDisplay messages={[new ChatMessage(testUser, 'Hello')]} />
 			</div>
 		);
 	}

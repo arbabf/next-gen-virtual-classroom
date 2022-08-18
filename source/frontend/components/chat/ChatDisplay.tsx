@@ -4,7 +4,7 @@ import { ChatMessage as Message } from '../../entities/chat/ChatMessage';
 
 type ChatDisplayProps = {
 	messages: Message[];
-}
+};
 
 export default class ChatDisplay extends Component<ChatDisplayProps> {
 	render() {
@@ -19,10 +19,8 @@ export default class ChatDisplay extends Component<ChatDisplayProps> {
 				<section>
 					<p>John Smith:</p>
 					<Card>Hello World</Card>
-
 				</section>
-
 			</>
-		)
+		);
 	}
 }

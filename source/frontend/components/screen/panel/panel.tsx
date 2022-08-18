@@ -11,11 +11,11 @@ import styles from './Panel.module.css';
 /**
  * Panel properties.
  */
- type PanelProps = {
+type PanelProps = {
 	expanded?: boolean;
 	expandable?: boolean;
 	media: boolean;
-    label: string;
+	label: string;
 };
 
 /**
@@ -23,33 +23,35 @@ import styles from './Panel.module.css';
  */
 type PanelState = {
 	expanded: boolean;
-}
+};
 
 class Panel extends Component<PanelProps, PanelState> {
 	constructor(props: PanelProps) {
 		super(props);
 		this.state = {
-					expanded: this.props.expanded === undefined ? false : this.props.expanded
-					}
-	} 
-
-	expandScreen = () => { 
-		this.setState({expanded: !this.state.expanded})
+			expanded: this.props.expanded === undefined ? false : this.props.expanded,
+		};
 	}
-	
+
+	expandScreen = () => {
+		this.setState({ expanded: !this.state.expanded });
+	};
+
 	render() {
 		return (
 			<div
 				className={
-					styles.screen + 
-					' ' + 
+					styles.screen +
+					' ' +
 					(this.state.expanded === false ? styles.screen : styles.expandedscreen)
 				}
 				onClick={this.props.expandable === true ? this.expandScreen : undefined}
 				media={this.props.media.toString()} // State doesn't work here. Why? I don't know. But we're going to use props anyway.
-				expandable={this.props.expandable === undefined ? "false" : this.props.expandable.toString()}
+				expandable={
+					this.props.expandable === undefined ? 'false' : this.props.expandable.toString()
+				}
 			>
-                {this.props.label}
+				{this.props.label}
 			</div>
 		);
 	}
