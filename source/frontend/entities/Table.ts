@@ -1,5 +1,6 @@
 import { RoomInfo, testRoom } from './Room';
 import { testUserList, User } from './User';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Current live state of a table, being the inclusion of users, etc.
@@ -22,11 +23,11 @@ export class TableInfo {
 	id: string;
 	room: RoomInfo;
 
-	constructor(id: string, room: RoomInfo) {
+	constructor(room: RoomInfo, id: string = uuidv4()) {
 		this.id = id;
 		this.room = room;
 	}
 }
 
-export const testTableInfo = new TableInfo('0', testRoom);
+export const testTableInfo = new TableInfo(testRoom, '0');
 export const testTableState = new TableState(testTableInfo, testUserList);

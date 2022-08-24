@@ -20,8 +20,8 @@ export class Folder {
 	 */
 	name: string;
 
-	constructor(contents: Resource[], name: string, id?: string) {
-		this.id = id || uuidv4();
+	constructor(contents: Resource[], name: string, id: string = uuidv4()) {
+		this.id = id;
 		this.contents = contents;
 		this.name = name;
 	}

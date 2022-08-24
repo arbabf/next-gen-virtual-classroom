@@ -1,4 +1,5 @@
 import { Organisation, testOrganisation } from './Organisation';
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Represents a room, such as a Classroom, where meetings, classes, etc. are held with
@@ -27,7 +28,12 @@ export class RoomInfo {
 	 */
 	organisation: Organisation;
 
-	constructor(id: string, name: string, description: string, organisation: Organisation) {
+	constructor(
+		name: string,
+		description: string,
+		organisation: Organisation,
+		id: string = uuidv4()
+	) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -36,8 +42,8 @@ export class RoomInfo {
 }
 
 export const testRoom = new RoomInfo(
-	'0',
 	'Test Room',
 	'Room made for testing purposes',
-	testOrganisation
+	testOrganisation,
+	'0'
 );
