@@ -1,15 +1,8 @@
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
-import { testUser } from '../../entities/User';
-import Button from '../common/button/button';
-import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
-import Icon from '../common/icon/icon';
-import Modal from '../common/modal/Modal';
-import NavbarItem from '../navigation/navbar/NavbarItem';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
-import SettingsPage from '../settings/SettingsPage';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -40,6 +33,13 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 							))}
 						</ScreenSpace>
 					)}
+					<div className={styles.tables}>
+						{this.props.room.layout.tables.map((table) => (
+							<Card key={table.id}>
+								<h3>Tables are WIP</h3>
+							</Card>
+						))}
+					</div>
 				</main>
 			</>
 		);
