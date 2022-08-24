@@ -23,7 +23,7 @@ type ScreenState = {
 	screenOn: boolean;
 };
 
-export const screenContext = React.createContext({screenOn: true});
+export const screenContext = React.createContext({ screenOn: true });
 
 type RoomViewProps = {
 	/**
@@ -69,7 +69,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		chatVisible: false,
 		settingsVisible: false,
 		partMenuVis: false,
-		screenState: {screenOn: true},
+		screenState: { screenOn: true },
 	};
 
 	render(): ReactNode {
@@ -122,7 +122,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 				<ChatUI user={testUser} hidden={!this.state.chatVisible} />
 
 				<screenContext.Provider value={this.state.screenState}>
-						<ScreenContainer/>
+					<ScreenContainer />
 				</screenContext.Provider>
 			</>
 		);
