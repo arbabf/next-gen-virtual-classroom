@@ -14,17 +14,6 @@ import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 
-/**
- * Unused for now. Used in screenContext.
- * NB: Must use default values when initalising ScreenState in RoomView, or otherwise the context will probably crash the application.
- */
-type ScreenState = {
-	// DEBUG: remove later.
-	screenOn: boolean;
-};
-
-export const screenContext = React.createContext({ screenOn: true });
-
 type RoomViewProps = {
 	/**
 	 * The associated Room entity that represents this classroom in the system.
@@ -53,11 +42,6 @@ type RoomViewState = {
 
 	//whether show partMenu or not
 	partMenuVis: boolean;
-
-	/**
-	 * Screen state.
-	 */
-	screenState: ScreenState;
 };
 
 /**
@@ -120,10 +104,6 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 
 				<PartMenu user={testUser} hidden={!this.state.partMenuVis} />
 				<ChatUI user={testUser} hidden={!this.state.chatVisible} />
-
-				<screenContext.Provider value={this.state.screenState}>
-					<ScreenContainer />
-				</screenContext.Provider>
 			</>
 		);
 	}

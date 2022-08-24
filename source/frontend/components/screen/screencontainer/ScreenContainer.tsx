@@ -10,7 +10,6 @@ import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
 import Card from '../../common/card/card';
 import Panel from '../panel/panel';
-import { screenContext } from '../../classroom/RoomView';
 
 /**
  * Screen container props.
@@ -75,8 +74,6 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 		this.setState({ mediaSelectorOn: !this.state.mediaSelectorOn });
 	};
 
-	static contextType = screenContext;
-
 	render() {
 		return (
 			<div className={styles.container}>
@@ -101,9 +98,6 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 				{this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
 				)}
-				{/* {this.state.screenOn ? (
-					<Panel label="Screen" media={this.state.mediaOn} expandable />
-				) : null} */}
 				{this.state.mediaSelectorOn ? (
 					<Card>
 						<Panel label="Screen Example" media={false} />
