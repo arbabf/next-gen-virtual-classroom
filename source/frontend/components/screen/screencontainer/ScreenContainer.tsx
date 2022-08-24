@@ -10,7 +10,7 @@ import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
 import Card from '../../common/card/card';
 import Panel from '../panel/panel';
-import {screenContext} from '../../classroom/RoomView';
+import { screenContext } from '../../classroom/RoomView';
 
 /**
  * Screen container props.
@@ -54,10 +54,9 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 	constructor(props: ScreenContainerProps) {
 		super(props);
 		this.state = {
-			screenOn: this.props.screenOn === undefined ? false : this.props.screenOn,
-			mediaOn: this.props.mediaOn === undefined ? false : this.props.mediaOn,
-			mediaSelectorOn:
-				this.props.mediaSelectorOn === undefined ? false : this.props.mediaSelectorOn,
+			screenOn: this.props.screenOn || false,
+			mediaOn: this.props.mediaOn || false,
+			mediaSelectorOn: this.props.mediaSelectorOn || false,
 		};
 	}
 
@@ -99,9 +98,9 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 						) : null}
 					</ButtonSet>
 				</Card>
-				{this.context.screenOn ? ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
+				{this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
-				) : null}
+				)}
 				{/* {this.state.screenOn ? (
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
 				) : null} */}
