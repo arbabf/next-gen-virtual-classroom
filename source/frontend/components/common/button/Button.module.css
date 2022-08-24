@@ -61,3 +61,17 @@
 .unfilled[disabled]:hover {
 	background-color: transparent;
 }
+
+.inverted {
+	background-color: var(--button-inverted-fill);
+	color: var(--accent);
+}
+
+.inverted:hover {
+	background-color: var(--blue-50);
+}
+
+.inverted[disabled] {
+	color: var(--button-inverted-disabled-text);
+	background-color: var(--button-inverted-disabled-fill);
+}

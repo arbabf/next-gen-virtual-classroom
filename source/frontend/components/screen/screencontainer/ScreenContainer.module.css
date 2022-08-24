@@ -3,14 +3,22 @@
 	max-width: 90vw;
 	min-width: calc(400px + 1em);
 	width: auto;
-	border-radius: 1.25em;
+	border-radius: 1.5em;
 	background-color: var(--screen-inactive);
+}
+
+.container[open] {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .container summary {
 	font-weight: bold;
-	padding: 0.75em 1em;
+	padding: 0.5em 1em;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-xs);
 }
 
 .active {
@@ -19,6 +27,19 @@
 
 .active summary {
 	color: white;
+}
+
+.buttons {
+	margin: 0 0.5em 0.5em !important;
+	justify-content: center;
+}
+
+.screenContent {
+	position: absolute;
+	background-color: inherit;
+	border-radius: 1.5em;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
 
 @media (prefers-color-scheme: dark) {

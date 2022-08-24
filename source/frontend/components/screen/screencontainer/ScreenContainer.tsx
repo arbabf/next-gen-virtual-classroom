@@ -10,6 +10,7 @@ import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
 import Card from '../../common/card/card';
 import Panel from '../panel/panel';
+import Icon from '../../common/icon/icon';
 
 /**
  * Screen container props.
@@ -82,20 +83,32 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 		}
 
 		return (
-			<details className={styles.container}>
-				<summary>Screen available</summary>
+			<details className={classes}>
+				<summary>
+					<Icon iconName="present_to_all" size="1.5em" />
+					{this.state.mediaOn ? <span>Sharing media</span> : <span>Screen available</span>}
+				</summary>
 				{/* {this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
 				)} */}
-				<Panel label="Screen" media={this.state.mediaOn} expandable />
-				{this.state.mediaSelectorOn ? (
-					<Card>
-						<Panel label="Screen Example" media={false} />
-						<Button onClick={this.toggleMedia}>
-							<span>{'Toggle media'}</span>
+				<div className={styles.screenContent}>
+					{this.state.mediaSelectorOn ? (
+						<>
+							<Panel label="Screen Example" media={false} />
+							<Button onClick={this.toggleMedia}>
+								<span>{'Toggle media'}</span>
+							</Button>
+						</>
+					) : (
+						<Panel label="Screen" media={this.state.mediaOn} expandable />
+					)}
+					<ButtonSet className={styles.buttons}>
+						<Button onClick={this.toggleMediaSelector} inverted>
+							<Icon iconName="present_to_all" />
+							<span>Select media</span>
 						</Button>
-					</Card>
-				) : null}
+					</ButtonSet>
+				</div>
 			</details>
 		);
 	}

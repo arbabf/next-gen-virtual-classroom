@@ -40,21 +40,21 @@ class Icon extends Component<IconProps> {
 		let size = '1em';
 		let altText = '';
 
+		if (this.props.size) {
+			size = this.props.size;
+		}
+
+		if (this.props.altText) {
+			altText = this.props.altText;
+		}
+
 		let iconFontStyle: CSSProperties = {
 			fontSize: size,
 		};
 
-		if (this.props.size !== undefined) {
-			size = this.props.size;
-		}
-
-		if (this.props.altText !== undefined) {
-			altText = this.props.altText;
-		}
-
-		if (this.props.imageSrc !== undefined) {
+		if (this.props.imageSrc) {
 			return <Image src={this.props.imageSrc} height={size} width={size} alt={altText} />;
-		} else if (this.props.iconName !== undefined) {
+		} else if (this.props.iconName) {
 			return (
 				<span
 					className={styles.named}

@@ -40,6 +40,9 @@
 	--button-foreground: white;
 	--button-foreground-disabled: #fff4;
 	--button-unfilled-hover: var(--accent-tp-25);
+	--button-inverted-fill: white;
+	--button-inverted-disabled-fill: var(--blue-50);
+	--button-inverted-disabled-text: var(--blue-200);
 
 	--page-spacing: var(--vertical-padding);
 

@@ -20,6 +20,11 @@ type ButtonProps = {
 	 * Don't show a background fill to make it blend in better. Defaults to false.
 	 */
 	unfilled?: boolean;
+
+	/**
+	 * Whether button is blue on white
+	 */
+	inverted?: boolean;
 };
 
 /**
@@ -49,13 +54,19 @@ class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
 	}
 
 	render() {
+		let classes = styles.button;
+
+		if (this.props.unfilled) {
+			classes += ' ' + styles.unfilled;
+		}
+
+		if (this.props.inverted) {
+			classes += ' ' + styles.inverted;
+		}
+
 		return (
 			<button
-				className={
-					styles.button +
-					' ' +
-					(this.props.unfilled === undefined ? styles.filled : styles.unfilled)
-				}
+				className={classes}
 				onClick={this.state.disabled ? undefined : this.props.onClick}
 				disabled={this.state.disabled}
 			>
