@@ -4,7 +4,8 @@ import styles from './TableContainer.module.css';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
-import { TableState, testTableState } from '../../entities/Table';
+import { TableState } from '../../entities/Table';
+import { testTableState } from '../../entities/TestEntities';
 
 /**
  * Table Container props.
