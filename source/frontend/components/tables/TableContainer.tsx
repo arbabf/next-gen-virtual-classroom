@@ -4,7 +4,7 @@ import styles from './TableContainer.module.css';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
-import { TableState } from '../../entities/Table';
+import { TableState, testTableState } from '../../entities/Table';
 
 /**
  * Table Container props.
@@ -25,27 +25,28 @@ type TableContainerState = {
 	 * Current set of tables
 	 */
 	tables: TableState[];
+
+	/**
+	 * Active table for editing
+	 */
+	activeTable: TableState;
 };
 
-export const TableEditor = ({ show = false, currentTable = 'Table name' }) => (
+export const TableEditor = ({ show = false, currentTable = testTableState }) => (
 	<div className={show ? '' : styles.hidden}>
 		<Card>
 			<h1>Edit participants</h1>
-			<li>
-				<span>1</span>
-				<span>John Wick</span>
-				<Button>
-					<span>Remove</span>
-				</Button>
-			</li>
 
-			<li>
-				<span>2</span>
-				<span>Michael Li</span>
-				<Button>
-					<span>Remove</span>
-				</Button>
-			</li>
+			<ul>
+				{currentTable.participants.map((participant, index) => (
+					<li key={participant.id}>
+						<span>{participant.name}</span>
+						<Button>
+							<span>Remove</span>
+						</Button>
+					</li>
+				))}
+			</ul>
 
 			<ButtonSet>
 				<Button>
@@ -62,6 +63,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		this.state = {
 			showEditor: this.props.showEditor || false,
 			tables: this.props.tables,
+			activeTable: this.props.tables[0] || testTableState,
 		};
 	}
 
@@ -79,14 +81,18 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 						</div>
 
 						<ButtonSet>
-							<Button onClick={() => this.setState({ showEditor: !this.state.showEditor })}>
+							<Button
+								onClick={() =>
+									this.setState({ showEditor: !this.state.showEditor, activeTable: table })
+								}
+							>
 								Edit
 							</Button>
 						</ButtonSet>
 					</Card>
 				))}
 
-				<TableEditor show={this.state.showEditor} currentTable={'test'}></TableEditor>
+				<TableEditor show={this.state.showEditor} currentTable={testTableState}></TableEditor>
 			</div>
 		);
 	}
