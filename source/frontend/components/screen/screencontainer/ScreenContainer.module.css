@@ -3,7 +3,7 @@
 	max-width: 90vw;
 	min-width: calc(400px + 1em);
 	width: auto;
-	border-radius: 1.5em;
+	border-radius: var(--border-rounding);
 	background-color: var(--screen-inactive);
 }
 
@@ -19,6 +19,14 @@
 	display: flex;
 	align-items: center;
 	gap: var(--spacing-xs);
+}
+
+.container summary span:last-child {
+	margin-left: auto;
+}
+
+.container[open] summary span:last-child {
+	rotate: 180deg;
 }
 
 .active {
@@ -37,7 +45,7 @@
 .screenContent {
 	position: absolute;
 	background-color: inherit;
-	border-radius: 1.5em;
+	border-radius: var(--border-rounding);
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }

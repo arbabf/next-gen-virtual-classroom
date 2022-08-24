@@ -87,6 +87,7 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 				<summary>
 					<Icon iconName="present_to_all" size="1.5em" />
 					{this.state.mediaOn ? <span>Sharing media</span> : <span>Screen available</span>}
+					<Icon iconName="expand_more" size="1.5em" />
 				</summary>
 				{/* {this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
