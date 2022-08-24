@@ -1,5 +1,6 @@
 import { Organisation, testOrganisation } from './Organisation';
 import { v4 as uuidv4 } from 'uuid';
+import { RoomLayout, testRoomLayout } from './roomdata/RoomLayout';
 
 /**
  * Represents a room, such as a Classroom, where meetings, classes, etc. are held with
@@ -28,16 +29,23 @@ export class RoomInfo {
 	 */
 	organisation: Organisation;
 
+	/**
+	 * Info about the room's current layout
+	 */
+	layout: RoomLayout;
+
 	constructor(
 		name: string,
 		description: string,
 		organisation: Organisation,
-		id: string = uuidv4()
+		id: string = uuidv4(),
+		layout = new RoomLayout()
 	) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.organisation = organisation;
+		this.layout = layout;
 	}
 }
 
@@ -45,5 +53,6 @@ export const testRoom = new RoomInfo(
 	'Test Room',
 	'Room made for testing purposes',
 	testOrganisation,
-	'0'
+	'0',
+	testRoomLayout
 );

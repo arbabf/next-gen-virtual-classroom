@@ -1,0 +1,9 @@
+.container {
+	position: relative;
+	overflow-y: visible;
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-s);
+	align-items: center;
+	justify-content: left;
+}

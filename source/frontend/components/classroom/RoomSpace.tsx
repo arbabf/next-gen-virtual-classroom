@@ -7,6 +7,8 @@ import Card from '../common/card/card';
 import Icon from '../common/icon/icon';
 import Modal from '../common/modal/Modal';
 import NavbarItem from '../navigation/navbar/NavbarItem';
+import ScreenContainer from '../screen/screencontainer/ScreenContainer';
+import { ScreenSpace } from '../screen/ScreenSpace';
 import SettingsPage from '../settings/SettingsPage';
 import styles from './RoomSpace.module.css';
 
@@ -31,32 +33,13 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 					<h1>{this.props.room.name}</h1>
 				</header>
 				<main>
-					<Modal open>
-						<h2>Welcome</h2>
-
-						<p>This is a paragraph within a card.</p>
-
-						<p>Below is a set of buttons.</p>
-
-						<ButtonSet>
-							<Button
-								onClick={() => {
-									console.log('HI');
-								}}
-							>
-								<span>Filled button</span>
-							</Button>
-							<Button unfilled>
-								<span>Unfilled button</span>
-							</Button>
-							<Button disabled>
-								<span>Filled &amp; disabled</span>
-							</Button>
-							<Button unfilled disabled>
-								<span>Unfilled &amp; disabled</span>
-							</Button>
-						</ButtonSet>
-					</Modal>
+					{this.props.room.layout.screens.length > 0 && (
+						<ScreenSpace>
+							{this.props.room.layout.screens.map((screen) => (
+								<ScreenContainer key={screen.id} />
+							))}
+						</ScreenSpace>
+					)}
 				</main>
 			</>
 		);
