@@ -14,9 +14,3 @@ export class Organisation {
 		this.description = description;
 	}
 }
-
-export const testOrganisation = new Organisation(
-	'Test Organisation',
-	'Organisation made for testing purposes',
-	'0'
-);

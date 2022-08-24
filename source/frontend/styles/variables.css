@@ -42,6 +42,9 @@
 	--button-unfilled-hover: var(--accent-tp-25);
 
 	--page-spacing: var(--vertical-padding);
+
+	--screen-active: var(--accent);
+	--screen-inactive: var(--blue-100);
 }
 
 /* Dark theme switch */
@@ -58,6 +61,8 @@
 		--border-color-light: var(--gray-800);
 		--border-color-medium: var(--gray-700);
 		--border-color-strong: var(--gray-600);
+
+		--screen-inactive: var(--blue-800);
 	}
 }
 

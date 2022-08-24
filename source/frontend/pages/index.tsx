@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 import RoomView from '../components/classroom/RoomView';
-import { testRoom } from '../entities/Room';
+import { testRoom, testUser } from '../entities/TestEntities';
 import styles from '../styles/pages/Home.module.css';
 
 const Home: NextPage = () => {
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<RoomView room={testRoom} />
+			<RoomView room={testRoom} user={testUser} />
 		</>
 	);
 };

@@ -32,7 +32,7 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 				<header className={styles.header}>
 					<h1>{this.props.room.name}</h1>
 				</header>
-				<main>
+				<main className={styles.space}>
 					{this.props.room.layout.screens.length > 0 && (
 						<ScreenSpace>
 							{this.props.room.layout.screens.map((screen) => (

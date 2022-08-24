@@ -1,7 +1,7 @@
 import { Component, ReactNode } from 'react';
 import React from 'react';
 import { RoomInfo } from '../../entities/Room';
-import { testUser, User } from '../../entities/User';
+import { User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
 import ChatUI from '../chat/ChatUI';
 import Icon from '../common/icon/icon';
@@ -19,6 +19,11 @@ type RoomViewProps = {
 	 * The associated Room entity that represents this classroom in the system.
 	 */
 	room: RoomInfo;
+
+	/**
+	 * Currently logged-in user
+	 */
+	user: User;
 };
 
 /**
@@ -100,10 +105,10 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					</NavbarItem>
 				</Modal>
 
-				<SettingsPage user={testUser} hidden={!this.state.settingsVisible} />
+				<SettingsPage user={this.props.user} hidden={!this.state.settingsVisible} />
 
-				<PartMenu user={testUser} hidden={!this.state.partMenuVis} />
-				<ChatUI user={testUser} hidden={!this.state.chatVisible} />
+				<PartMenu user={this.props.user} hidden={!this.state.partMenuVis} />
+				<ChatUI user={this.props.user} hidden={!this.state.chatVisible} />
 			</>
 		);
 	}

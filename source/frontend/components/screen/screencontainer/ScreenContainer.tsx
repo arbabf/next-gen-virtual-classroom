@@ -75,29 +75,19 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 	};
 
 	render() {
+		let classes = styles.container;
+
+		if (this.state.mediaOn) {
+			classes += ' ' + styles.active;
+		}
+
 		return (
-			<div className={styles.container}>
-				<Card>
-					<h1>Screen test</h1>
-
-					<p>This is a paragraph within a card.</p>
-
-					<p>Below is a set of buttons.</p>
-
-					<ButtonSet>
-						<Button onClick={this.toggleScreen}>
-							<span>{this.state.screenOn ? 'Hide screen' : 'Show screen'}</span>
-						</Button>
-						{this.state.screenOn ? (
-							<Button onClick={this.toggleMediaSelector}>
-								<span>{'Change screen medium'}</span>
-							</Button>
-						) : null}
-					</ButtonSet>
-				</Card>
-				{this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
+			<details className={styles.container}>
+				<summary>Screen available</summary>
+				{/* {this.state.screenOn && ( // Replace with this.state.screenOn when our context gets its functionality. As of now it just has the screen on forever.
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
-				)}
+				)} */}
+				<Panel label="Screen" media={this.state.mediaOn} expandable />
 				{this.state.mediaSelectorOn ? (
 					<Card>
 						<Panel label="Screen Example" media={false} />
@@ -106,7 +96,7 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 						</Button>
 					</Card>
 				) : null}
-			</div>
+			</details>
 		);
 	}
 }

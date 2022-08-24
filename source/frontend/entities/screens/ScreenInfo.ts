@@ -19,5 +19,3 @@ export class ScreenInfo {
 		this.name = name;
 	}
 }
-
-export const testScreenInfo = new ScreenInfo('Test Screen', '0');

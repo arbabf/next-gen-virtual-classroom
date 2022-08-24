@@ -1,5 +1,5 @@
-import { RoomInfo, testRoom } from './Room';
-import { testUserList, User } from './User';
+import { RoomInfo } from './Room';
+import { User } from './User';
 import { v4 as uuidv4 } from 'uuid';
 
 /**
@@ -28,6 +28,3 @@ export class TableInfo {
 		this.room = room;
 	}
 }
-
-export const testTableInfo = new TableInfo(testRoom, '0');
-export const testTableState = new TableState(testTableInfo, testUserList);

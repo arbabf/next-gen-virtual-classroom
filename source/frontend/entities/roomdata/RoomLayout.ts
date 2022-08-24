@@ -1,5 +1,5 @@
-import { TableInfo, testTableInfo } from '../Table';
-import { ScreenInfo, testScreenInfo } from '../screens/ScreenInfo';
+import { TableInfo } from '../Table';
+import { ScreenInfo } from '../screens/ScreenInfo';
 
 /**
  * Static room layout information to be drawn from DB or persistent storage
@@ -13,5 +13,3 @@ export class RoomLayout {
 		this.tables = tables;
 	}
 }
-
-export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo]);

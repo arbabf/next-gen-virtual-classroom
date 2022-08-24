@@ -1,6 +1,28 @@
 .container {
-	display: flex;
-	gap: var(--spacing-s);
-	flex-wrap: wrap;
-	margin: var(--vertical-padding) 0;
+	position: relative;
+	max-width: 90vw;
+	min-width: calc(400px + 1em);
+	width: auto;
+	border-radius: 1.25em;
+	background-color: var(--screen-inactive);
+}
+
+.container summary {
+	font-weight: bold;
+	padding: 0.75em 1em;
+	cursor: pointer;
+}
+
+.active {
+	background-color: var(--screen-active);
+}
+
+.active summary {
+	color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+	.active {
+		color: var(--blue-200);
+	}
 }

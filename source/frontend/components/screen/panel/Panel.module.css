@@ -1,11 +1,13 @@
 .screen {
 	background-color: var(--background);
-	outline: 4px;
-	border: var(--border-light);
 	width: 400px; /* Honestly it'd be more sane to use browser width/height, but if the user has to change their window size to something weird
                     then the preview would also get weird. Defaults to 16:9 ratio. */
 	height: 225px;
+	margin: 0.5em;
+	margin-top: 0;
+	border-radius: 0.75em;
 }
+
 .expandedscreen {
 	background-color: var(--background);
 	outline: 4px;

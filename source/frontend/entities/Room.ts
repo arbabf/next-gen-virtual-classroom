@@ -1,6 +1,6 @@
-import { Organisation, testOrganisation } from './Organisation';
+import { Organisation } from './Organisation';
 import { v4 as uuidv4 } from 'uuid';
-import { RoomLayout, testRoomLayout } from './roomdata/RoomLayout';
+import { RoomLayout } from './roomdata/RoomLayout';
 
 /**
  * Represents a room, such as a Classroom, where meetings, classes, etc. are held with
@@ -48,11 +48,3 @@ export class RoomInfo {
 		this.layout = layout;
 	}
 }
-
-export const testRoom = new RoomInfo(
-	'Test Room',
-	'Room made for testing purposes',
-	testOrganisation,
-	'0',
-	testRoomLayout
-);

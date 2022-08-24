@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ChatMessage } from '../../entities/chat/ChatMessage';
-import { testUser, User } from '../../entities/User';
+import { testUser } from '../../entities/TestEntities';
+import { User } from '../../entities/User';
 import ChatDisplay from './ChatDisplay';
 import styles from './ChatUI.module.css';
 
