@@ -1,0 +1,13 @@
+.table {
+	border-radius: var(--border-rounding-large);
+	background-color: var(--table-background);
+	padding: var(--padding-s);
+}
+
+.participants {
+	list-style: none;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	gap: var(--spacing-s);
+}

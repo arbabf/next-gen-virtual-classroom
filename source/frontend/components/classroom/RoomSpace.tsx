@@ -1,8 +1,10 @@
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
+import { testTableState } from '../../entities/TestEntities';
 import Card from '../common/card/card';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
+import { Table } from '../tables/Table';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -35,9 +37,7 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 					)}
 					<div className={styles.tables}>
 						{this.props.room.layout.tables.map((table) => (
-							<Card key={table.id}>
-								<h3>Tables are WIP</h3>
-							</Card>
+							<Table key={table.id} state={testTableState} />
 						))}
 					</div>
 				</main>

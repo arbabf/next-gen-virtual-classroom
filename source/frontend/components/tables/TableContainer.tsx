@@ -6,6 +6,7 @@ import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
 import { TableState } from '../../entities/Table';
 import { testTableState } from '../../entities/TestEntities';
+import { Table } from './Table';
 
 /**
  * Table Container props.
@@ -72,25 +73,13 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		return (
 			<div className={styles.container}>
 				{this.props.tables.map((table) => (
-					<Card key={table.info.id}>
-						<div className="participants">
-							{table.participants.map((participant, index) => (
-								<div key={participant.id}>
-									<p>{participant.name}</p>
-								</div>
-							))}
-						</div>
-
-						<ButtonSet>
-							<Button
-								onClick={() =>
-									this.setState({ showEditor: !this.state.showEditor, activeTable: table })
-								}
-							>
-								Edit
-							</Button>
-						</ButtonSet>
-					</Card>
+					<Table
+						key={table.info.id}
+						state={table}
+						toggleEditor={(_) =>
+							this.setState({ showEditor: !this.state.showEditor, activeTable: table })
+						}
+					/>
 				))}
 
 				<TableEditor show={this.state.showEditor} currentTable={testTableState}></TableEditor>

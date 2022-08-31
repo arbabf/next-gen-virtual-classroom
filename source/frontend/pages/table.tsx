@@ -3,7 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/pages/Home.module.css';
 import { TableContainer } from '../components/tables/TableContainer';
-import { testTableState } from '../entities/Table';
+import { testTableState } from '../entities/TestEntities';
 //import TableContainer from
 
 const Home: NextPage = () => {

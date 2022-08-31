@@ -17,6 +17,8 @@
 	--link-color-disabled: var(--blue-500-faded);
 
 	--padding: var(--vertical-padding) var(--horizontal-padding);
+	--padding-s: var(--spacing-s);
+	--padding-xs: var(--spacing-xs);
 	--text-padding: var(--vertical-text-padding) var(--horizontal-text-padding);
 
 	--navbar-text-padding: var(--spacing-s);
@@ -39,7 +41,7 @@
 	--button-fill-hover: var(--blue-600);
 	--button-foreground: white;
 	--button-foreground-disabled: #fff4;
-	--button-unfilled-hover: var(--accent-tp-25);
+	--button-unfilled-hover: var(--accent-tp-12);
 	--button-inverted-fill: white;
 	--button-inverted-disabled-fill: var(--blue-50);
 	--button-inverted-disabled-text: var(--blue-200);
@@ -48,6 +50,11 @@
 
 	--screen-active: var(--accent);
 	--screen-inactive: var(--blue-100);
+
+	--table-background: var(--gray-50);
+	--table-background-current: white;
+	--table-border: var(--border-medium);
+	--table-border-current: 2px solid var(--accent);
 }
 
 /* Dark theme switch */
@@ -66,6 +73,9 @@
 		--border-color-strong: var(--gray-600);
 
 		--screen-inactive: var(--blue-800);
+
+		--table-background: var(--gray-800);
+		--table-background-current: var(--gray-700);
 	}
 }
 
