@@ -44,6 +44,7 @@
 
 .screenContent {
 	position: absolute;
+	width: 100%;
 	background-color: inherit;
 	border-radius: var(--border-rounding);
 	border-top-left-radius: 0;

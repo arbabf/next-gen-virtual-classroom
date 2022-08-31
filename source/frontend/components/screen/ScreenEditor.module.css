@@ -1,0 +1,6 @@
+.editor {
+	margin: var(--spacing-xs);
+	padding: var(--spacing-xs);
+	background-color: var(--background);
+	border-radius: var(--border-rounding-small);
+}

@@ -11,6 +11,7 @@ import ButtonSet from '../../common/buttonset/buttonset';
 import Card from '../../common/card/card';
 import Panel from '../panel/panel';
 import Icon from '../../common/icon/icon';
+import { ScreenEditor } from '../ScreenEditor';
 
 /**
  * Screen container props.
@@ -56,7 +57,7 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 		this.state = {
 			screenOn: this.props.screenOn || false,
 			mediaOn: this.props.mediaOn || false,
-			mediaSelectorOn: this.props.mediaSelectorOn || false,
+			mediaSelectorOn: !this.props.mediaOn || false,
 		};
 	}
 
@@ -93,21 +94,22 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 					<Panel label="Screen" media={this.state.mediaOn} expandable />
 				)} */}
 				<div className={styles.screenContent}>
-					{this.state.mediaSelectorOn ? (
-						<>
-							<Panel label="Screen Example" media={false} />
+					{!this.state.mediaOn || this.state.mediaSelectorOn ? (
+						<ScreenEditor>
 							<Button onClick={this.toggleMedia}>
 								<span>{'Toggle media'}</span>
 							</Button>
-						</>
+						</ScreenEditor>
 					) : (
 						<Panel label="Screen" media={this.state.mediaOn} expandable />
 					)}
 					<ButtonSet className={styles.buttons}>
-						<Button onClick={this.toggleMediaSelector} inverted>
-							<Icon iconName="present_to_all" />
-							<span>Select media</span>
-						</Button>
+						{this.state.mediaOn && (
+							<Button onClick={this.toggleMediaSelector} inverted>
+								<Icon iconName={this.state.mediaSelectorOn ? 'arrow_back' : 'present_to_all'} />
+								<span>{this.state.mediaSelectorOn ? 'Show screen' : 'Select media'}</span>
+							</Button>
+						)}
 					</ButtonSet>
 				</div>
 			</details>
