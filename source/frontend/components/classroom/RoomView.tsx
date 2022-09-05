@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react';
-import React from 'react';
 import { RoomInfo } from '../../entities/Room';
+import { TableState } from '../../entities/Table';
 import { User } from '../../entities/User';
 import { RoomStateAPI } from '../../lib/RoomAPI';
 import ChatUI from '../chat/ChatUI';
@@ -12,7 +12,6 @@ import NavbarItem from '../navigation/navbar/NavbarItem';
 import PartMenu from '../participantMenu/PartMenu';
 import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
-import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 
 type RoomViewProps = {
 	/**
@@ -36,6 +35,11 @@ type RoomViewState = {
 	participants: User[];
 
 	/**
+	 * State of tables
+	 */
+	tables: TableState[];
+
+	/**
 	 * Whether the chat is visible
 	 */
 	chatVisible: boolean;
@@ -55,11 +59,17 @@ type RoomViewState = {
 export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	state = {
 		participants: [],
+		tables: [],
 		chatVisible: false,
 		settingsVisible: false,
 		partMenuVis: false,
 		screenState: { screenOn: true },
 	};
+
+	componentDidMount() {
+		console.log('doing fetch');
+		this.fetchState();
+	}
 
 	render(): ReactNode {
 		return (
@@ -89,7 +99,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					</NavbarItem>
 				</Navbar>
 
-				<RoomSpace room={this.props.room} />
+				<RoomSpace room={this.props.room} tables={this.state.tables} />
 
 				<Modal open>
 					<h2>Temp Space</h2>
@@ -117,7 +127,13 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	 * Fetches the current room state from appropriate servers and middleware.
 	 */
 	private fetchState() {
+		// establish static state for tables
+		let staticTables = this.props.room.layout.tables.map((table) => new TableState(table));
+		this.setState({ tables: staticTables });
+
+		// make fetches
 		this.fetchParticipants();
+		this.fetchTables();
 	}
 
 	/**
@@ -128,6 +144,17 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 			.then((participants) => this.setState({ participants: participants }))
 			.catch((error) => {
 				alert("We couldn't connect to the other participants due to an error.");
+			});
+	}
+
+	/**
+	 * Fetches tables and updates state
+	 */
+	private fetchTables() {
+		RoomStateAPI.getTableStates(this.props.room)
+			.then((tables) => this.setState({ tables: tables }))
+			.catch((error) => {
+				alert('We ran into trouble getting the current state of tables.');
 			});
 	}
 }

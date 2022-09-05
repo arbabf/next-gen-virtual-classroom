@@ -1,5 +1,7 @@
 import { RoomInfo } from '../entities/Room';
-import { testUser, User } from '../entities/User';
+import { TableState } from '../entities/Table';
+import { testUser, testUserList } from '../entities/TestEntities';
+import { User } from '../entities/User';
 
 /**
  * API integration for retrieving the current room state.
@@ -25,6 +27,17 @@ export class RoomStateAPI {
 			// if success, resolve
 			// for testing, our list has one test user
 			resolve([testUser]);
+		});
+	}
+
+	static async getTableStates(room: RoomInfo): Promise<TableState[]> {
+		return new Promise<TableState[]>((resolve, reject) => {
+			// make fetch
+
+			// check errors
+
+			// resolve by mapping given room's table new table states with test users
+			resolve(room.layout.tables.map((table) => new TableState(table, testUserList)));
 		});
 	}
 }

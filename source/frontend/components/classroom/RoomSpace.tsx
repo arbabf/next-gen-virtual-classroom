@@ -1,10 +1,9 @@
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
-import { testTableState } from '../../entities/TestEntities';
-import Card from '../common/card/card';
+import { TableState } from '../../entities/Table';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
-import { Table } from '../tables/Table';
+import { TableContainer } from '../tables/TableContainer';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -12,6 +11,11 @@ type RoomSpaceProps = {
 	 * Room entity to fill out this space
 	 */
 	room: RoomInfo;
+
+	/**
+	 * Table states
+	 */
+	tables: TableState[];
 };
 
 /**
@@ -35,11 +39,7 @@ export default class RoomSpace extends Component<RoomSpaceProps> {
 							))}
 						</ScreenSpace>
 					)}
-					<div className={styles.tables}>
-						{this.props.room.layout.tables.map((table) => (
-							<Table key={table.id} state={testTableState} />
-						))}
-					</div>
+					<TableContainer tables={this.props.tables} />
 				</main>
 			</>
 		);
