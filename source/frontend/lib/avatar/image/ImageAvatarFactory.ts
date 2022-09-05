@@ -1,15 +1,11 @@
-import assert from 'assert';
 import { Avatar } from '../Avatar';
 import { AvatarFactory } from '../AvatarFactory';
-import { AvatarView } from '../AvatarView';
-import { ImageAvatar } from './ImageAvatar';
-import { ImageAvatarView, ImageAvatarViewProps } from './ImageAvatarView';
+import { AvatarView, AvatarViewProps } from '../AvatarView';
+import { ImageAvatarView } from './ImageAvatarView';
 
 export class ImageAvatarFactory implements AvatarFactory {
 	createAvatarView(avatar: Avatar): AvatarView {
-		assert(avatar instanceof ImageAvatar);
-
-		let props: ImageAvatarViewProps = {
+		let props: AvatarViewProps = {
 			avatar: avatar,
 		};
 
