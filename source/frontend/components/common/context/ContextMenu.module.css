@@ -1,0 +1,15 @@
+.contextMenu {
+	position: absolute;
+	z-index: 100;
+	background-color: var(--background);
+	border: var(--border-light);
+	border-radius: var(--border-rounding-small);
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+}
