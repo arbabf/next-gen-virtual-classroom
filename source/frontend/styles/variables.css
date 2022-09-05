@@ -55,6 +55,12 @@
 	--table-background-current: white;
 	--table-border: var(--border-medium);
 	--table-border-current: 2px solid var(--accent);
+
+	--avatar-border-color: var(--gray-200);
+	--avatar-border: 2px solid var(--avatar-border-color);
+	--avatar-speaking-color: var(--green-500);
+	--avatar-badge-color: var(--accent);
+	--avatar-activity-badge-color: var(--avatar-speaking-color);
 }
 
 /* Dark theme switch */
@@ -76,6 +82,8 @@
 
 		--table-background: var(--gray-800);
 		--table-background-current: var(--gray-700);
+
+		--avatar-border-color: var(--gray-700);
 	}
 }
 

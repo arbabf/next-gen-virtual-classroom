@@ -14,4 +14,11 @@
 	--max-content-width: 900px;
 
 	--mobile-mode-max-width: 768px;
+
+	--avatar-height: 100px;
+	--avatar-width: 160px;
+	--avatar-frame-radius: 0.5em;
+	--avatar-stage-height: 40px;
+	--avatar-stage-width: var(--avatar-height);
+	--avatar-stage-radius: 100%;
 }

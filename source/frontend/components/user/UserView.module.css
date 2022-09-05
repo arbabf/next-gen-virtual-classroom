@@ -1,0 +1,18 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
+.name {
+	font-weight: 500;
+}
+
+.frame {
+	min-height: var(--avatar-height);
+	min-width: var(--avatar-width);
+	overflow: hidden;
+	position: relative;
+}

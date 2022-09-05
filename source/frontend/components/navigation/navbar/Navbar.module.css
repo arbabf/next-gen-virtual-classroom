@@ -40,6 +40,12 @@
 	border-color: transparent;
 	border-width: 3px;
 	border-style: solid;
+
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
 }
 
 .item span {

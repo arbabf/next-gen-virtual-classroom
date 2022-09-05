@@ -1,0 +1,19 @@
+.frame {
+	box-sizing: border-box;
+	background-color: var(--blue-100);
+	border: var(--avatar-border);
+	border-radius: var(--avatar-frame-radius);
+	height: var(--avatar-height);
+	width: var(--avatar-width);
+	overflow: hidden;
+	position: relative;
+	margin: 0 auto;
+}
+
+.stage {
+	height: var(--avatar-stage-height);
+	width: var(--avatar-width);
+	background-color: var(--avatar-stage-background);
+	border-radius: var(--avatar-stage-radius);
+	border: var(--avatar-border);
+}

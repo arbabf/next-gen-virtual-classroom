@@ -2,6 +2,7 @@ import { Component, MouseEventHandler } from 'react';
 import { TableState } from '../../entities/Table';
 import Button from '../common/button/button';
 import Icon from '../common/icon/icon';
+import { UserView } from '../user/UserView';
 import styles from './Table.module.css';
 
 type TableProps = {
@@ -22,9 +23,7 @@ export class Table extends Component<TableProps> {
 			<div className={styles.table}>
 				<ul className={styles.participants}>
 					{this.props.state.participants.map((participant) => (
-						<li key={participant.id}>
-							<Icon iconName="person" size="4em" />
-						</li>
+						<UserView key={participant.id} user={participant} />
 					))}
 					<Button onClick={this.props.toggleEditor} unfilled>
 						<Icon iconName="edit" size="1.5em" />
