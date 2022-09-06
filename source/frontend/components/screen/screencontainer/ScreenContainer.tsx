@@ -5,12 +5,27 @@
  */
 
 import { Component } from 'react';
+import styles from './ScreenContainer.module.css';
 import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
-import Icon from '../../common/icon/icon';
 import Panel from '../panel/panel';
+import Icon from '../../common/icon/icon';
 import { ScreenEditor } from '../ScreenEditor';
-import styles from './ScreenContainer.module.css';
+import * as mediasoupClient from 'mediasoup-client';
+import { UnsupportedError } from 'mediasoup-client/lib/errors';
+
+let device;
+
+try {
+	device = new mediasoupClient.Device()
+}
+catch (error: any) {
+	if (error.name === 'UnsupportedError'){
+		console.warn("Your browser is not supported.");
+	}
+}
+
+console.log(device?.loaded)
 
 /**
  * Screen container props.
