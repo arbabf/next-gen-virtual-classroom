@@ -1,12 +1,13 @@
-import { Component } from 'react';
+import { Component, MouseEventHandler } from 'react';
 import React from 'react';
 import styles from './TableContainer.module.css';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
 import { TableState } from '../../entities/Table';
-import { testTableState } from '../../entities/TestEntities';
+import { testTableState, testUserList } from '../../entities/TestEntities';
 import { Table } from './Table';
+import { User } from '../../entities/User';
 
 /**
  * Table Container props.
@@ -15,6 +16,7 @@ import { Table } from './Table';
 type TableContainerProps = {
 	showEditor?: boolean;
 	tables: TableState[];
+	editTableCallback: Function;
 };
 
 type TableContainerState = {
@@ -33,31 +35,6 @@ type TableContainerState = {
 	 */
 	activeTable: TableState;
 };
-
-export const TableEditor = ({ show = false, currentTable = testTableState }) => (
-	<div className={show ? '' : styles.hidden}>
-		<Card>
-			<h1>Edit participants</h1>
-
-			<ul>
-				{currentTable.participants.map((participant, index) => (
-					<li key={participant.id}>
-						<span>{participant.name}</span>
-						<Button>
-							<span>Remove</span>
-						</Button>
-					</li>
-				))}
-			</ul>
-
-			<ButtonSet>
-				<Button>
-					<span>Add participants</span>
-				</Button>
-			</ButtonSet>
-		</Card>
-	</div>
-);
 
 export class TableContainer extends Component<TableContainerProps, TableContainerState> {
 	constructor(props: TableContainerProps) {
@@ -82,8 +59,44 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 					/>
 				))}
 
-				<TableEditor show={this.state.showEditor} currentTable={testTableState}></TableEditor>
+				<div className={this.state.showEditor ? '' : styles.hidden}>
+					<Card>
+						<h1>Edit participants</h1>
+
+						<ul>
+							{this.state.activeTable.participants.map((participant, index) => (
+								<li key={participant.id}>
+									<span>{participant.name}</span>
+									<Button onClick={() => this.removeUser(participant, this.state.activeTable)}>
+										<span>Remove</span>
+									</Button>
+								</li>
+							))}
+						</ul>
+
+						<ButtonSet>
+							<Button onClick={() => this.addTestUsers(this.state.activeTable)}>
+								<span>Add participants</span>
+							</Button>
+						</ButtonSet>
+					</Card>
+				</div>
+
 			</div>
 		);
+	}
+
+	addTestUsers(table: TableState) {
+		let newTable = table;
+		newTable.participants = table.participants.concat(new User("Added user"));
+
+		this.props.editTableCallback(newTable);
+	}
+
+	removeUser(target: User, table: TableState) {
+		let newTable = table;
+		newTable.participants = table.participants.filter(participant => participant.id !== target.id);
+
+		this.props.editTableCallback(newTable);
 	}
 }
