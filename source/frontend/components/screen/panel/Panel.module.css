@@ -1,6 +1,7 @@
 .screen {
 	background-color: var(--background);
-	width: 400px; /* Honestly it'd be more sane to use browser width/height, but if the user has to change their window size to something weird
+	width: 400px;
+	/* Honestly it'd be more sane to use browser width/height, but if the user has to change their window size to something weird
                     then the preview would also get weird. Defaults to 16:9 ratio. */
 	height: 225px;
 	margin: 0.5em;
@@ -18,19 +19,11 @@
 	left: 0;
 }
 
-.screen[media='true'] {
+.mediaOn {
 	background-image: url('../../../public/favicon.ico');
 	background-color: black;
 }
 
-.expandedscreen[media='true'] {
-	background-image: url('../../../public/favicon.ico');
-	background-color: black;
-}
-
-.screen[expandable='true']:hover {
-	cursor: pointer;
-}
-.expandedscreen[expandable='true']:hover {
+.expandable:hover {
 	cursor: pointer;
 }

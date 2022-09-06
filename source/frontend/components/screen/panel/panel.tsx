@@ -37,15 +37,18 @@ class Panel extends Component<PanelProps, PanelState> {
 	};
 
 	render() {
+		let classes = styles.screen;
+
+		if (this.state.expanded) classes += " " + styles.expandedscreen;
+		if (this.props.media) classes += " " + styles.mediaOn;
+		if (this.props.expandable) classes += " " + styles.expandable;
+
 		return (
 			<div
 				className={
-					styles.screen +
-					' ' +
-					(this.state.expanded === false ? styles.screen : styles.expandedscreen)
+					classes
 				}
 				onClick={this.props.expandable === true ? this.expandScreen : undefined}
-				media={this.props.media.toString()}
 			>
 				{this.props.label}
 			</div>
