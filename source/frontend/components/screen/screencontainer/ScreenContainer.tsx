@@ -5,13 +5,12 @@
  */
 
 import { Component } from 'react';
-import styles from './ScreenContainer.module.css';
 import Button from '../../common/button/button';
 import ButtonSet from '../../common/buttonset/buttonset';
-import Card from '../../common/card/card';
-import Panel from '../panel/panel';
 import Icon from '../../common/icon/icon';
+import Panel from '../panel/panel';
 import { ScreenEditor } from '../ScreenEditor';
+import styles from './ScreenContainer.module.css';
 
 /**
  * Screen container props.

@@ -1,13 +1,12 @@
-import { Component, MouseEventHandler } from 'react';
-import React from 'react';
-import styles from './TableContainer.module.css';
+import { Component } from 'react';
+import { TableState } from '../../entities/Table';
+import { testTableState } from '../../entities/TestEntities';
+import { User } from '../../entities/User';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
-import { TableState } from '../../entities/Table';
-import { testTableState, testUserList } from '../../entities/TestEntities';
 import { Table } from './Table';
-import { User } from '../../entities/User';
+import styles from './TableContainer.module.css';
 
 /**
  * Table Container props.

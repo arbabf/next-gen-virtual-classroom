@@ -1,5 +1,4 @@
 import { Component, MouseEventHandler, PropsWithChildren } from 'react';
-import Icon from '../icon/icon';
 import styles from './Button.module.css';
 
 /**

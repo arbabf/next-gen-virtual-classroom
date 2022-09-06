@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import Card from '../common/card/card';
 import { ChatMessage as Message } from '../../entities/chat/ChatMessage';
+import Card from '../common/card/card';
 
 type ChatDisplayProps = {
 	messages: Message[];

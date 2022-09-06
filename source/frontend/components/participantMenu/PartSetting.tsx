@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import Button from '../common/button/button';
-import Card from '../common/card/card';
 
 export default class AppSettings extends Component {
 	render() {

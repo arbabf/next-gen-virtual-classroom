@@ -2,7 +2,6 @@ import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
 import { TableState } from '../../entities/Table';
 import { User } from '../../entities/User';
-import { RoomStateAPI } from '../../lib/RoomAPI';
 import ChatUI from '../chat/ChatUI';
 import Icon from '../common/icon/icon';
 import Modal from '../common/modal/Modal';
@@ -127,12 +126,6 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	 * Fetches the current room state from appropriate servers and middleware.
 	 */
 	private fetchState() {
-		// // establish static state for tables
-		// let staticTables = this.props.room.layout.tables.map((table) => new TableState(table));
-		// this.setState({ tables: staticTables });
 
-		// // make fetches
-		// this.fetchParticipants();
-		// this.fetchTables();
 	}
 }

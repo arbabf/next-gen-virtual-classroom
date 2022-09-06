@@ -1,5 +1,5 @@
-import { Component, CSSProperties } from 'react';
 import Image from 'next/image';
+import { Component, CSSProperties } from 'react';
 import styles from './Icon.module.css';
 
 /**
