@@ -5,7 +5,6 @@
  */
 
 import { Component } from 'react';
-import React from 'react';
 import styles from './Panel.module.css';
 
 /**
@@ -46,10 +45,7 @@ class Panel extends Component<PanelProps, PanelState> {
 					(this.state.expanded === false ? styles.screen : styles.expandedscreen)
 				}
 				onClick={this.props.expandable === true ? this.expandScreen : undefined}
-				media={this.props.media.toString()} // State doesn't work here. Why? I don't know. But we're going to use props anyway.
-				expandable={
-					this.props.expandable === undefined ? 'false' : this.props.expandable.toString()
-				}
+				media={this.props.media.toString()}
 			>
 				{this.props.label}
 			</div>

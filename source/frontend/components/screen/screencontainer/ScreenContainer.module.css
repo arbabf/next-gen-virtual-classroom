@@ -7,6 +7,10 @@
 	background-color: var(--screen-inactive);
 }
 
+.container>div {
+	background-color: var(--screen-inactive);
+}
+
 .container[open] {
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
@@ -30,6 +34,10 @@
 }
 
 .active {
+	background-color: var(--screen-active);
+}
+
+.active>div {
 	background-color: var(--screen-active);
 }
 
