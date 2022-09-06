@@ -40,7 +40,7 @@ let testRoomTemp = new RoomInfo(
 export const testTableInfo = new TableInfo(testRoomTemp, '0');
 export const testTableState = new TableState(testTableInfo, testUserList);
 
-export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo]);
+export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo, new TableInfo(testRoomTemp), new TableInfo(testRoomTemp)]);
 
 testRoomTemp.layout = testRoomLayout;
 

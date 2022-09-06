@@ -1,5 +1,5 @@
 import { RoomInfo } from '../entities/Room';
-import { TableState } from '../entities/Table';
+import { TableInfo, TableState } from '../entities/Table';
 import { testUser, testUserList } from '../entities/TestEntities';
 import { User } from '../entities/User';
 
@@ -30,6 +30,12 @@ export class RoomStateAPI {
 		});
 	}
 
+	/**
+	 * Gets the table states for all tables
+	 * 
+	 * @param room static room data specifying the set of tables
+	 * @returns All table states for a room
+	 */
 	static async getTableStates(room: RoomInfo): Promise<TableState[]> {
 		return new Promise<TableState[]>((resolve, reject) => {
 			// make fetch
@@ -39,5 +45,22 @@ export class RoomStateAPI {
 			// resolve by mapping given room's table new table states with test users
 			resolve(room.layout.tables.map((table) => new TableState(table, testUserList)));
 		});
+	}
+
+	/**
+	 * Using table info, retrieves the live table state
+	 * 
+	 * @param table Static table data used to find respective table state
+	 * @returns Current state information about this table
+	 */
+	static async getTableState(table: TableInfo): Promise<TableState> {
+		return new Promise<TableState>((resolve, reject) => {
+			// make fetch
+
+			// check errors
+
+			// resolve if it works
+			resolve(new TableState(table, [new User("Test user"), new User("Test user")]));
+		})
 	}
 }

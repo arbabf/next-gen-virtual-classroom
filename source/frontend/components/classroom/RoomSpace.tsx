@@ -40,7 +40,7 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 		isVisible: false,
 	};
 
-	state = {
+	state: RoomSpaceState = {
 		participants: [],
 		tables: []
 	}
@@ -111,10 +111,24 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 	 * Fetches tables and updates state
 	 */
 	private fetchTables() {
-		RoomStateAPI.getTableStates(this.props.room)
-			.then((tables) => this.setState({ tables: tables }))
-			.catch((error) => {
-				alert('We ran into trouble getting the current state of tables.');
-			});
+		this.props.room.layout.tables.forEach(table => RoomStateAPI.getTableState(table)
+			.then(
+				(newTable) => {
+					let newState = this.state.tables;
+
+					let index = this.state.tables.findIndex(existing => existing.info.id === newTable.info.id);
+
+					if (index >= 0)
+						newState[index] = newTable;
+					else
+						newState = newState.concat(newTable);
+
+					this.setState({
+						tables: newState
+					})
+				}
+			)
+			.catch(error => alert(`We ran into trouble getting the live state of a table (ID: ${table.id})`))
+		);
 	}
 }
