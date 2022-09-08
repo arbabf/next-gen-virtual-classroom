@@ -1,7 +1,7 @@
 /**
  * Screen container; contains and controls a Panel (the screen) and the buttons (and other Panels) that interact with it.
  * Author: Arbab Ahmed, Group 15 [Project 5]
- * Last modified: 16/08/2022
+ * Last modified: 08/09/2022
  */
 
 import { Component } from 'react';
@@ -12,7 +12,6 @@ import Panel from '../panel/panel';
 import Icon from '../../common/icon/icon';
 import { ScreenEditor } from '../ScreenEditor';
 import * as mediasoupClient from 'mediasoup-client';
-import { UnsupportedError } from 'mediasoup-client/lib/errors';
 
 let device;
 
