@@ -8,7 +8,7 @@ export class ChatMessage {
 	timestamp: Date;
 	replies: ChatMessage[];
 
-	constructor(sender: User, body: string, id: string = uuidv4(), timestamp: Date = new Date(), replies: ChatMessage[] = []) {
+	constructor(sender: User, body: string, replies: ChatMessage[] = [], id: string = uuidv4(), timestamp: Date = new Date()) {
 		this.sender = sender;
 		this.body = body;
 		this.id = id;

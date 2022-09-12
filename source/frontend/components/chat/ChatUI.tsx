@@ -1,15 +1,21 @@
 import { Component } from 'react';
 import { ChatMessage } from '../../entities/chat/ChatMessage';
-import { testUser } from '../../entities/TestEntities';
+import { RoomInfo } from '../../entities/Room';
 import { User } from '../../entities/User';
+import { ChatAPI } from '../../lib/ChatAPI';
 import ChatDisplay from './ChatDisplay';
 import styles from './ChatUI.module.css';
 
-type chatUIProps = {
+type ChatUIProps = {
 	/**
 	 * Current user to consider
 	 */
 	user: User;
+
+	/**
+	 * room for this chat box
+	 */
+	room: RoomInfo;
 
 	/**
 	 * Whether to show this component or not
@@ -17,16 +23,19 @@ type chatUIProps = {
 	hidden?: boolean;
 };
 
-const testMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis venenatis dui, sit amet pretium libero placerat at.\nAliquam interdum nisi ac iaculis scelerisque. Maecenas tempus, nibh eget consectetur malesuada, augue tortor volutpat arcu, a finibus nisl ante a ligula.";
-
-let test = () => {
-	let result = new ChatMessage(testUser, testMessage);
-	result.reply(new ChatMessage(testUser, testMessage));
-	result.reply(new ChatMessage(testUser, testMessage));
-	return result;
+type ChatUIState = {
+	messages: ChatMessage[];
 }
 
-export default class chatUI extends Component<chatUIProps> {
+export default class ChatUI extends Component<ChatUIProps> {
+	state: ChatUIState = {
+		messages: []
+	}
+
+	componentDidMount() {
+		this.fetchMessages();
+	}
+
 	render() {
 		let classes = styles.page;
 
@@ -38,8 +47,12 @@ export default class chatUI extends Component<chatUIProps> {
 		return (
 			<div className={classes}>
 				<h2 className={styles.header}>Chat</h2>
-				<ChatDisplay messages={[test(), test()]} />
+				<ChatDisplay messages={this.state.messages} />
 			</div>
 		);
+	}
+
+	fetchMessages() {
+		ChatAPI.getMessages(this.props.room).then((messages) => this.setState({ messages }));
 	}
 }

@@ -1,6 +1,7 @@
+import { formatDistance } from 'date-fns';
 import { Component, ReactNode } from "react";
+import ReactMarkdown from 'react-markdown';
 import { ChatMessage as ChatMessageInfo } from "../../../entities/chat/ChatMessage";
-import { format, formatDistance } from 'date-fns';
 import Icon from "../../common/icon/icon";
 import ChatDisplay from "../ChatDisplay";
 import styles from "./ChatMessage.module.css";
@@ -17,6 +18,13 @@ type ChatMessageProps = {
 	depth: number;
 }
 
+/**
+ * Only allow a subset of HTML elements from markdown
+ */
+const allowedMDElements = [
+	'p', 'blockquote', 'b', 'i', 'strong', 'a', 'em', 'code', 'pre', 'br', 'hr', 'ul', 'ol', 'li', 'sup', 'sub', 'u', 'strike'
+]
+
 export class ChatMessage extends Component<ChatMessageProps> {
 	render(): ReactNode {
 		let classes = "";
@@ -32,7 +40,9 @@ export class ChatMessage extends Component<ChatMessageProps> {
 				<Icon className={styles.expandIcon} iconName="expand_more" />
 			</summary>
 			<div className={styles.messageBody}>
-				{message.body}
+				<ReactMarkdown allowedElements={allowedMDElements}>
+					{message.body}
+				</ReactMarkdown>
 			</div>
 			{this.props.depth <= ChatDisplay.maxDepth && message.replies.length > 0 &&
 				<details className={styles.children}>
