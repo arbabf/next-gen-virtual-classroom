@@ -100,24 +100,8 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 
 				<RoomSpace room={this.props.room} tables={this.state.tables} />
 
-				<Modal open>
-					<h2>Temp Space</h2>
-					<p>For Participant context menu</p>
-					<p>Once Avatars exist, move this function into it.</p>
-
-					<NavbarItem
-						onClick={() => {
-							this.setState({ partMenuVis: !this.state.partMenuVis });
-						}}
-					>
-						<Icon iconName="person" />
-					</NavbarItem>
-				</Modal>
-
 				<SettingsPage user={this.props.user} hidden={!this.state.settingsVisible} />
-
-				<PartMenu user={this.props.user} hidden={!this.state.partMenuVis} />
-				<ChatUI user={this.props.user} hidden={!this.state.chatVisible} />
+				<ChatUI user={this.props.user} room={this.props.room} hidden={!this.state.chatVisible} />
 			</>
 		);
 	}
