@@ -22,9 +22,11 @@ export class TableState {
 export class TableInfo {
 	id: string;
 	room: RoomInfo;
+	state?: TableState;
 
-	constructor(room: RoomInfo, id: string = uuidv4()) {
+	constructor(room: RoomInfo, id: string = uuidv4(), tableState?: TableState) {
 		this.id = id;
 		this.room = room;
+		this.state = tableState;
 	}
 }

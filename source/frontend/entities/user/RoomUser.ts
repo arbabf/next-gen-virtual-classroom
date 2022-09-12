@@ -1,4 +1,4 @@
-import { Avatar } from "../../lib/avatar/Avatar";
+import { Avatar } from "../avatar/Avatar";
 import { Capabilities } from "../roles/Capabilities";
 import { Participant } from "../roles/Participant";
 import { Role } from "../roles/Role";

@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { User } from '../../entities/User';
+import { AvatarShape } from '../../entities/avatar/AvatarShape';
+import { AvatarView } from '../avatars/AvatarView';
 import styles from './UserView.module.css';
 
 type UserViewProps = {
@@ -11,12 +13,20 @@ type UserViewProps = {
 
 export class UserView extends Component<UserViewProps> {
 	render() {
-		// get user's avatar component
-		let component = this.props.user.avatar?.factory.createAvatarView(this.props.user.avatar);
+		let avatar = this.props.user.getPeferredAvatar();
+
+		// get user's avatar aspect ratio
+		let shape = avatar.shape;
+
+		let classes = styles.frame;
+
+		if (shape === AvatarShape.SQUARE || shape === AvatarShape.CIRCLE) classes += ' ' + styles.square;
 
 		return (
 			<div className={styles.container}>
-				<div className={styles.frame}>{component?.render()}</div>
+				<div className={classes}>
+					<AvatarView avatar={avatar} />
+				</div>
 				<span className={styles.name}>{this.props.user.name}</span>
 			</div>
 		);
