@@ -3,6 +3,10 @@ import { Avatar } from './avatar/Avatar';
 import { ImageAvatar } from './avatar/image/ImageAvatar';
 import { UserState } from './user/UserState';
 
+/**
+ * A user in our system. A user always has a name, ID, and avatar. If the user doesn't set an
+ * avatar from the start, a default image-based one is set.
+ */
 export class User {
 	/**
 	 * UUID of the user
@@ -43,6 +47,11 @@ export class User {
 		this.preferredAvatar = preferredAvatar || avatars[0].id;
 	}
 
+	/**
+	 * Gets the user's preferred avatar, which is the first avatar in their avatar list by default.
+	 * 
+	 * @returns The user's preferred avatar
+	 */
 	getPeferredAvatar(): Avatar {
 		return this.avatars.find(avatar => avatar.id === this.preferredAvatar) || this.avatars[0];
 	}

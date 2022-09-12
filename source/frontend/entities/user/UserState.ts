@@ -1,5 +1,9 @@
+import { TableInfo } from "../Table";
 import { UserAction } from "./UserAction";
 
+/**
+ * The current state of a user, such as their active actions, which table they're at, etc.
+ */
 export class UserState {
 	/**
 	 * Current actions being performed
@@ -10,6 +14,11 @@ export class UserState {
 	 * Whether the user is selected
 	 */
 	selected: boolean;
+
+	/**
+	 * Location of the current user (which table they're in)
+	 */
+	location?: TableInfo;
 
 	constructor(actions: UserAction[] = [], selected = false) {
 		this.currentActions = actions;
