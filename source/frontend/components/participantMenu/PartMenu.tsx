@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { User } from '../../entities/User';
+import Button from '../common/button/button';
 import styles from './PartMenu.module.css';
-import PartSetting from './PartSetting';
 
 type PartMenuProps = {
 	/**
@@ -25,7 +25,23 @@ export default class PartMenu extends Component<PartMenuProps> {
 
 		return (
 			<div className={classes}>
-				<PartSetting />
+				<section className={styles.section}>
+					<Button unfilled>
+						<span>Direct Message</span>
+					</Button>
+
+					<Button unfilled>
+						<span>Add Friend</span>
+					</Button>
+
+					<Button unfilled>
+						<span>Invite To Table</span>
+					</Button>
+
+					<Button unfilled>
+						<span>See Profile</span>
+					</Button>
+				</section>
 			</div>
 		);
 	}

@@ -1,7 +1,8 @@
-import { Component } from 'react';
-import { User } from '../../entities/User';
+import { Component, MouseEvent } from 'react';
 import { AvatarShape } from '../../entities/avatar/AvatarShape';
+import { User } from '../../entities/User';
 import { AvatarView } from '../avatars/AvatarView';
+import PartMenu from '../participantMenu/PartMenu';
 import styles from './UserView.module.css';
 
 type UserViewProps = {
@@ -11,7 +12,21 @@ type UserViewProps = {
 	user: User;
 };
 
-export class UserView extends Component<UserViewProps> {
+type UserViewState = {
+	/**
+	 * Whether to show the user context menu
+	 */
+	showContextMenu: boolean;
+}
+
+/**
+ * Displays a user on the page along with their name and avatar.
+ */
+export class UserView extends Component<UserViewProps, UserViewState> {
+	state: UserViewState = {
+		showContextMenu: false
+	}
+
 	render() {
 		let avatar = this.props.user.getPeferredAvatar();
 
@@ -24,11 +39,17 @@ export class UserView extends Component<UserViewProps> {
 
 		return (
 			<div className={styles.container}>
-				<div className={classes}>
+				<div className={classes} onClick={(e) => this.onUserClick(e)}>
 					<AvatarView avatar={avatar} />
 				</div>
 				<span className={styles.name}>{this.props.user.name}</span>
+				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
 			</div>
 		);
+
+	}
+
+	onUserClick(event: MouseEvent) {
+		this.setState({ showContextMenu: !this.state.showContextMenu });
 	}
 }
