@@ -4,11 +4,19 @@ import { v4 as uuidv4 } from 'uuid';
 export class ChatMessage {
 	id: string;
 	sender: User;
-	message: string;
+	body: string;
+	timestamp: Date;
+	replies: ChatMessage[];
 
-	constructor(sender: User, message: string, id: string = uuidv4()) {
+	constructor(sender: User, body: string, id: string = uuidv4(), timestamp: Date = new Date(), replies: ChatMessage[] = []) {
 		this.sender = sender;
-		this.message = message;
+		this.body = body;
 		this.id = id;
+		this.timestamp = timestamp;
+		this.replies = replies;
+	}
+
+	reply(message: ChatMessage) {
+		this.replies.push(message);
 	}
 }

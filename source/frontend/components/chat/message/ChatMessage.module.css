@@ -1,0 +1,68 @@
+.message {
+	border-left: solid 3px var(--gray-300);
+	padding: var(--spacing-xxs) 0;
+	padding-left: var(--spacing-xs);
+	margin: var(--spacing-s) 0;
+}
+
+.message[open] {
+	border-left-color: var(--link-color);
+}
+
+.message[open]>.byline>.expandIcon {
+	rotate: 180deg;
+}
+
+.byline {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-xs);
+	align-items: center;
+	cursor: pointer;
+}
+
+.author {
+	font-size: var(--text-xs);
+	font-weight: bold;
+}
+
+.time {
+	font-size: var(--text-xs);
+	color: var(--gray-500);
+}
+
+.expandIcon {
+	margin-left: auto;
+}
+
+.messageBody {
+	margin-top: var(--spacing-xs);
+}
+
+.children>.showHideReplies>.expandIcon {
+	margin: 0;
+}
+
+.children[open]>.showHideReplies>.expandIcon {
+	rotate: 180deg;
+}
+
+.showHideReplies {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	gap: var(--spacing-xs);
+	color: var(--link-color);
+	margin-top: var(--spacing-xs);
+}
+
+.repliesCount {
+	font-size: var(--text-xs);
+}
+
+@media (prefers-color-scheme: dark) {
+	.message {
+		border-left-color: var(--gray-700);
+	}
+}

@@ -17,6 +17,15 @@ type chatUIProps = {
 	hidden?: boolean;
 };
 
+const testMessage = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis facilisis venenatis dui, sit amet pretium libero placerat at.\nAliquam interdum nisi ac iaculis scelerisque. Maecenas tempus, nibh eget consectetur malesuada, augue tortor volutpat arcu, a finibus nisl ante a ligula.";
+
+let test = () => {
+	let result = new ChatMessage(testUser, testMessage);
+	result.reply(new ChatMessage(testUser, testMessage));
+	result.reply(new ChatMessage(testUser, testMessage));
+	return result;
+}
+
 export default class chatUI extends Component<chatUIProps> {
 	render() {
 		let classes = styles.page;
@@ -25,10 +34,11 @@ export default class chatUI extends Component<chatUIProps> {
 			classes += ' ' + styles.hidden;
 		}
 
+
 		return (
 			<div className={classes}>
-				<h2>Chat</h2>
-				<ChatDisplay messages={[new ChatMessage(testUser, 'Hello')]} />
+				<h2 className={styles.header}>Chat</h2>
+				<ChatDisplay messages={[test(), test()]} />
 			</div>
 		);
 	}

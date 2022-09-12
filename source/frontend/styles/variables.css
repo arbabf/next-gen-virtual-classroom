@@ -19,6 +19,7 @@
 	--padding: var(--vertical-padding) var(--horizontal-padding);
 	--padding-s: var(--spacing-s);
 	--padding-xs: var(--spacing-xs);
+	--padding-xs: var(--spacing-xxs);
 	--text-padding: var(--vertical-text-padding) var(--horizontal-text-padding);
 
 	--navbar-text-padding: var(--spacing-s);
@@ -61,6 +62,8 @@
 	--avatar-speaking-color: var(--green-500);
 	--avatar-badge-color: var(--accent);
 	--avatar-activity-badge-color: var(--avatar-speaking-color);
+
+	--chat-max-width: 400px;
 }
 
 /* Dark theme switch */
@@ -107,4 +110,5 @@
 /* Style settings, such as wide UI, etc. */
 body.wide {
 	--max-width: none;
+	--chat-max-width: 800px;
 }

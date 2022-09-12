@@ -4,21 +4,24 @@
 	--spacing-m: 2em;
 	--spacing-s: 1em;
 	--spacing-xs: 0.5em;
+	--spacing-xxs: 0.25em;
 
 	--text-l: 4em;
 	--text-m: 2em;
 	--text-s: 1em;
-	--text-xs: 0.75em;
-	--text-xxs: 0.5em;
+	--text-xs: 0.9em;
+	--text-xxs: 0.75em;
 
 	--max-content-width: 900px;
 
 	--mobile-mode-max-width: 768px;
 
-	--avatar-height: 100px;
-	--avatar-width: 160px;
+	--avatar-height: 80px;
+	--avatar-width: 120px;
 	--avatar-frame-radius: 0.5em;
 	--avatar-stage-height: 40px;
 	--avatar-stage-width: var(--avatar-height);
 	--avatar-stage-radius: 100%;
+
+	--chat-max-width: 400px;
 }

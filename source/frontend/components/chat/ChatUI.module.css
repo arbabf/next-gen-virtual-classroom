@@ -1,18 +1,26 @@
 .page {
-	position: fixed;
+	position: absolute;
 	background: var(--background);
 	border-radius: var(--border-rounding);
 	border: var(--border-medium);
-	padding: var(--text-padding);
+	padding: var(--padding-s);
 	top: var(--spacing-m);
 	right: var(--spacing-s);
 	margin: var(--page-spacing) auto;
-	height: 600px;
-	width: 200px;
+	height: calc(100vh - 72px);
+	width: calc(100vw - 32px);
+	max-width: var(--chat-max-width);
+	box-sizing: border-box;
+	overflow-y: scroll;
 }
 
 .hidden {
 	display: none;
+}
+
+.header {
+	margin-left: var(--spacing-xxs);
+	margin-top: var(--spacing-xs);
 }
 
 @media only screen and (max-width: 768px) {
