@@ -26,6 +26,11 @@ type IconProps = {
 	 * Alt text if the image can't load or the user uses a screen reader
 	 */
 	altText?: string;
+
+	/**
+	 * Additional classes
+	 */
+	className?: string;
 };
 
 /**
@@ -52,12 +57,17 @@ class Icon extends Component<IconProps> {
 			fontSize: size,
 		};
 
+		let classes = "";
+
+		if (this.props.className) classes += this.props.className;
+		if (this.props.iconName) classes += " " + styles.named;
+
 		if (this.props.imageSrc) {
-			return <Image src={this.props.imageSrc} height={size} width={size} alt={altText} />;
+			return <Image className={classes} src={this.props.imageSrc} height={size} width={size} alt={altText} />;
 		} else if (this.props.iconName) {
 			return (
 				<span
-					className={styles.named}
+					className={classes}
 					style={this.props.size !== undefined ? iconFontStyle : undefined}
 				>
 					{this.props.iconName}
