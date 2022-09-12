@@ -1,0 +1,10 @@
+.roaming {
+	padding: var(--padding-s);
+	flex-grow: 1;
+}
+
+.participants {
+	display: flex;
+	flex-direction: row;
+	gap: var(--spacing-s);
+}

@@ -6,6 +6,7 @@ import { RoomStateAPI } from '../../lib/RoomAPI';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
 import { TableContainer } from '../tables/TableContainer';
+import { RoamingSpace } from './RoamingSpace';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -30,6 +31,11 @@ type RoomSpaceState = {
 	 * Tables
 	 */
 	tables: TableState[];
+
+	/**
+	 * Roaming space
+	 */
+	roamingSpace: TableState;
 }
 
 /**
@@ -42,7 +48,8 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 
 	state: RoomSpaceState = {
 		participants: [],
-		tables: []
+		tables: [],
+		roamingSpace: new TableState(this.props.room.layout.roamingSpace),
 	}
 
 	componentDidMount() {
@@ -63,6 +70,7 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 							))}
 						</ScreenSpace>
 					)}
+					<RoamingSpace state={this.state.roamingSpace} />
 					<TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} />
 				</main>
 			</>
@@ -94,6 +102,7 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 		// make fetches
 		this.fetchParticipants();
 		this.fetchTables();
+		this.fetchRoamingSpace();
 	}
 
 	/**
@@ -130,5 +139,14 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 			)
 			.catch(error => alert(`We ran into trouble getting the live state of a table (ID: ${table.id})`))
 		);
+	}
+
+	/**
+	 * Fetches roaming space and updates state
+	 */
+	private fetchRoamingSpace() {
+		RoomStateAPI.getTableState(this.props.room.layout.roamingSpace)
+			.then((newRoamingSpace) => this.setState({ roamingSpace: newRoamingSpace }))
+			.catch(error => alert(`We ran into trouble getting the live state of the roaming space`));
 	}
 }

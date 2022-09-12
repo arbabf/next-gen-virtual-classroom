@@ -7,9 +7,11 @@ import { ScreenInfo } from '../screens/ScreenInfo';
 export class RoomLayout {
 	screens: ScreenInfo[];
 	tables: TableInfo[];
+	roamingSpace: TableInfo;
 
-	constructor(screens: ScreenInfo[] = [], tables: TableInfo[] = []) {
+	constructor(screens: ScreenInfo[] = [], tables: TableInfo[] = [], roamingSpace: TableInfo = new TableInfo()) {
 		this.screens = screens;
 		this.tables = tables;
+		this.roamingSpace = roamingSpace;
 	}
 }

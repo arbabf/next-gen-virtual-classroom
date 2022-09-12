@@ -22,4 +22,7 @@
 
 .space {
 	padding: var(--spacing-s);
+	display: flex;
+	height: 100%;
+	flex-direction: column;
 }

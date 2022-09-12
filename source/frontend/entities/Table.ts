@@ -21,12 +21,12 @@ export class TableState {
  */
 export class TableInfo {
 	id: string;
-	room: RoomInfo;
+	roaming: boolean;
 	state?: TableState;
 
-	constructor(room: RoomInfo, id: string = uuidv4(), tableState?: TableState) {
+	constructor(id: string = uuidv4(), tableState?: TableState, roaming = false) {
 		this.id = id;
-		this.room = room;
 		this.state = tableState;
+		this.roaming = roaming;
 	}
 }

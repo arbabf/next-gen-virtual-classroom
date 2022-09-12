@@ -37,10 +37,10 @@ let testRoomTemp = new RoomInfo(
 	'0'
 );
 
-export const testTableInfo = new TableInfo(testRoomTemp, '0');
+export const testTableInfo = new TableInfo();
 export const testTableState = new TableState(testTableInfo, testUserList);
 
-export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo, new TableInfo(testRoomTemp), new TableInfo(testRoomTemp)]);
+export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo, new TableInfo(), new TableInfo()]);
 
 testRoomTemp.layout = testRoomLayout;
 
