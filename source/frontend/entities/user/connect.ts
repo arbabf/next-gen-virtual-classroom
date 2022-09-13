@@ -1,6 +1,13 @@
 import mediasoup from 'mediasoup-client';
-const { v4: uuidV4 } = require('uuid');
+import {v4} from 'uuid';
 
+let bntSub;
+let bntCam;
+let bntScreen;
+let btnPause;
+let chatMsg;
+let sendChatBtn;
+let chatDisp;
 let textPublish;
 let textWebcam;
 let textScreen;
@@ -15,7 +22,7 @@ let producerPaused = false;
 let consumeTransport;
 let consumerTemp;
 let userId;
-let isWebcam: boolean;
+let isWebcam;
 let produceCallback, produceErrback;
 let consumerCallback, ConsumerErrback;
 const websocketURL = 'ws://localhost:8002/ws';
@@ -27,11 +34,47 @@ let streams = {};
 let callbacks = {};
 let transportCallbacks = {};
 
-let roomId: string;
-let clientId: string;
+let roomId;
+let clientId;
 let producerId_global;
 
 let socket;
+
+document.addEventListener("DOMContentLoaded", function() {
+    bntCam = document.getElementById('btn_webcam');
+    bntScreen = document.getElementById('btn_screen');
+    bntSub = document.getElementById('btn_subscribe');
+    bntMute = document.getElementById('btn_mute');
+    textWebcam = document.getElementById('webcam_status');
+    textScreen = document.getElementById('screen_status');
+    textSubscribe = document.getElementById('subscribe_status');
+    textMute = document.getElementById('mute_status');
+    localVideo = document.getElementById('localVideo');
+    remoteVideo = document.getElementById('remoteVideo');
+    //chat button input and display
+    sendChatBtn =  document.getElementById('send_chat');
+    chatMsg = document.getElementById('messageBox');
+    chatDisp = document.getElementById('messages');
+
+    //button event listeners
+    bntCam.addEventListener('click', publish);
+    bntScreen.addEventListener('click', publish);
+    bntSub.addEventListener('click', getAllProducers);
+    // bntMute.addEventListener('click', test);
+
+    
+    bntCreateRoom = document.getElementById("btn_createRoom")
+    bntJoinRoom = document.getElementById("btn_joinRoom")
+    btnLeaveRoom = document.getElementById("btn_leaveRoom")
+    bntSubmit = document.getElementById("btn_submit")
+    chatContent = document.getElementById("chatContent")
+
+    //button event listeners
+    bntCreateRoom.addEventListener('click', createRoom);
+    bntJoinRoom.addEventListener('click', joinRoom);
+    bntSubmit.addEventListener("click", submitMessage)
+    btnLeaveRoom.addEventListener("click", leaveRoom)
+});
 
 const connect = () => {
     socket = new WebSocket(websocketURL);
@@ -527,8 +570,13 @@ const getUserMedias = async (transport, isWebcam) => {
     return stream;
 }
 
-async function getScreenShareWithMicrophone (){
+async function getScreenShareWithMicrophone(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
     const audio = await navigator.mediaDevices.getUserMedia({audio: true});
     return new MediaStream([audio.getTracks()[0], stream.getTracks()[0] ]);
 }
+
+// We'll be needing these, probably.
+// Remove as required.
+export { connect, onSubConnected, onProducerTransportCreated, onRouterCapbabilities, onConsumerTransportCreated, subTransportListen, 
+        consume, getAllProducers, subscribe, onSubscribed, publish, IsJsonString, loadDevice, getUserMedias, getScreenShareWithMicrophone }
