@@ -11,20 +11,6 @@ import ButtonSet from '../../common/buttonset/buttonset';
 import Panel from '../panel/panel';
 import Icon from '../../common/icon/icon';
 import { ScreenEditor } from '../ScreenEditor';
-import * as mediasoupClient from 'mediasoup-client';
-
-let device;
-
-try {
-	device = new mediasoupClient.Device()
-}
-catch (error: any) {
-	if (error.name === 'UnsupportedError'){
-		console.warn("Your browser is not supported.");
-	}
-}
-
-console.log(device?.loaded)
 
 /**
  * Screen container props.
