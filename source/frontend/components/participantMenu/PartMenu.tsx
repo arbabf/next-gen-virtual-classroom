@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import Button from '../common/button/button';
 import styles from './PartMenu.module.css';
 
@@ -7,7 +7,7 @@ type PartMenuProps = {
 	/**
 	 * Current user to consider
 	 */
-	user: User;
+	user: RoomUser;
 
 	/**
 	 * Whether to show this component or not

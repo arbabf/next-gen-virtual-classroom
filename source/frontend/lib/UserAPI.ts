@@ -1,4 +1,5 @@
-import { RoomInfo, testRoom } from '../entities/Room';
+import { RoomInfo } from '../entities/Room';
+import { testRoom } from '../entities/TestEntities';
 import { User } from '../entities/User';
 
 export class UserAPI {

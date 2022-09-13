@@ -4,7 +4,7 @@ import { UserAction } from "./UserAction";
 /**
  * The current state of a user, such as their active actions, which table they're at, etc.
  */
-export class UserState {
+export class RoomUserState {
 	/**
 	 * Current actions being performed
 	 */

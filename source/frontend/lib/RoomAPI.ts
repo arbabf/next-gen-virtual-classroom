@@ -1,7 +1,10 @@
+import { Host } from '../entities/roles/Host';
 import { RoomInfo } from '../entities/Room';
 import { TableInfo, TableState } from '../entities/Table';
 import { testUser, testUserList } from '../entities/TestEntities';
 import { User } from '../entities/User';
+import { RoomUser } from '../entities/user/RoomUser';
+import { RoomUserState } from '../entities/user/RoomUserState';
 
 /**
  * API integration for retrieving the current room state.
@@ -15,8 +18,8 @@ export class RoomStateAPI {
 	 * @param room The room you want to get the participant list for.
 	 * @returns An async promise which will deliver the User list.
 	 */
-	static async getParticipants(room: RoomInfo): Promise<User[]> {
-		return new Promise<User[]>((resolve, reject) => {
+	static async getParticipants(room: RoomInfo): Promise<RoomUser[]> {
+		return new Promise<RoomUser[]>((resolve, reject) => {
 			// make the fetch
 			console.log('(Test) Fetching participants for room with ID: ' + room.id);
 
@@ -26,7 +29,7 @@ export class RoomStateAPI {
 
 			// if success, resolve
 			// for testing, our list has one test user
-			resolve([testUser]);
+			resolve([new RoomUser(testUser)]);
 		});
 	}
 
@@ -62,5 +65,39 @@ export class RoomStateAPI {
 			// resolve if it works
 			resolve(new TableState(table, [new User("Test user"), new User("Test user")]));
 		})
+	}
+
+	/**
+	 * Retrieves the given user's live state in middleware.
+	 * 
+	 * @param user room user info
+	 * @returns copy of user with state
+	 */
+	static async getRoomUserState(user: RoomUser) {
+		return new Promise<RoomUser>((resolve, reject) => {
+			// fetch
+
+			//check errors
+
+			// resolve - debug data is a new host
+			let testState = new RoomUserState();
+			let resultUser = user;
+			resultUser.state = testState;
+
+			resolve(resultUser);
+		});
+	}
+}
+
+export class RoomInfoAPI {
+	static getRoomUser(user: User) {
+		return new Promise<RoomUser>((resolve, reject) => {
+			// fetch
+
+			// check errors
+
+			// resolve - debug data is a new host
+			resolve(new RoomUser(user, new Host()));
+		});
 	}
 }

@@ -1,7 +1,8 @@
+import assert from 'assert';
 import { v4 as uuidv4 } from 'uuid';
 import { Avatar } from './avatar/Avatar';
 import { ImageAvatar } from './avatar/image/ImageAvatar';
-import { UserState } from './user/UserState';
+import { RoomUserState } from './user/RoomUserState';
 
 /**
  * A user in our system. A user always has a name, ID, and avatar. If the user doesn't set an
@@ -25,6 +26,8 @@ export class User {
 
 	/**
 	 * User's saved avatar info - they can have multiple
+	 * 
+	 * We guarantee that one exists at a minimum, which is a default image-based avatar.
 	 */
 	avatars: Avatar[];
 
@@ -33,17 +36,11 @@ export class User {
 	 */
 	preferredAvatar: string;
 
-	/**
-	 * User's current state during runtime
-	 */
-	state?: UserState;
-
-	constructor(name: string, email?: string, id = uuidv4(), avatars: Avatar[] = [defaultAvatar], preferredAvatar?: string, userState?: UserState) {
+	constructor(name: string, email?: string, id = uuidv4(), avatars: Avatar[] = [defaultAvatar], preferredAvatar?: string) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.avatars = avatars;
-		this.state = userState;
 		this.preferredAvatar = preferredAvatar || avatars[0].id;
 	}
 
@@ -53,6 +50,7 @@ export class User {
 	 * @returns The user's preferred avatar
 	 */
 	getPeferredAvatar(): Avatar {
+		assert(this.avatars.length > 0, 'User must have at least one avatar');
 		return this.avatars.find(avatar => avatar.id === this.preferredAvatar) || this.avatars[0];
 	}
 }

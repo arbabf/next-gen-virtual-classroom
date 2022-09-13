@@ -1,6 +1,6 @@
 import { Component, MouseEvent } from 'react';
 import { AvatarShape } from '../../entities/avatar/AvatarShape';
-import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import { AvatarView } from '../avatars/AvatarView';
 import PartMenu from '../participantMenu/PartMenu';
 import styles from './UserView.module.css';
@@ -9,7 +9,7 @@ type UserViewProps = {
 	/**
 	 * User for this avatar
 	 */
-	user: User;
+	user: RoomUser;
 };
 
 type UserViewState = {
@@ -28,7 +28,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 	}
 
 	render() {
-		let avatar = this.props.user.getPeferredAvatar();
+		let avatar = this.props.user.getAvatar();
 
 		// get user's avatar aspect ratio
 		let shape = avatar.shape;

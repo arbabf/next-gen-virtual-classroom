@@ -2,6 +2,7 @@ import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
 import { TableState } from '../../entities/Table';
 import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import { RoomStateAPI } from '../../lib/RoomAPI';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
@@ -16,16 +17,16 @@ type RoomSpaceProps = {
 	room: RoomInfo;
 
 	/**
-	 * Table states
+	 * Logged in user
 	 */
-	tables: TableState[];
+	currentUser: RoomUser;
 };
 
 type RoomSpaceState = {
 	/**
 	 * Participants
 	 */
-	participants: User[];
+	participants: RoomUser[];
 
 	/**
 	 * Tables

@@ -1,14 +1,13 @@
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
-import { TableState } from '../../entities/Table';
 import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
+import { RoomInfoAPI } from '../../lib/RoomAPI';
 import ChatUI from '../chat/ChatUI';
 import Icon from '../common/icon/icon';
-import Modal from '../common/modal/Modal';
 import Navbar from '../navigation/navbar/navbar';
 import NavbarHeader from '../navigation/navbar/NavbarHeader';
 import NavbarItem from '../navigation/navbar/NavbarItem';
-import PartMenu from '../participantMenu/PartMenu';
 import SettingsPage from '../settings/SettingsPage';
 import RoomSpace from './RoomSpace';
 
@@ -29,16 +28,6 @@ type RoomViewProps = {
  */
 type RoomViewState = {
 	/**
-	 * Who is in the room
-	 */
-	participants: User[];
-
-	/**
-	 * State of tables
-	 */
-	tables: TableState[];
-
-	/**
 	 * Whether the chat is visible
 	 */
 	chatVisible: boolean;
@@ -50,23 +39,25 @@ type RoomViewState = {
 
 	//whether show partMenu or not
 	partMenuVis: boolean;
+
+	/**
+	 * Current room's specific user info
+	 */
+	roomUser: RoomUser;
 };
 
 /**
  * Views a room. Main view of the overall app.
  */
 export default class RoomView extends Component<RoomViewProps, RoomViewState> {
-	state = {
-		participants: [],
-		tables: [],
+	state: RoomViewState = {
 		chatVisible: false,
 		settingsVisible: false,
 		partMenuVis: false,
-		screenState: { screenOn: true },
+		roomUser: new RoomUser(this.props.user),
 	};
 
 	componentDidMount() {
-		console.log('doing fetch');
 		this.fetchState();
 	}
 
@@ -98,7 +89,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					</NavbarItem>
 				</Navbar>
 
-				<RoomSpace room={this.props.room} tables={this.state.tables} />
+				<RoomSpace room={this.props.room} currentUser={this.state.roomUser} />
 
 				<SettingsPage user={this.props.user} hidden={!this.state.settingsVisible} />
 				<ChatUI user={this.props.user} room={this.props.room} hidden={!this.state.chatVisible} />
@@ -110,6 +101,15 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	 * Fetches the current room state from appropriate servers and middleware.
 	 */
 	private fetchState() {
+		this.getCurrentRoomUser();
+	}
 
+	/**
+	 * Gets live user info for this room
+	 */
+	private getCurrentRoomUser() {
+		RoomInfoAPI.getRoomUser(this.props.user).then((roomUser) => {
+			this.setState({ roomUser });
+		});
 	}
 }
