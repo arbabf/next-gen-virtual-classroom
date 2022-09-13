@@ -20,7 +20,7 @@ export class RoamingSpace extends Component<RoamingSpaceProps> {
 		return <div className={styles.roaming}>
 			<div className={styles.participants}>
 				{this.props.state.participants.map((participant) =>
-					<UserView key={participant.id} user={participant} />
+					<UserView key={participant.user.id} user={participant} />
 				)}
 			</div>
 		</div>

@@ -6,6 +6,7 @@ import { RoomLayout } from './roomdata/RoomLayout';
 import { ScreenInfo } from './screens/ScreenInfo';
 import { TableInfo, TableState } from './Table';
 import { User } from './User';
+import { RoomUser } from './user/RoomUser';
 
 export const testScreenInfo = new ScreenInfo('Test Screen', '0');
 
@@ -20,6 +21,7 @@ export const testUser2 = new User('Will Smith', 'john@example.com', '1');
 export const testUser3 = new User('Kelvin Smith', 'kelvin@example.com', '2');
 
 export const testUserList = [testUser, testUser2, testUser3];
+export const testRoomUserList = testUserList.map((user) => new RoomUser(user));
 
 // dependent test entities
 export const testFolder = new Folder([], 'Test Folder');
@@ -38,7 +40,7 @@ let testRoomTemp = new RoomInfo(
 );
 
 export const testTableInfo = new TableInfo();
-export const testTableState = new TableState(testTableInfo, testUserList);
+export const testTableState = new TableState(testTableInfo, testRoomUserList);
 
 export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [testTableInfo, new TableInfo(), new TableInfo()]);
 

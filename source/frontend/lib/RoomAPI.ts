@@ -1,7 +1,7 @@
 import { Host } from '../entities/roles/Host';
 import { RoomInfo } from '../entities/Room';
 import { TableInfo, TableState } from '../entities/Table';
-import { testUser, testUserList } from '../entities/TestEntities';
+import { testRoomUserList, testUser, testUserList } from '../entities/TestEntities';
 import { User } from '../entities/User';
 import { RoomUser } from '../entities/user/RoomUser';
 import { RoomUserState } from '../entities/user/RoomUserState';
@@ -46,7 +46,9 @@ export class RoomStateAPI {
 			// check errors
 
 			// resolve by mapping given room's table new table states with test users
-			resolve(room.layout.tables.map((table) => new TableState(table, testUserList)));
+
+
+			resolve(room.layout.tables.map((table) => new TableState(table, testRoomUserList)));
 		});
 	}
 
@@ -63,7 +65,10 @@ export class RoomStateAPI {
 			// check errors
 
 			// resolve if it works
-			resolve(new TableState(table, [new User("Test user"), new User("Test user")]));
+			let testUsers = [new User("Test user"), new User("Test user")]
+			let testRoomUsers = testUsers.map((user) => new RoomUser(user));
+
+			resolve(new TableState(table, testRoomUsers));
 		})
 	}
 

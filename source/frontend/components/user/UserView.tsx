@@ -1,3 +1,4 @@
+import assert from 'assert';
 import { Component, MouseEvent } from 'react';
 import { AvatarShape } from '../../entities/avatar/AvatarShape';
 import { RoomUser } from '../../entities/user/RoomUser';
@@ -28,6 +29,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 	}
 
 	render() {
+		assert(this.props.user instanceof RoomUser);
 		let avatar = this.props.user.getAvatar();
 
 		// get user's avatar aspect ratio
@@ -42,7 +44,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 				<div className={classes} onClick={(e) => this.onUserClick(e)}>
 					<AvatarView avatar={avatar} />
 				</div>
-				<span className={styles.name}>{this.props.user.name}</span>
+				<span className={styles.name}>{this.props.user.user.name}</span>
 				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
 			</div>
 		);
