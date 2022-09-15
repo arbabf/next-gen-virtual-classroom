@@ -60,8 +60,11 @@
 	--avatar-border-color: var(--gray-200);
 	--avatar-border: 2px solid var(--avatar-border-color);
 	--avatar-speaking-color: var(--green-600);
-	--avatar-badge-color: var(--accent);
-	--avatar-activity-badge-color: var(--avatar-speaking-color);
+
+	--badge-user-color: var(--link-color);
+	--badge-action-color: var(--avatar-speaking-color);
+	--badge-alert-color: var(--red-400);
+	--badge-text-color: white;
 
 	--chat-max-width: 400px;
 }
@@ -88,6 +91,9 @@
 
 		--avatar-border-color: var(--gray-700);
 		--avatar-speaking-color: var(--green-400);
+
+		--badge-alert-color: var(--red-300);
+		--badge-text-color: black;
 	}
 }
 

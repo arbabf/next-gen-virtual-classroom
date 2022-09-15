@@ -2,7 +2,11 @@ import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
 import { TableState } from '../../entities/Table';
 import { RoomUser } from '../../entities/user/RoomUser';
+import { UserAction } from '../../entities/user/UserAction';
 import { RoomStateAPI } from '../../lib/RoomAPI';
+import { Badge } from '../common/badge/Badge';
+import { BadgeSet } from '../common/badge/BadgeSet';
+import { BadgeUserTypes, BadgeAlertTypes } from '../common/badge/BadgeTypes';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
 import { Table } from '../tables/Table';
@@ -73,6 +77,17 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 					<Table state={this.state.roamingSpace} stage />
 					<Table state={this.state.roamingSpace} roaming />
 					<TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} />
+
+					<BadgeSet>
+						<Badge type={UserAction.presenting} inSet />
+						<Badge type={BadgeUserTypes.you} inSet />
+						<Badge type={BadgeAlertTypes.muted} inSet />
+					</BadgeSet>
+					<BadgeSet>
+						<Badge type={UserAction.presenting} inSet size="large" />
+						<Badge type={BadgeUserTypes.you} inSet size="large" />
+						<Badge type={BadgeAlertTypes.muted} inSet size="large" />
+					</BadgeSet>
 				</main>
 			</>
 		);
