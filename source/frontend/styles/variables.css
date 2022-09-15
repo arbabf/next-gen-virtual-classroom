@@ -59,7 +59,7 @@
 
 	--avatar-border-color: var(--gray-200);
 	--avatar-border: 2px solid var(--avatar-border-color);
-	--avatar-speaking-color: var(--green-500);
+	--avatar-speaking-color: var(--green-600);
 	--avatar-badge-color: var(--accent);
 	--avatar-activity-badge-color: var(--avatar-speaking-color);
 
@@ -87,6 +87,7 @@
 		--table-background-current: var(--gray-700);
 
 		--avatar-border-color: var(--gray-700);
+		--avatar-speaking-color: var(--green-400);
 	}
 }
 

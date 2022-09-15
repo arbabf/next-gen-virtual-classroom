@@ -1,14 +1,30 @@
 /** Table's display **/
 .table {
-	border-radius: var(--border-rounding-large);
-	background-color: var(--table-background);
 	padding: var(--padding-s);
+	border-radius: var(--border-rounding-large);
+	box-sizing: border-box;
+}
+
+/* A normal table */
+.regular {
+	background-color: var(--table-background);
 }
 
 .participants {
-	list-style: none;
 	display: flex;
-	margin: 0;
-	padding: 0;
+	flex-direction: row;
 	gap: var(--spacing-s);
+}
+
+.roaming {
+	margin: var(--padding-s) 0;
+	border-radius: 0;
+	background-color: transparent;
+	flex-grow: 1;
+}
+
+.stage {
+	margin: var(--padding-s) 0;
+	border: var(--border-strong);
+	border-color: var(--avatar-speaking-color);
 }

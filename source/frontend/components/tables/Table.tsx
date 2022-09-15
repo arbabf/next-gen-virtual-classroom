@@ -15,20 +15,36 @@ type TableProps = {
 	 * Button function to toggle table editor
 	 */
 	toggleEditor?: MouseEventHandler;
+
+	/**
+	 * Whether this table is roaming space
+	 */
+	roaming?: boolean;
+
+	/**
+	 * Whether this table is a stage
+	 */
+	stage?: boolean;
 };
 
 export class Table extends Component<TableProps> {
 	render() {
+		let classes = styles.table;
+
+		if (this.props.roaming) classes += ` ${styles.roaming}`;
+		else if (this.props.stage) classes += ` ${styles.stage}`;
+		else classes += ` ${styles.regular}`;
+
 		return (
-			<div className={styles.table}>
-				<ul className={styles.participants}>
+			<div className={classes}>
+				<div className={styles.participants}>
 					{this.props.state.participants.map((participant) => (
 						<UserView key={participant.global.id} user={participant} />
 					))}
 					<Button onClick={this.props.toggleEditor} unfilled>
 						<Icon iconName="edit" size="1.5em" />
 					</Button>
-				</ul>
+				</div>
 			</div>
 		);
 	}

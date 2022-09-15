@@ -1,13 +1,12 @@
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
 import { TableState } from '../../entities/Table';
-import { User } from '../../entities/User';
 import { RoomUser } from '../../entities/user/RoomUser';
 import { RoomStateAPI } from '../../lib/RoomAPI';
 import ScreenContainer from '../screen/screencontainer/ScreenContainer';
 import { ScreenSpace } from '../screen/ScreenSpace';
+import { Table } from '../tables/Table';
 import { TableContainer } from '../tables/TableContainer';
-import { RoamingSpace } from './RoamingSpace';
 import styles from './RoomSpace.module.css';
 
 type RoomSpaceProps = {
@@ -71,7 +70,8 @@ export default class RoomSpace extends Component<RoomSpaceProps, RoomSpaceState>
 							))}
 						</ScreenSpace>
 					)}
-					<RoamingSpace state={this.state.roamingSpace} />
+					<Table state={this.state.roamingSpace} stage />
+					<Table state={this.state.roamingSpace} roaming />
 					<TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} />
 				</main>
 			</>
