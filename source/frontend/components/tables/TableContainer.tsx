@@ -36,12 +36,13 @@ type TableContainerState = {
 };
 
 export class TableContainer extends Component<TableContainerProps, TableContainerState> {
+	// takes props for this tableContainer and set states
 	constructor(props: TableContainerProps) {
 		super(props);
-		this.state = {
+		this.state = {	// set states
 			showEditor: this.props.showEditor || false,
-			tables: this.props.tables,
-			activeTable: this.props.tables[0] || testTableState,
+			tables: this.props.tables,	// list of tables
+			activeTable: this.props.tables[0] || testTableState,	// test table
 		};
 	}
 

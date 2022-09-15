@@ -3,6 +3,7 @@ import { RoomUser } from './user/RoomUser';
 
 /**
  * Current live state of a table, being the inclusion of users, etc.
+ * Will ask from RoomAPI the current list of tables, and put info for tables.
  */
 export class TableState {
 	info: TableInfo;
