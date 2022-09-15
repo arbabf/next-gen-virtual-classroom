@@ -12,7 +12,7 @@ export class RoomUser {
 	/**
 	 * The user's global info
 	 */
-	user: User;
+	global: User;
 
 	/**
 	 * User's room-specific avatar
@@ -35,7 +35,7 @@ export class RoomUser {
 	state?: RoomUserState;
 
 	constructor(user: User, role: Role = new Participant()) {
-		this.user = user;
+		this.global = user;
 		this.role = role;
 	}
 
@@ -55,7 +55,7 @@ export class RoomUser {
 	 * @see User.getPeferredAvatar
 	 */
 	getAvatar(): Avatar {
-		return this.avatar || this.user.getPeferredAvatar();
+		return this.avatar || this.global.getPeferredAvatar();
 	}
 
 	/**
