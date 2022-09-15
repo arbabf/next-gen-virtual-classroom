@@ -33,9 +33,9 @@
 	--border-color-medium: var(--gray-200);
 	--border-color-strong: var(--gray-300);
 
-	--border-light: 1px solid var(--border-color-light);
-	--border-medium: 2px solid var(--border-color-medium);
-	--border-strong: 3px solid var(--border-color-strong);
+	--border-light: var(--border-light-width) solid var(--border-color-light);
+	--border-medium: var(--border-medium-width) solid var(--border-color-medium);
+	--border-strong: var(--border-strong-width) solid var(--border-color-strong);
 
 	--button-fill: var(--blue-500);
 	--button-fill-disabled: var(--blue-200);

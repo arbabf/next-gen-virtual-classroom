@@ -12,6 +12,10 @@
 	--text-xs: 0.9em;
 	--text-xxs: 0.75em;
 
+	--border-light-width: 1px;
+	--border-medium-width: 2px;
+	--border-strong-width: 3px;
+
 	--max-content-width: 900px;
 
 	--mobile-mode-max-width: 768px;

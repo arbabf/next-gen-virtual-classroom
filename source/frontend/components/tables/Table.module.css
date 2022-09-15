@@ -3,6 +3,7 @@
 	padding: var(--padding-s);
 	border-radius: var(--border-rounding-large);
 	box-sizing: border-box;
+	position: relative;
 }
 
 /* A normal table */
@@ -27,4 +28,10 @@
 	margin: var(--padding-s) 0;
 	border: var(--border-strong);
 	border-color: var(--avatar-speaking-color);
+}
+
+.badge {
+	position: absolute;
+	top: calc(var(--border-strong-width) * -1);
+	left: calc(var(--border-strong-width) * -1);
 }

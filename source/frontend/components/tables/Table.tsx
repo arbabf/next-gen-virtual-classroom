@@ -1,5 +1,7 @@
 import { Component, MouseEventHandler } from 'react';
 import { TableState } from '../../entities/Table';
+import { UserAction } from '../../entities/user/UserAction';
+import { Badge } from '../common/badge/Badge';
 import Button from '../common/button/button';
 import Icon from '../common/icon/icon';
 import { UserView } from '../user/UserView';
@@ -37,6 +39,10 @@ export class Table extends Component<TableProps> {
 
 		return (
 			<div className={classes}>
+				{this.props.stage && <div className={styles.badge}>
+					<Badge type={UserAction.inDiscussion} size="medium" />
+				</div>}
+
 				<div className={styles.participants}>
 					{this.props.state.participants.map((participant) => (
 						<UserView key={participant.global.id} user={participant} />
