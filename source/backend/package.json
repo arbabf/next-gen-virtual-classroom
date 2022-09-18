@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "DEBUG=mediasoup:* ts-node src"
+    "dev": "ts-node mediashare-2021"
   },
   "dependencies": {
     "@types/express": "^4.17.13",
