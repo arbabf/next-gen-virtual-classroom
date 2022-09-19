@@ -5,6 +5,8 @@
 	justify-content: center;
 	flex-direction: column;
 	gap: var(--spacing-xs);
+
+	--square-avatar-padding: calc((var(--avatar-width) - var(--avatar-height)) / 2)
 }
 
 .name {
@@ -16,9 +18,25 @@
 	width: var(--avatar-width);
 	overflow: hidden;
 	position: relative;
+	margin: var(--spacing-xs);
 }
 
 .square {
 	width: var(--avatar-height);
-	margin: 0 calc((var(--avatar-width) - var(--avatar-height)) / 2);
+	margin: var(--spacing-xs) calc(var(--square-avatar-padding) + var(--spacing-xs));
+}
+
+.badgeSet {
+	position: absolute;
+	z-index: 2;
+}
+
+.squareBadgeSet {
+	left: var(--square-avatar-padding);
+}
+
+.badgeWrapper {
+	position: relative;
+	height: 100%;
+	width: 100%;
 }
