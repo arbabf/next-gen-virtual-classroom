@@ -38,3 +38,8 @@ header .container {
 header.warning {
 	background-color: var(--orange-100);
 }
+
+/* For hiding any element */
+.hidden {
+	display: none !important;
+}

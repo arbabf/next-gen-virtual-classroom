@@ -47,6 +47,8 @@
 	--button-inverted-disabled-fill: var(--blue-50);
 	--button-inverted-disabled-text: var(--blue-200);
 
+	--alert-color: var(--red-500);
+
 	--page-spacing: var(--vertical-padding);
 
 	--screen-active: var(--accent);
@@ -79,6 +81,8 @@
 		--link-color-hover: var(--blue-500);
 		--link-color-disabled: var(--blue-300-faded);
 		--button-fill-disabled: var(--blue-800);
+
+		--alert-color: var(--red-400);
 
 		--border-color-light: var(--gray-800);
 		--border-color-medium: var(--gray-700);
