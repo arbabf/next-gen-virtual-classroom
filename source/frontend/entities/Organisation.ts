@@ -8,9 +8,21 @@ export class Organisation {
 	name: string;
 	description?: string;
 
-	constructor(name: string, description?: string, id: string = uuidv4()) {
+	/**
+	 * Endpoint for querying the server for the list of rooms in this organisation
+	 */
+	directoryEndpoint: string;
+
+	/**
+	 * default server for rooms
+	 */
+	defaultServer: string;
+
+	constructor(name: string, directoryEndpoint: string, defaultServer: string, description?: string, id: string = uuidv4()) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.directoryEndpoint = directoryEndpoint;
+		this.defaultServer = defaultServer;
 	}
 }

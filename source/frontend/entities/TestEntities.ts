@@ -28,6 +28,8 @@ export const testFolder = new Folder([], 'Test Folder');
 
 export const testOrganisation = new Organisation(
 	'Test Organisation',
+	'ws://localhost:8002',
+	'ws://localhost:8002',
 	'Organisation made for testing purposes',
 	'0'
 );

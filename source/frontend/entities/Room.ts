@@ -34,17 +34,24 @@ export class RoomInfo {
 	 */
 	layout: RoomLayout;
 
+	/**
+	 * Address of the room's server
+	 */
+	server: string;
+
 	constructor(
 		name: string,
 		description: string,
 		organisation: Organisation,
 		id: string = uuidv4(),
-		layout = new RoomLayout()
+		layout = new RoomLayout(),
+		server?: string
 	) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.organisation = organisation;
 		this.layout = layout;
+		this.server = server || organisation.defaultServer;
 	}
 }
