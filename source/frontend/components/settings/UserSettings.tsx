@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
@@ -9,7 +9,7 @@ type UserSettingsProps = {
 	/**
 	 * Subject of the settings section
 	 */
-	user: User;
+	user: RoomUser;
 };
 
 export default class UserSettings extends Component<UserSettingsProps> {
@@ -18,7 +18,7 @@ export default class UserSettings extends Component<UserSettingsProps> {
 			<section>
 				<h3>Profile</h3>
 				<Card>
-					<p>{this.props.user.name}</p>
+					<p>{this.props.user.globalInfo.name}</p>
 					<ButtonSet>
 						<Button unfilled>
 							<Icon iconName="logout" />

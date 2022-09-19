@@ -133,8 +133,8 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 
 				<RoomSpace room={this.props.room} currentUser={this.state.currentUser} roamingArea={roamingArea} stageArea={stageArea} tableArea={tableArea} screenArea={screenArea} />
 
-				<SettingsPage user={this.props.user} hidden={!this.state.settingsVisible} />
-				<ChatUI user={this.state.roomUser} room={this.props.room} hidden={!this.state.chatVisible} />
+				<SettingsPage user={this.state.currentUser} hidden={!this.state.settingsVisible} />
+				<ChatUI user={this.state.currentUser} room={this.props.room} hidden={!this.state.chatVisible} />
 			</>
 		);
 	}

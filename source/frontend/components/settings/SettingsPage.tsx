@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import AppSettings from './AppSettings';
 import styles from './SettingsPage.module.css';
 import UserSettings from './UserSettings';
@@ -8,7 +8,7 @@ type SettingsPageProps = {
 	/**
 	 * Current user to consider
 	 */
-	user: User;
+	user: RoomUser;
 
 	/**
 	 * Whether to show this component or not
