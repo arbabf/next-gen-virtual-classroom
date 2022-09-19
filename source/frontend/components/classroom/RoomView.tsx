@@ -69,7 +69,7 @@ type RoomViewState = {
 };
 
 /**
- * Views a room. Main view of the overall app.
+ * Views a room. Main view of the overall app. It manages the runtime state of the room and renders it.
  */
 export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	state: RoomViewState = {
@@ -87,9 +87,17 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	}
 
 	render(): ReactNode {
+		// composed parts of the room space
+		/** Part of room where the stage will be placed */
 		const stageArea: ReactNode = <Table state={this.state.stage.state} stage />;
+
+		/** Part of the room where the roaming space will be placed */
 		const roamingArea: ReactNode = <Table state={this.state.roamingSpace.state} roaming />;
+
+		/** Part of the room where the tables will be placed */
 		const tableArea: ReactNode = <TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} />;
+
+		/** Part of the room where screens will be placed */
 		const screenArea: ReactNode = <ScreenSpace>
 			{this.props.room.layout.screens.length > 0 && this.props.room.layout.screens.map((screen) => (
 				<ScreenContainer key={screen.id} />

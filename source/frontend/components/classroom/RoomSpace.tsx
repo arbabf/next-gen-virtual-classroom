@@ -36,7 +36,7 @@ type RoomSpaceProps = {
 };
 
 /**
- * The render space for a Room.
+ * Lays out all of the components of a classroom.
  */
 export default class RoomSpace extends Component<RoomSpaceProps> {
 	show = {
