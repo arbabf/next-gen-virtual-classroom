@@ -2,3 +2,16 @@
 	display: flex;
 	flex-direction: row;
 }
+
+.set>div {
+	margin: 0 calc(var(--badge-margin) * -1);
+	transition: .2s margin;
+}
+
+.set>div:first-child {
+	margin-left: 0;
+}
+
+.set>div:hover {
+	margin-right: calc(var(--badge-margin) * 1.5);
+}
