@@ -44,7 +44,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 				<div className={classes} onClick={(e) => this.onUserClick(e)}>
 					<AvatarView avatar={avatar} />
 				</div>
-				<span className={styles.name}>{this.props.user.user.name}</span>
+				<span className={styles.name}>{this.props.user.global.name}</span>
 				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
 			</div>
 		);

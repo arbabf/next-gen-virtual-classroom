@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { TableState } from '../../entities/Table';
 import { testTableState } from '../../entities/TestEntities';
 import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import Button from '../common/button/button';
 import ButtonSet from '../common/buttonset/buttonset';
 import Card from '../common/card/card';
@@ -36,12 +37,13 @@ type TableContainerState = {
 };
 
 export class TableContainer extends Component<TableContainerProps, TableContainerState> {
+	// takes props for this tableContainer and set states
 	constructor(props: TableContainerProps) {
 		super(props);
-		this.state = {
+		this.state = {	// set states
 			showEditor: this.props.showEditor || false,
-			tables: this.props.tables,
-			activeTable: this.props.tables[0] || testTableState,
+			tables: this.props.tables,	// list of tables
+			activeTable: this.props.tables[0] || testTableState,	// test table
 		};
 	}
 
@@ -64,7 +66,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 
 						<ul>
 							{this.state.activeTable.participants.map((participant, index) => (
-								<li key={participant.id}>
+								<li key={participant.global.id}>
 									<span>{participant.name}</span>
 									<Button onClick={() => this.removeUser(participant, this.state.activeTable)}>
 										<span>Remove</span>
@@ -87,14 +89,15 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 
 	addTestUsers(table: TableState) {
 		let newTable = table;
-		newTable.participants = table.participants.concat(new User("Added user"));
+		let newUser = new User("Added user");
+		newTable.participants = table.participants.concat(new RoomUser(newUser));
 
 		this.props.editTableCallback(newTable);
 	}
 
-	removeUser(target: User, table: TableState) {
+	removeUser(target: RoomUser, table: TableState) {
 		let newTable = table;
-		newTable.participants = table.participants.filter(participant => participant.id !== target.id);
+		newTable.participants = table.participants.filter(participant => participant.global.id !== target.global.id);
 
 		this.props.editTableCallback(newTable);
 	}

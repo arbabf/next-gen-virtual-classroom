@@ -1,3 +1,4 @@
+/* The container that holds the group of tables */
 .container {
 	display: flex;
 	gap: var(--spacing-s);

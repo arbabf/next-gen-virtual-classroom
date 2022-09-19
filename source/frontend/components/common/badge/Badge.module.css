@@ -1,0 +1,57 @@
+.badge {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+	cursor: default;
+	user-select: none;
+	color: var(--badge-text-color);
+}
+
+.small {
+	height: 24px;
+	width: 24px;
+	font-size: 18px;
+	--badge-margin: 6px;
+}
+
+.medium {
+	height: 32px;
+	width: 32px;
+	font-size: 24px;
+	--badge-margin: 8px;
+}
+
+.large {
+	height: 48px;
+	width: 48px;
+	font-size: 40px;
+	--badge-margin: 12px;
+}
+
+.user {
+	background-color: var(--badge-user-color);
+}
+
+.action {
+	background-color: var(--badge-action-color);
+}
+
+.alert {
+	background-color: var(--badge-alert-color);
+}
+
+.inSet {
+	margin: 0 calc(var(--badge-margin) * -1);
+	transition: .2s margin;
+}
+
+.inSet:first-child {
+	margin-left: 0;
+}
+
+.inSet:hover {
+	margin-right: calc(var(--badge-margin) * 1.5);
+}

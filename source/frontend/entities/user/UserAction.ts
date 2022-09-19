@@ -2,20 +2,20 @@ export enum UserAction {
 	/**
 	 * Speaking
 	 */
-	SPEAKING,
+	speaking = "speaking",
 
 	/**
 	 * Presenting: using a screen
 	 */
-	PRESENTING,
+	presenting = "presenting",
 
 	/**
 	 * Announcing: sending broadcast to all
 	 */
-	ANNOUNCING,
+	announcing = "announcing",
 
 	/**
 	 * Joined class discussion and has left other scopes (table, etc.)
 	 */
-	IN_DISCUSSION
+	inDiscussion = "inDiscussion",
 }
