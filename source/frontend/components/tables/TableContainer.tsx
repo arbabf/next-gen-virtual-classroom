@@ -66,7 +66,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 
 						<ul>
 							{this.state.activeTable.participants.map((participant, index) => (
-								<li key={participant.global.id}>
+								<li key={participant.globalInfo.id}>
 									<span>{participant.name}</span>
 									<Button onClick={() => this.removeUser(participant, this.state.activeTable)}>
 										<span>Remove</span>
@@ -97,7 +97,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 
 	removeUser(target: RoomUser, table: TableState) {
 		let newTable = table;
-		newTable.participants = table.participants.filter(participant => participant.global.id !== target.global.id);
+		newTable.participants = table.participants.filter(participant => participant.globalInfo.id !== target.globalInfo.id);
 
 		this.props.editTableCallback(newTable);
 	}

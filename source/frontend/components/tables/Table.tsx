@@ -45,7 +45,7 @@ export class Table extends Component<TableProps> {
 
 				<div className={styles.participants}>
 					{this.props.state.participants.map((participant) => (
-						<UserView key={participant.global.id} user={participant} />
+						<UserView key={participant.globalInfo.id} user={participant} />
 					))}
 					<Button onClick={this.props.toggleEditor} unfilled>
 						<Icon iconName="edit" size="1.5em" />

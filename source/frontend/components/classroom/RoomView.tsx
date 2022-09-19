@@ -43,7 +43,7 @@ type RoomViewState = {
 	/**
 	 * Current room's specific user info
 	 */
-	roomUser: RoomUser;
+	currentUser: RoomUser;
 };
 
 /**
@@ -54,7 +54,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		chatVisible: false,
 		settingsVisible: false,
 		partMenuVis: false,
-		roomUser: new RoomUser(this.props.user),
+		currentUser: new RoomUser(this.props.user),
 	};
 
 	componentDidMount() {
@@ -89,7 +89,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 					</NavbarItem>
 				</Navbar>
 
-				<RoomSpace room={this.props.room} currentUser={this.state.roomUser} />
+				<RoomSpace room={this.props.room} currentUser={this.state.currentUser} />
 
 				<SettingsPage user={this.props.user} hidden={!this.state.settingsVisible} />
 				<ChatUI user={this.state.roomUser} room={this.props.room} hidden={!this.state.chatVisible} />
@@ -109,7 +109,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	 */
 	private getCurrentRoomUser() {
 		RoomInfoAPI.getRoomUser(this.props.user).then((roomUser) => {
-			this.setState({ roomUser });
+			this.setState({ currentUser: roomUser });
 		});
 	}
 }

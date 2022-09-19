@@ -73,7 +73,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 						{this.props.user.state?.currentActions.map((action) => <Badge key={action} type={action} />)}
 					</BadgeSet>
 				</div>
-				<span className={styles.name}>{this.props.user.global.name}</span>
+				<span className={styles.name}>{this.props.user.globalInfo.name}</span>
 				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
 			</div>
 		);
