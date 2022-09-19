@@ -58,6 +58,10 @@ export class RoomUser {
 		return this.avatar || this.globalInfo.getPeferredAvatar();
 	}
 
+	getName(): string {
+		return this.name || this.globalInfo.name;
+	}
+
 	/**
 	 * Returns copy of this user with new state.
 	 * 
