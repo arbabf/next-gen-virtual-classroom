@@ -11,7 +11,9 @@
 	width: calc(100vw - 32px);
 	max-width: var(--chat-max-width);
 	box-sizing: border-box;
-	overflow-y: scroll;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 .hidden {
@@ -21,6 +23,7 @@
 .header {
 	margin-left: var(--spacing-xxs);
 	margin-top: var(--spacing-xs);
+	margin-bottom: var(--spacing-xs);
 }
 
 @media only screen and (max-width: 768px) {

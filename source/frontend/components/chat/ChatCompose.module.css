@@ -1,0 +1,49 @@
+.box {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xxs);
+	margin-top: var(--spacing-xs);
+}
+
+.scopeSelect label {
+	font-size: var(--text-xs);
+}
+
+.scopeSelect select {
+	outline: none;
+	border: none;
+	padding: var(--spacing-xs);
+	padding-right: 0;
+	border-radius: 8px;
+}
+
+.scopeSelect select::cue {
+	color: red;
+}
+
+.composeBox {
+	display: flex;
+	border: var(--border-light);
+	border-radius: var(--border-rounding);
+}
+
+.composeBox textarea {
+	flex-grow: 1;
+	border: none;
+	outline: none;
+	padding: var(--spacing-xs);
+	border-radius: 8px;
+	background-color: transparent;
+	color: var(--foreground);
+}
+
+.errorSpace {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-xxs);
+	color: var(--alert-color);
+}
+
+.errorSpace span {
+	font-size: var(--text-xs);
+}

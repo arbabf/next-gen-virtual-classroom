@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { ChatMessage } from '../../entities/chat/ChatMessage';
 import { RoomInfo } from '../../entities/Room';
-import { User } from '../../entities/User';
+import { RoomUser } from '../../entities/user/RoomUser';
 import { ChatAPI } from '../../lib/ChatAPI';
+import { ChatCompose } from './ChatCompose';
 import ChatDisplay from './ChatDisplay';
 import styles from './ChatUI.module.css';
 
@@ -10,7 +11,7 @@ type ChatUIProps = {
 	/**
 	 * Current user to consider
 	 */
-	user: User;
+	user: RoomUser;
 
 	/**
 	 * room for this chat box
@@ -48,11 +49,21 @@ export default class ChatUI extends Component<ChatUIProps> {
 			<div className={classes}>
 				<h2 className={styles.header}>Chat</h2>
 				<ChatDisplay messages={this.state.messages} />
+				<ChatCompose sender={this.props.user} room={this.props.room} onMessageSent={this.onMessageSent.bind(this)} />
 			</div>
 		);
 	}
 
 	fetchMessages() {
 		ChatAPI.getMessages(this.props.room).then((messages) => this.setState({ messages }));
+	}
+
+	/**
+	 * Callback when a message has been successfully sent to the middleware. Updates state.
+	 * 
+	 * @param message message that has been sent
+	 */
+	private onMessageSent(message: ChatMessage) {
+		this.setState({ messages: [...this.state.messages, message] });
 	}
 }
