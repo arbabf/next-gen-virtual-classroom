@@ -6,6 +6,7 @@
 
 import { Component } from 'react';
 import styles from './Panel.module.css';
+import {getScreenShareWithMicrophone, subscribe} from '../../../entities/user/connect';
 
 /**
  * Panel properties.
@@ -34,6 +35,12 @@ class Panel extends Component<PanelProps, PanelState> {
 
 	expandScreen = () => {
 		this.setState({ expanded: !this.state.expanded });
+		if (!this.state.expanded){
+			//getScreenShareWithMicrophone();
+			//subscribe();
+			//connect();
+			//createRoom();
+		}
 	};
 
 	render() {

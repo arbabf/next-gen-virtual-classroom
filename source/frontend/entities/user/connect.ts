@@ -40,7 +40,7 @@ let producerId_global;
 
 let socket;
 
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
     bntCam = document.getElementById('btn_webcam');
     bntScreen = document.getElementById('btn_screen');
     bntSub = document.getElementById('btn_subscribe');
@@ -74,9 +74,10 @@ document.addEventListener("DOMContentLoaded", function() {
     bntJoinRoom.addEventListener('click', joinRoom);
     bntSubmit.addEventListener("click", submitMessage)
     btnLeaveRoom.addEventListener("click", leaveRoom)
-});
+});*/
 
 const connect = () => {
+    //return; // WebSocket is kinda dodgy here. First, compile client code. Then, remove this line.
     socket = new WebSocket(websocketURL);
     /*socket.onopen = () => {
         // start our socket request.
@@ -98,6 +99,7 @@ const connect = () => {
         }
 
         let resp = JSON.parse(event.data);
+        console.log(resp)
         switch (resp.type) {
             case 'getRouterRtpCapabilities':
                 onRouterCapbabilities(resp);
@@ -146,6 +148,7 @@ const connect = () => {
                 break;
         }
     }
+    console.log("Connected!");
 }
 
 connect();
@@ -578,5 +581,5 @@ async function getScreenShareWithMicrophone(){
 
 // We'll be needing these, probably.
 // Remove as required.
-export { connect, onSubConnected, onProducerTransportCreated, onRouterCapbabilities, onConsumerTransportCreated, subTransportListen, 
-        consume, getAllProducers, subscribe, onSubscribed, publish, IsJsonString, loadDevice, getUserMedias, getScreenShareWithMicrophone }
+export { connect, onSubConnected, onProducerTransportCreated, onRouterCapbabilities, onConsumerTransportCreated, subTransportListen, createRoom, joinRoom, submitMessage,
+        leaveRoom, consume, getAllProducers, subscribe, onSubscribed, publish, IsJsonString, loadDevice, getUserMedias, getScreenShareWithMicrophone }
