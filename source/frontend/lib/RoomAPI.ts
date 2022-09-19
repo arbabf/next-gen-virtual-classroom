@@ -39,16 +39,16 @@ export class RoomStateAPI {
 	 * @param room static room data specifying the set of tables
 	 * @returns All table states for a room
 	 */
-	static async getTableStates(room: RoomInfo): Promise<TableState[]> {
-		return new Promise<TableState[]>((resolve, reject) => {
+	static async getTableStates(room: RoomInfo): Promise<Map<String, TableState>> {
+		return new Promise<Map<String, TableState>>((resolve, reject) => {
 			// make fetch
 
 			// check errors
 
 			// resolve by mapping given room's table new table states with test users
+			const stateMap = room.layout.tables.reduce((map, table) => map.set(table.id, new TableState(table, testRoomUserList)), new Map<String, TableState>());
 
-
-			resolve(room.layout.tables.map((table) => new TableState(table, testRoomUserList)));
+			resolve(stateMap);
 		});
 	}
 

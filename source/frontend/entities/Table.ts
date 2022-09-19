@@ -8,10 +8,12 @@ import { RoomUser } from './user/RoomUser';
 export class TableState {
 	info: TableInfo;
 	participants: RoomUser[];
+	locked: boolean;
 
-	constructor(tableInfo: TableInfo, participants?: RoomUser[]) {
+	constructor(tableInfo: TableInfo, participants?: RoomUser[], locked = false) {
 		this.info = tableInfo;
 		this.participants = participants || [];
+		this.locked = locked;
 	}
 }
 
@@ -28,5 +30,17 @@ export class TableInfo {
 		this.id = id;
 		this.state = tableState;
 		this.roaming = roaming;
+	}
+
+	/**
+	 * Pure function adding new state to this table.
+	 * 
+	 * @param state state to add
+	 * @returns copy of this with new state
+	 */
+	withState(state: TableState): TableInfo {
+		const newTable = this;
+		newTable.state = state;
+		return newTable;
 	}
 }

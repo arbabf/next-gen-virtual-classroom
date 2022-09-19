@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { TableState } from '../../entities/Table';
+import { TableInfo, TableState } from '../../entities/Table';
 import { testTableState } from '../../entities/TestEntities';
 import { User } from '../../entities/User';
 import { RoomUser } from '../../entities/user/RoomUser';
@@ -15,7 +15,7 @@ import styles from './TableContainer.module.css';
 
 type TableContainerProps = {
 	showEditor?: boolean;
-	tables: TableState[];
+	tables: TableInfo[];
 	editTableCallback: Function;
 };
 
@@ -26,14 +26,9 @@ type TableContainerState = {
 	showEditor: boolean;
 
 	/**
-	 * Current set of tables
-	 */
-	tables: TableState[];
-
-	/**
 	 * Active table for editing
 	 */
-	activeTable: TableState;
+	activeTable: TableInfo;
 };
 
 export class TableContainer extends Component<TableContainerProps, TableContainerState> {
@@ -42,7 +37,6 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		super(props);
 		this.state = {	// set states
 			showEditor: this.props.showEditor || false,
-			tables: this.props.tables,	// list of tables
 			activeTable: this.props.tables[0] || testTableState,	// test table
 		};
 	}
@@ -52,8 +46,8 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 			<div className={styles.container}>
 				{this.props.tables.map((table) => (
 					<Table
-						key={table.info.id}
-						state={table}
+						key={table.id}
+						state={table.state}
 						toggleEditor={(_) =>
 							this.setState({ showEditor: !this.state.showEditor, activeTable: table })
 						}
@@ -65,9 +59,9 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 						<h1>Edit participants</h1>
 
 						<ul>
-							{this.state.activeTable.participants.map((participant, index) => (
+							{this.state.activeTable.state && this.state.activeTable.state.participants.map((participant, index) => (
 								<li key={participant.globalInfo.id}>
-									<span>{participant.name}</span>
+									<span>{participant.getName()}</span>
 									<Button onClick={() => this.removeUser(participant, this.state.activeTable)}>
 										<span>Remove</span>
 									</Button>
@@ -87,18 +81,30 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		);
 	}
 
-	addTestUsers(table: TableState) {
-		let newTable = table;
+	addTestUsers(table: TableInfo) {
+		let newTableState = table.state || new TableState(table);
 		let newUser = new User("Added user");
-		newTable.participants = table.participants.concat(new RoomUser(newUser));
 
-		this.props.editTableCallback(newTable);
+		if (table.state) {
+			newTableState.participants = table.state.participants.concat(new RoomUser(newUser));
+		}
+		else {
+			newTableState.participants = [new RoomUser(newUser)];
+		}
+
+		this.props.editTableCallback(table.id, newTableState);
 	}
 
-	removeUser(target: RoomUser, table: TableState) {
-		let newTable = table;
-		newTable.participants = table.participants.filter(participant => participant.globalInfo.id !== target.globalInfo.id);
+	removeUser(target: RoomUser, table: TableInfo) {
+		let newTableState = table.state || new TableState(table);
 
-		this.props.editTableCallback(newTable);
+		if (table.state) {
+			newTableState.participants = table.state.participants.filter((user) => user.globalInfo.id !== target.globalInfo.id);
+			this.props.editTableCallback(table.id, newTableState);
+		}
+		else {
+			//error
+			console.error("Table state not found");
+		}
 	}
 }

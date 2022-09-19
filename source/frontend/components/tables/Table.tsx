@@ -11,7 +11,7 @@ type TableProps = {
 	/**
 	 * This table's state
 	 */
-	state: TableState;
+	state?: TableState;
 
 	/**
 	 * Button function to toggle table editor
@@ -44,7 +44,7 @@ export class Table extends Component<TableProps> {
 				</div>}
 
 				<div className={styles.participants}>
-					{this.props.state.participants.map((participant) => (
+					{this.props.state && this.props.state.participants.map((participant) => (
 						<UserView key={participant.globalInfo.id} user={participant} />
 					))}
 					<Button onClick={this.props.toggleEditor} unfilled>
