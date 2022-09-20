@@ -35,12 +35,6 @@ class Panel extends Component<PanelProps, PanelState> {
 
 	expandScreen = () => {
 		this.setState({ expanded: !this.state.expanded });
-		if (!this.state.expanded){
-			//getScreenShareWithMicrophone();
-			//subscribe();
-			//connect();
-			//createRoom();
-		}
 	};
 
 	render() {
