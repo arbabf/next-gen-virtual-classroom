@@ -1,6 +1,6 @@
-import { RtpCodecCapability } from 'mediasoup/lib/RtpParameters';
-import { TransportListenIp } from 'mediasoup/lib/Transport';
-import { WorkerLogTag } from 'mediasoup/lib/Worker';
+import { RtpCodecCapability } from 'mediasoup/node/lib/RtpParameters';
+import { TransportListenIp } from 'mediasoup/node/lib/Transport';
+import { WorkerLogTag } from 'mediasoup/node/lib/Worker';
 import os from 'os';
 
 export const config = {

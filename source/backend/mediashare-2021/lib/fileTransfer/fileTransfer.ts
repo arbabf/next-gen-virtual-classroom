@@ -33,7 +33,7 @@
  * 
  */
 
-import { InvalidStateError } from "mediasoup/lib/errors";
+import { InvalidStateError } from "mediasoup/node/lib/errors";
 import WebSocket from "ws";
 import { config } from "../../config";
 import { types } from "../misc/types";

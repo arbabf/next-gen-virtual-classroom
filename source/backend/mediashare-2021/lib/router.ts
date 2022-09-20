@@ -1,4 +1,4 @@
-import { Worker, Router, InvalidStateError, WorkerLogLevel } from "mediasoup/lib/types";
+import { Worker, Router, InvalidStateError, WorkerLogLevel } from "mediasoup/node/lib/types";
 import { config } from "../config";
 import { generateByTime } from "./numGenerator";
 import * as mediasoup from 'mediasoup';
@@ -53,7 +53,7 @@ const createRouter = async () => {
 
     lastRouterObject = routerObject
 
-    router.on('close', () => {
+    router.on('workerclose', () => {
         // clear memory
         routerObject.workerObject.routerCnt -= 1
 
@@ -83,13 +83,13 @@ const createWorker = async () => {
     const workerObject: WorkerObject = { worker: worker, routerCnt: 0 }
     workerObjects.push(workerObject)
 
-    worker.on("close", () => {
+    worker.observer.on("close", () => {
         // clear memory
         const idx = workerObjects.indexOf(workerObject, 0)
         workerObjects.splice(idx, 1)
     });
 
-    worker.on("newrouter", (router) => {
+    worker.observer.on("newrouter", (router) => {
         workerObject.routerCnt += 1
     });
 
@@ -100,7 +100,6 @@ const createWorker = async () => {
             worker.close()
         }, 2000);
     });
-    
     return workerObject
 }
 

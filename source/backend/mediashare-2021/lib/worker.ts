@@ -1,5 +1,5 @@
 import * as mediasoup from 'mediasoup';
-import { Worker, Router, WorkerLogLevel } from 'mediasoup/lib/types';
+import { Worker, Router, WorkerLogLevel } from 'mediasoup/node/lib/types';
 import { config } from '../config';
 
 const worker: Array<{

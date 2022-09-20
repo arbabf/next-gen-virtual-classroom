@@ -1,4 +1,4 @@
-import { Router } from 'mediasoup/lib/types';
+import { Router } from 'mediasoup/node/lib/types';
 import { config } from '../config';
 
 const createWebRtcTransport = async (mediasoupRouter: Router, clientId: string, isProducer: boolean) => {

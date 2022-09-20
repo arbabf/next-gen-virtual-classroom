@@ -151,7 +151,7 @@ const connect = () => {
     console.log("Connected!");
 }
 
-connect();
+//connect();
 
 const onSubConnected = (resp) => {
     console.log('sub connected ?')
@@ -459,7 +459,7 @@ function createRoom() {
 
 function onRoomCreated(resp) {
     const { roomId } = resp.data
-    document.getElementById("roomId").value = roomId;
+    //document.getElementById("roomId").value = roomId;
 }
 
 function joinRoom() {

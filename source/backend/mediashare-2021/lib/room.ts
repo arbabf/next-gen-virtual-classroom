@@ -1,9 +1,9 @@
-import { Consumer } from "mediasoup/lib/Consumer";
-import { InvalidStateError } from "mediasoup/lib/errors";
-import { Producer } from "mediasoup/lib/Producer";
-import { MediaKind, RtpCapabilities, RtpParameters } from "mediasoup/lib/RtpParameters";
-import { Transport } from "mediasoup/lib/Transport";
-import { DtlsParameters } from "mediasoup/lib/WebRtcTransport";
+import { Consumer } from "mediasoup/node/lib/Consumer";
+import { InvalidStateError } from "mediasoup/node/lib/errors";
+import { Producer } from "mediasoup/node/lib/Producer";
+import { MediaKind, RtpCapabilities, RtpParameters } from "mediasoup/node/lib/RtpParameters";
+import { Transport } from "mediasoup/node/lib/Transport";
+import { DtlsParameters } from "mediasoup/node/lib/WebRtcTransport";
 import WebSocket from "ws";
 import { config } from "../config";
 import { createWebRtcTransport } from "./createWebrtcTransport";
@@ -282,7 +282,7 @@ class Room {
      */
     getAllProducers() {
         let producers: any = {}
-        this.producers.forEach((p) => { 
+        this.producers.forEach((p: Producer) => { 
             if (!producers[p.appData.clientId]) {
                 producers[p.appData.clientId] = {}
             }
