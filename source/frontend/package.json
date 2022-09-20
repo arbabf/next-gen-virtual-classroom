@@ -9,8 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@date-io/date-fns": "^2.15.0",
     "@types/uuid": "^8.3.4",
-    "date-fns": "^2.29.2",
+    "date-fns": "^2.29.3",
     "mediasoup-client": "^3.6.57",
     "next": "12.2.3",
     "react": "18.2.0",
