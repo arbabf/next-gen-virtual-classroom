@@ -16,7 +16,6 @@ const WebsocketConnection = async (websock: WebSocket.Server) => {
                 return
             }
             const event = JSON.parse(message);
-            
             // read the first level
             // i.e. type: fileTransfer.upload
             //            ^----------^ this part
@@ -160,7 +159,6 @@ const WebsocketConnection = async (websock: WebSocket.Server) => {
 
     const onCreateRoom = async (event: any, ws: WebSocket) => {
         try{
-            console.log("debug");
             const roomId = await createRouter()
             if (config.debug) console.log(`[ws.onCreateRoom] Room ${roomId} created`)
             send(ws, statuses.SUCCESS, types.createRoom, {roomId: roomId})

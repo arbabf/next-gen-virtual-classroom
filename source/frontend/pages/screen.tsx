@@ -5,7 +5,7 @@ import styles from '../styles/pages/Home.module.css';
 import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Button from '../components/common/button/button';
-import { connect, getScreenShareWithMicrophone, subscribe, createRoom } from '../entities/user/connect';
+import { connect, getScreenShareWithMicrophone, subscribe, createRoom, joinRoom, leaveRoom, getMicrophone } from '../entities/user/connect';
 
 const Home: NextPage = () => {
 	return (
@@ -24,6 +24,15 @@ const Home: NextPage = () => {
 					</Button>
 					<Button onClick={createRoom}>
 							<span>{'Create Room'}</span>
+					</Button>
+					<Button onClick={joinRoom}>
+							<span>{'Join Room'}</span>
+					</Button>
+					<Button onClick={leaveRoom}>
+							<span>{'Leave Room'}</span>
+					</Button>
+					<Button onClick={getMicrophone}>
+							<span>{'Share microphone'}</span>
 					</Button>
 					<Button onClick={subscribe}>
 							<span>{'Subscribe'}</span>

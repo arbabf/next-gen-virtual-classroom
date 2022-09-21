@@ -1,4 +1,6 @@
-import mediasoup from 'mediasoup-client';
+import { ClientRequest } from 'http';
+import * as mediasoup from 'mediasoup-client';
+import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters';
 import {v4} from 'uuid';
 
 let bntSub;
@@ -15,7 +17,7 @@ let textSubscribe;
 let localVideo;
 let remoteVideo;
 let remoteStream;
-let device;
+let device: mediasoup.Device;
 let producer;
 let producer2;
 let producerPaused = false;
@@ -34,11 +36,11 @@ let streams = {};
 let callbacks = {};
 let transportCallbacks = {};
 
-let roomId;
-let clientId;
+let currRoomId: number;
+let clientId: number = 400000;
 let producerId_global;
 
-let socket;
+let socket: WebSocket;
 
 /*document.addEventListener("DOMContentLoaded", function() {
     bntCam = document.getElementById('btn_webcam');
@@ -84,7 +86,7 @@ const connect = () => {
         const msg = {
             type: "getRouterRtpCapabilities",
             data: {
-                roomId: document.getElementById("roomId").value,
+                currRoomId: document.getElementById("currRoomId").value,
             }
         }
         const resp = JSON.stringify(msg);
@@ -170,7 +172,7 @@ const onProducerTransportCreated = async (event) => {
         const message = {
             type: 'connectTransport',
             data: {
-                roomId,
+                currRoomId,
                 isProducer: true,
                 transportId: transport.id,
                 dtlsParameters
@@ -188,7 +190,7 @@ const onProducerTransportCreated = async (event) => {
         const message = {
             type: 'produce',
             data: {
-                roomId,
+                currRoomId,
                 clientId,
                 transportId: transport.id,
                 kind,
@@ -241,19 +243,16 @@ const onProducerTransportCreated = async (event) => {
     }
 }
 
-const onRouterCapbabilities = (resp) => {
+const onRouterCapbabilities = (resp: any) => {
     loadDevice(resp.data.rtpCapabilities);
-    bntCam.disabled = false;
-    bntScreen.disabled = false;
-    bntSub.disabled = false;
 }
 
-const onConsumerTransportCreated = async (event, socket) => {
+const onConsumerTransportCreated = async (event: any, socket: WebSocket) => {
     if (event.error){
         console.error('consumer transport create error: ', event.error);
         return;
     }
-
+    console.log(event.data.params);
     const transport = device.createRecvTransport(event.data.params);
     subTransportListen(transport);
 }
@@ -266,7 +265,7 @@ const subTransportListen = async (transport) => {
             data: {
                 transportId: transport.id,
                 dtlsParameters,
-                roomId
+                currRoomId
             }
         }
         console.log('pog');
@@ -286,7 +285,7 @@ const subTransportListen = async (transport) => {
                 /*const msg = {
                     type: "resume",
                     data: {
-                        roomId,
+                        currRoomId,
                         id: consumerIds.get(transport.id),
                         isProducer: false
                     }
@@ -323,7 +322,7 @@ const consume = async (tId) => {
         const video = { 
             type: 'consume', 
             data: {
-                roomId,
+                currRoomId,
                 clientId,
                 producerId: producers[cId]["video"],
                 transportId: tId,
@@ -334,7 +333,7 @@ const consume = async (tId) => {
         const audio = { 
             type: 'consume', 
             data: {
-                roomId,
+                currRoomId,
                 clientId,
                 producerId: producers[cId]["audio"],
                 transportId: tId,
@@ -354,7 +353,7 @@ const getAllProducers = async () => {
     const data = {
         type: 'getAllProducers',
         data: {
-            roomId
+            currRoomId
         }
     }
 
@@ -369,7 +368,7 @@ const subscribe = async () => {
             clientId,
             forceTcp: false,
             isProducer: false,
-            roomId
+            currRoomId
         }
     }
 
@@ -437,7 +436,7 @@ const publish = (e) => {
             forceTcp: false,
             rtpCapabilities: device.rtpCapabilities,
             isProducer: true,
-            roomId
+            currRoomId
         }
     }
 
@@ -459,25 +458,27 @@ function createRoom() {
 
 function onRoomCreated(resp) {
     const { roomId } = resp.data
-    //document.getElementById("roomId").value = roomId;
+    currRoomId = roomId
+    console.log("New room id is: " + currRoomId)
+    //document.getElementById("currRoomId").value = currRoomId;
 }
 
 function joinRoom() {
     socket.send(JSON.stringify({
         type: "joinRoom",
         data: {
-            roomId: document.getElementById("roomId").value, 
-            clientId: document.getElementById("clientId").value
+            roomId: currRoomId, 
+            clientId: clientId
         }
     }))
 
-    roomId = document.getElementById("roomId").value;
-    clientId = document.getElementById("clientId").value;
+    //currRoomId = document.getElementById("currRoomId").value;
+    //clientId = document.getElementById("clientId").value;
 
     const msg = {
         type: "getRouterRtpCapabilities",
         data: {
-            roomId: document.getElementById("roomId").value,
+            roomId: currRoomId
         }
     }
     const resp = JSON.stringify(msg);
@@ -488,7 +489,7 @@ function submitMessage() {
     socket.send(JSON.stringify({
         type: "chat",
         data: {
-            roomId: document.getElementById("roomId").value, 
+            currRoomId: document.getElementById("currRoomId").value, 
             clientId: document.getElementById("clientId").value,
             message: document.getElementById("chatMsg").value
         }
@@ -513,12 +514,11 @@ function leaveRoom() {
     socket.send(JSON.stringify({
         type: "leaveRoom",
         data: {
-            roomId: document.getElementById("roomId").value, 
-            clientId: document.getElementById("clientId").value
+            roomId: currRoomId, 
+            clientId: clientId
         }
     }))
-
-    document.getElementById("roomId").value = ""
+    currRoomId = -1
 }
 
 //==============
@@ -527,7 +527,7 @@ function leaveRoom() {
 //
 //==============
 
-const IsJsonString = (str) => {
+const IsJsonString = (str: string) => {
     try {
         JSON.parse(str);
     } catch (error) {
@@ -536,15 +536,15 @@ const IsJsonString = (str) => {
     return true;
 }
 
-const loadDevice = async (routerRtpCapabilities) => {
+const loadDevice = async (routerRtpCapabilities: RtpCapabilities) => {
     try {
         device = new mediasoup.Device();
-    } catch (error) {
+    } catch (error: any) {
+        console.log(error.name)
         if (error.name == 'UnsupportedError') {
             console.log('browser not supported!');
         }
     }
-
     await device.load({routerRtpCapabilities});
 }
 let stream;
@@ -573,6 +573,11 @@ const getUserMedias = async (transport, isWebcam) => {
     return stream;
 }
 
+async function getMicrophone(){
+    const audio = await navigator.mediaDevices.getUserMedia({audio: true})
+    return new MediaStream([audio.getTracks()[0]]);
+}
+
 async function getScreenShareWithMicrophone(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
     const audio = await navigator.mediaDevices.getUserMedia({audio: true});
@@ -581,5 +586,5 @@ async function getScreenShareWithMicrophone(){
 
 // We'll be needing these, probably.
 // Remove as required.
-export { connect, onSubConnected, onProducerTransportCreated, onRouterCapbabilities, onConsumerTransportCreated, subTransportListen, createRoom, joinRoom, submitMessage,
-        leaveRoom, consume, getAllProducers, subscribe, onSubscribed, publish, IsJsonString, loadDevice, getUserMedias, getScreenShareWithMicrophone }
+export { connect, subTransportListen, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
+        subscribe, publish, loadDevice, getUserMedias, getScreenShareWithMicrophone, getMicrophone }
