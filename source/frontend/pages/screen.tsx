@@ -67,9 +67,6 @@ const Home: NextPage = () => {
 					<Button onClick={subscribe}>
 							<span>{'Subscribe'}</span>
 					</Button>
-					<Button onClick={getScreenShare}>
-							<span>{'Share your screen'}</span>
-					</Button>
 				</ButtonSet>
 			</main>
 		</>
