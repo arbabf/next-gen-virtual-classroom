@@ -229,18 +229,20 @@ const onProducerTransportCreated = async (event) => {
     try {
         stream = await getUserMedias(transport, isWebcam);
         const track = stream.getVideoTracks()[0];
-        const track2 = stream.getAudioTracks()[0];
-        const track3 = stream.getAudioTracks()[1];
         console.log("DEBUG track: " + track.kind)
-        console.log("DEBUG track2: " + track2.kind)
-        console.log("DEBUG track3: " + track3.kind)
-        const params = { track };
-        const params2 = { track: track2 };
-        const params3 = { track: track3 };
 
+        const params = { track };
         producer = await transport.produce(params);
-        producer2 = await transport.produce(params2);
-        producer2 = await transport.produce(params3);
+
+        // User may choose to share their screen, but not their audio. This is a fix for that.
+        if (stream.getAudioTracks().length > 0){
+            const track2 = stream.getAudioTracks()[0];
+            console.log("DEBUG track2: " + track2.kind)
+
+            const params2 = { track: track2 };
+            producer2 = await transport.produce(params2);
+        }
+        
     } catch (error) {
         console.error(error);
         //textPublish.innerHTML = 'failed!';
@@ -584,6 +586,10 @@ async function getMicrophone(){
 
 async function getScreenShare(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
+    if (stream.getTracks().length == 1){
+        // Shared screen, but no audio.
+        return new MediaStream([stream.getTracks()[0]])
+    }
     return new MediaStream([stream.getTracks()[0], stream.getTracks()[1]]);
 }
 
