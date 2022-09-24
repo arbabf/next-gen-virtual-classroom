@@ -1,6 +1,8 @@
 import { ClientRequest } from 'http';
 import * as mediasoup from 'mediasoup-client';
 import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters';
+import { Transport } from 'mediasoup-client/lib/Transport';
+import { SyntheticEvent } from 'react';
 import {v4} from 'uuid';
 
 let bntSub;
@@ -24,7 +26,7 @@ let producerPaused = false;
 let consumeTransport;
 let consumerTemp;
 let userId;
-let isWebcam;
+let isWebcam: boolean;
 let produceCallback, produceErrback;
 let consumerCallback, ConsumerErrback;
 const websocketURL = 'ws://localhost:8002/ws';
@@ -79,7 +81,6 @@ let socket: WebSocket;
 });*/
 
 const connect = () => {
-    //return; // WebSocket is kinda dodgy here. First, compile client code. Then, remove this line.
     socket = new WebSocket(websocketURL);
     /*socket.onopen = () => {
         // start our socket request.
@@ -172,7 +173,7 @@ const onProducerTransportCreated = async (event) => {
         const message = {
             type: 'connectTransport',
             data: {
-                currRoomId,
+                roomId: currRoomId,
                 isProducer: true,
                 transportId: transport.id,
                 dtlsParameters
@@ -182,15 +183,15 @@ const onProducerTransportCreated = async (event) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        //callback();
+        callback();
     });
-    
+
     //start transport on producer
     transport.on('produce', async ({kind, rtpParameters}, callback, errback) => {
         const message = {
             type: 'produce',
             data: {
-                currRoomId,
+                roomId: currRoomId,
                 clientId,
                 transportId: transport.id,
                 kind,
@@ -198,48 +199,51 @@ const onProducerTransportCreated = async (event) => {
             }
         };
         const resp = JSON.stringify(message);
-
         callbacks[kind]=callback
-
         socket.send(resp);
+        callback({id: transport.id});
     });
     // end transport producer
     // connection state change begin
     transport.on('connectionstatechange', (state) => {
         switch (state) {
             case 'connecting':
-                textPublish.innerHTML = 'publishing.....';
+                //textPublish.innerHTML = 'publishing.....';
                 console.log('publishing...')
                 break;
             case 'connected':
-                localVideo.srcObject = stream;
+                //localVideo.srcObject = stream;
                 console.log('published')
-                textPublish.innerHTML = 'published';
+                //textPublish.innerHTML = 'published';
                 break;
             case 'failed':
                 transport.close();
-                textPublish.innerHTML = 'failed';
+                //textPublish.innerHTML = 'failed';
             default:
                 break;
         }
     })
     // connection state change end
 
-    let stream;
+    let stream: any;
     try {
         stream = await getUserMedias(transport, isWebcam);
         const track = stream.getVideoTracks()[0];
         const track2 = stream.getAudioTracks()[0];
+        const track3 = stream.getAudioTracks()[1];
         console.log("DEBUG track: " + track.kind)
         console.log("DEBUG track2: " + track2.kind)
+        console.log("DEBUG track3: " + track3.kind)
         const params = { track };
         const params2 = { track: track2 };
+        const params3 = { track: track3 };
 
         producer = await transport.produce(params);
         producer2 = await transport.produce(params2);
+        producer2 = await transport.produce(params3);
     } catch (error) {
         console.error(error);
-        textPublish.innerHTML = 'failed!';
+        //textPublish.innerHTML = 'failed!';
     }
 }
 
@@ -272,13 +276,13 @@ const subTransportListen = async (transport) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        //callback()
+        callback()
     });
 
     transport.on('connectionstatechange', async (state) => {
         switch (state) {
             case 'connecting':
-                textSubscribe.innerHTML = 'subscribing...';
+                //textSubscribe.innerHTML = 'subscribing...';
                 break;
             case 'connected':
                 //remoteVideo.srcObject = remoteStream;
@@ -293,12 +297,12 @@ const subTransportListen = async (transport) => {
                 const resp = JSON.stringify(msg);
                 socket.send(resp);*/
                 console.log('subscribed');
-                textSubscribe.innerHTML = 'subscribed';
+                //textSubscribe.innerHTML = 'subscribed';
                 break;
             case 'failed':
                 console.log("failed")
                 transport.close();
-                textSubscribe.innerHTML = 'Failed';
+                //textSubscribe.innerHTML = 'Failed';
                 break;
             default:
                 console.log("others")
@@ -368,7 +372,7 @@ const subscribe = async () => {
             clientId,
             forceTcp: false,
             isProducer: false,
-            currRoomId
+            roomId: currRoomId
         }
     }
 
@@ -423,11 +427,11 @@ const onSubscribed = async (resp) => {
     }
 }
 
-const publish = (e) => {
-    isWebcam = (e.target.id == 'btn_webcam');
-    textPublish = isWebcam ? textWebcam : textScreen;
-    bntScreen.disabled = false;
-    bntCam.disabled = false;
+const publish = (caller: string) => {
+    isWebcam = caller === "cam";
+    //textPublish = isWebcam ? textWebcam : textScreen;
+    //bntScreen.disabled = false;
+    //bntCam.disabled = false;
 
     const message = {
         type: 'createTransport',
@@ -436,7 +440,7 @@ const publish = (e) => {
             forceTcp: false,
             rtpCapabilities: device.rtpCapabilities,
             isProducer: true,
-            currRoomId
+            roomId: currRoomId
         }
     }
 
@@ -495,19 +499,19 @@ function submitMessage() {
         }
     }))
 
-    divChat = document.getElementById("div_chat")
-    divChat.appendChild(document.createTextNode(`${document.getElementById("clientId").value}: ${document.getElementById("chatMsg").value}`))
-    divChat.appendChild(document.createElement("br"))
+    //divChat = document.getElementById("div_chat")
+    //divChat.appendChild(document.createTextNode(`${document.getElementById("clientId").value}: ${document.getElementById("chatMsg").value}`))
+    //divChat.appendChild(document.createElement("br"))
     
-    document.getElementById("chatMsg").value = ""
+    //document.getElementById("chatMsg").value = ""
 }
 
 function onChat(resp) {
-    divChat = document.getElementById("div_chat")
+    //divChat = document.getElementById("div_chat")
 
     const {from, message} = resp.data
-    divChat.appendChild(document.createTextNode(`${from}: ${message}`))
-    divChat.appendChild(document.createElement("br"))
+    //divChat.appendChild(document.createTextNode(`${from}: ${message}`))
+    //divChat.appendChild(document.createElement("br"))
 }
 
 function leaveRoom() {
@@ -548,7 +552,7 @@ const loadDevice = async (routerRtpCapabilities: RtpCapabilities) => {
     await device.load({routerRtpCapabilities});
 }
 let stream;
-const getUserMedias = async (transport, isWebcam) => {
+const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
     if (!device.canProduce('video')) {
         console.error('cannot produce video');
         return;
@@ -563,7 +567,7 @@ const getUserMedias = async (transport, isWebcam) => {
             console.log("audio and video share");
         }else{
             // stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
-            stream = await getScreenShareWithMicrophone();
+            stream = await getScreenShare();
             console.log('got', stream.getTracks());
         }
     } catch (error) {
@@ -578,13 +582,12 @@ async function getMicrophone(){
     return new MediaStream([audio.getTracks()[0]]);
 }
 
-async function getScreenShareWithMicrophone(){
+async function getScreenShare(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
-    const audio = await navigator.mediaDevices.getUserMedia({audio: true});
-    return new MediaStream([audio.getTracks()[0], stream.getTracks()[0] ]);
+    return new MediaStream([stream.getTracks()[0], stream.getTracks()[1]]);
 }
 
 // We'll be needing these, probably.
 // Remove as required.
 export { connect, subTransportListen, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
-        subscribe, publish, loadDevice, getUserMedias, getScreenShareWithMicrophone, getMicrophone }
+        subscribe, publish, loadDevice, getUserMedias, getScreenShare, getMicrophone }

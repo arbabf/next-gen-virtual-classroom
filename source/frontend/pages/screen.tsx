@@ -5,7 +5,7 @@ import styles from '../styles/pages/Home.module.css';
 import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Button from '../components/common/button/button';
-import { connect, getScreenShareWithMicrophone, subscribe, createRoom, joinRoom, leaveRoom, getMicrophone } from '../entities/user/connect';
+import { connect, getScreenShare, subscribe, createRoom, joinRoom, leaveRoom, getMicrophone, publish } from '../entities/user/connect';
 
 const Home: NextPage = () => {
 	return (
@@ -18,6 +18,30 @@ const Home: NextPage = () => {
 
 			<main className={styles.main}>
 				<ScreenContainer />
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
+				<div>PLACEHOLDER TEXT</div>
 				<ButtonSet>
 					<Button onClick={connect}>
 							<span>{'Connect'}</span>
@@ -34,11 +58,17 @@ const Home: NextPage = () => {
 					<Button onClick={getMicrophone}>
 							<span>{'Share microphone'}</span>
 					</Button>
+					<Button onClick={(_) => publish("cam")}>
+							<span>{'Share camera'}</span>
+					</Button>
+					<Button onClick={(_) => publish("scrn")}>
+							<span>{'Share screen'}</span>
+					</Button>
 					<Button onClick={subscribe}>
 							<span>{'Subscribe'}</span>
 					</Button>
-					<Button onClick={getScreenShareWithMicrophone}>
-							<span>{'Share your audio/video'}</span>
+					<Button onClick={getScreenShare}>
+							<span>{'Share your screen'}</span>
 					</Button>
 				</ButtonSet>
 			</main>
