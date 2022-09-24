@@ -4,6 +4,7 @@ import { Producer } from "mediasoup/node/lib/Producer";
 import { MediaKind, RtpCapabilities, RtpParameters } from "mediasoup/node/lib/RtpParameters";
 import { Transport } from "mediasoup/node/lib/Transport";
 import { DtlsParameters } from "mediasoup/node/lib/WebRtcTransport";
+import { stringify } from "querystring";
 import WebSocket from "ws";
 import { config } from "../config";
 import { createWebRtcTransport } from "./createWebrtcTransport";
@@ -282,12 +283,13 @@ class Room {
      */
     getAllProducers() {
         let producers: any = {}
-        this.producers.forEach((p: Producer) => { 
-            if (!producers[p.appData.clientId]) {
-                producers[p.appData.clientId] = {}
+        this.producers.forEach((p: Producer) => {
+            const ad = p.appData as Record<string, string>;
+            if (!producers[ad.clientId]) {
+                producers[ad.clientId] = {}
             }
             console.log("DEBUG KIND: " + p.kind)
-            producers[p.appData.clientId][p.kind] = p.id 
+            producers[ad.clientId][p.kind] = p.id 
         })
         return {producers}
     }

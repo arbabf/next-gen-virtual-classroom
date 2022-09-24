@@ -183,7 +183,7 @@ const onProducerTransportCreated = async (event) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        callback();
+        //callback();
     });
 
     //start transport on producer
@@ -201,7 +201,7 @@ const onProducerTransportCreated = async (event) => {
         const resp = JSON.stringify(message);
         callbacks[kind]=callback
         socket.send(resp);
-        callback({id: transport.id});
+        //callback({id: transport.id});
     });
     // end transport producer
     // connection state change begin
@@ -220,6 +220,7 @@ const onProducerTransportCreated = async (event) => {
                 transport.close();
                 //textPublish.innerHTML = 'failed';
             default:
+                console.log(state)
                 break;
         }
     })
@@ -278,7 +279,7 @@ const subTransportListen = async (transport) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        callback()
+        //callback()
     });
 
     transport.on('connectionstatechange', async (state) => {
@@ -359,7 +360,7 @@ const getAllProducers = async () => {
     const data = {
         type: 'getAllProducers',
         data: {
-            currRoomId
+            roomId: currRoomId
         }
     }
 
