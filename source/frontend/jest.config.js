@@ -13,7 +13,7 @@ const customJestConfig = {
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
 	moduleDirectories: ['node_modules', '<rootDir>/'],
 	testEnvironment: 'jest-environment-jsdom',
-	testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/', '<rootDir>/__tests__/utils/'],
+	testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/__tests__/utils/', '<rootDir>/__e2e__', '<rootDir>/.playwright'],
 	moduleNameMapper: {
 		'\\.(scss|sass|css)$': 'identity-obj-proxy',
 	},
@@ -23,10 +23,11 @@ const jestConfig = async () => {
 	const config = await createJestConfig(customJestConfig)
 	return {
 		...config,
-		// add node_modules you want to transpile due to use of ES6
 		testPathIgnorePatterns: [
 			...config.testPathIgnorePatterns,
-			'.*[/\\\\]node_modules[/\\\\](?!uuid)',
+			// used to include uuid in transpiling - fixing the import/export issue
+			// currently turned off to make sure all node modules are transpiled
+			// '.*[/\\\\]node_modules[/\\\\](?!uuid)',
 		]
 	}
 }
