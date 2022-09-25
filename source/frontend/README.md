@@ -1,7 +1,6 @@
-# NGVC
+# Frontend
 
-A next-generation virtual classroom focusing on making virtual learning
-engaging and interactive.
+Frontend client for the classroom.
 
 ## Getting Started
 
@@ -12,20 +11,14 @@ engaging and interactive.
 
 ### Installing
 
-1. Clone the repository
-2. Install dependencies in `source/backend` and `source/frontend`
-	1. `cd source/<folder>` (if you haven't already)
-	2. `yarn install`
-3. (Frontend only) Run the code for the first time
-	1. `cd source/frontend` (if you haven't already)
-	2. `yarn dev`
+1. Ensure you're in this directory (`<repo>/source/frontend`)
+2. Install dependencies with `yarn install`
+3. Run the code for the first time with `yarn dev`
 4. Exit (Ctrl+c) the frontend development server
-
-Make sure both the frontend and backend are running at the same time.
 
 ## Testing
 
-Only available for `source/frontend`. We have two types of tests:
+We have two types of tests:
 
 - Unit and (limited) integration tests with Jest
 - End-to-end tests with Playwright
