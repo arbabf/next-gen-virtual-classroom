@@ -1,0 +1,1 @@
+export const difficultText = '✅اختبارات測試';
