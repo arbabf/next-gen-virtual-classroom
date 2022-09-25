@@ -16,6 +16,11 @@ type NavbarItemProps = {
 	 * Flags if active (currently at this location)
 	 */
 	active?: boolean;
+
+	/**
+	 * HTML ID unique to the item
+	 */
+	id?: string;
 };
 
 /**
@@ -29,7 +34,7 @@ export default class NavbarItem extends Component<PropsWithChildren<NavbarItemPr
 		if (this.props.active === true) classes += ` ${styles.active}`;
 
 		return (
-			<div className={classes} onClick={this.props.onClick}>
+			<div className={classes} onClick={this.props.onClick} id={this.props.id}>
 				{this.props.children}
 			</div>
 		);

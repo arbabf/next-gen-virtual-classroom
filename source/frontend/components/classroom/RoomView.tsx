@@ -117,6 +117,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 							this.setState({ chatVisible: !this.state.chatVisible });
 						}}
 						active={this.state.chatVisible}
+						id="nav-open-chat"
 					>
 						<Icon iconName="forum" />
 					</NavbarItem>
@@ -126,6 +127,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 							this.setState({ settingsVisible: !this.state.settingsVisible });
 						}}
 						active={this.state.settingsVisible}
+						id="nav-open-settings"
 					>
 						<Icon iconName="settings" />
 					</NavbarItem>

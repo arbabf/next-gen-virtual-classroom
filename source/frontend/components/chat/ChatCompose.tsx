@@ -116,10 +116,10 @@ export class ChatCompose extends Component<ChatComposeProps, ChatComposeState> {
 		// ensure message attrs are valid
 		assert(message.length > 0, "Message must not be empty");
 		assert(scope !== undefined, "Scope must be defined");
-		assert(this.props.sender.global !== undefined, "Room user has no global sender data");
+		assert(this.props.sender.globalInfo !== undefined, "Room user has no global sender data");
 
 		// create new message
-		const newMessage = new ChatMessage(this.props.sender.global, scope, message);
+		const newMessage = new ChatMessage(this.props.sender.globalInfo, scope, message);
 
 		// send message
 		ChatAPI.sendMessage(newMessage)
