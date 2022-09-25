@@ -9,10 +9,10 @@ const baseURL = `http://localhost:${PORT}`
 
 // Reference: https://playwright.dev/docs/test-configuration
 const config: PlaywrightTestConfig = {
-	// Timeout per test
+	// Timeout per test - 30 seconds
 	timeout: 30 * 1000,
 	// Test directory
-	testDir: path.join(__dirname, 'e2e'),
+	testDir: path.join(__dirname, '__e2e__'),
 	// number of retries after fail
 	retries: 0,
 	// Artifacts folder where screenshots, videos, and traces are stored.
