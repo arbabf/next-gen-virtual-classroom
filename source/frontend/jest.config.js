@@ -19,18 +19,14 @@ const customJestConfig = {
 	},
 }
 
+// Override Next.js injection of node_modules in ignore patterns
+const asyncConfig = createJestConfig(customJestConfig);
+
 const jestConfig = async () => {
-	const config = await createJestConfig(customJestConfig)
-	return {
-		...config,
-		testPathIgnorePatterns: [
-			...config.testPathIgnorePatterns,
-			// used to include uuid in transpiling - fixing the import/export issue
-			// currently turned off to make sure all node modules are transpiled
-			// '.*[/\\\\]node_modules[/\\\\](?!uuid)',
-		]
-	}
-}
+	const config = await asyncConfig();
+	config.transformIgnorePatterns = config.transformIgnorePatterns.slice(1);
+	return config;
+};
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+module.exports = jestConfig;
