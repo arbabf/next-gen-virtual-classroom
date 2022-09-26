@@ -5,7 +5,7 @@ import styles from '../styles/pages/Home.module.css';
 import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Button from '../components/common/button/button';
-import { connect, getScreenShare, subscribe, createRoom, joinRoom, leaveRoom, getMicrophone, publish } from '../entities/user/connect';
+import { connect, debug_setClientIdTo1, getAllProducers, createRoom, joinRoom, leaveRoom, getMicrophone, publish } from '../entities/user/connect';
 
 const Home: NextPage = () => {
 	return (
@@ -64,10 +64,18 @@ const Home: NextPage = () => {
 					<Button onClick={(_) => publish("scrn")}>
 							<span>{'Share screen'}</span>
 					</Button>
-					<Button onClick={subscribe}>
+					<Button onClick={getAllProducers}>
 							<span>{'Subscribe'}</span>
 					</Button>
+					<Button onClick={debug_setClientIdTo1}>
+							<span>{'Client ID Debug'}</span>
+					</Button>
 				</ButtonSet>
+				<form>
+                    <label htmlFor="roomId">Room ID: </label>
+                    <input type="text" id="roomId" name="roomId" className="border"/>
+                </form>
+				<div id="remoteVideoSection"></div>
 			</main>
 		</>
 	);
