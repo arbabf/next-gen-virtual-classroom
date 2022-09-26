@@ -58,7 +58,6 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 		if (this.props.user.role instanceof Host) roleBadgeType = BadgeUserTypes.host;
 		else if (this.props.user.role instanceof Facilitator) roleBadgeType = BadgeUserTypes.facilitator;
 
-
 		return (
 			<div className={styles.container}>
 				<div className={styles.badgeWrapper}>
@@ -90,6 +89,6 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 	 * @returns true if this view is for the current user
 	 */
 	private isCurrentUser() {
-		return this.props.loggedInUser && this.props.user.global.id === this.props.loggedInUser.global.id;
+		return this.props.loggedInUser && this.props.user.globalInfo.id === this.props.loggedInUser.globalInfo.id;
 	}
 }
