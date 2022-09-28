@@ -36,7 +36,7 @@ export const config = {
                 },
                 {
                     kind: 'video',
-                    mimeType: 'video/vP8',
+                    mimeType: 'video/VP8',
                     clockRate: 90000,
                     parameters: {
                         'x-google-start-bitrate': 1080

@@ -1,9 +1,6 @@
-import { ClientRequest } from 'http';
 import * as mediasoup from 'mediasoup-client';
 import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters';
 import { Transport } from 'mediasoup-client/lib/Transport';
-import { SyntheticEvent } from 'react';
-import {v4} from 'uuid';
 
 let bntSub;
 let bntCam;
@@ -17,8 +14,8 @@ let textWebcam;
 let textScreen;
 let textSubscribe;
 let localVideo;
-let remoteVideo;
-let remoteStream;
+let remoteVideo: any;
+let remoteStream: any;
 let device: mediasoup.Device;
 let producer;
 let producer2;
@@ -33,11 +30,11 @@ let consumerCallback, ConsumerErrback;
 const websocketURL = 'ws://localhost:8002/ws';
 
 //let producers = new Array();
-let producers = {};
-let pId2cId = {};
-let streams = {};
-let callbacks = {};
-let transportCallbacks = {};
+let producers: any = {};
+let pId2cId: any = {};
+let streams: any = {};
+let callbacks: any = {};
+let transportCallbacks: any = {};
 
 let currRoomId: number;
 let clientId: number = 400000;
@@ -157,12 +154,12 @@ const connect = () => {
 
 //connect();
 
-const onSubConnected = (resp) => {
+const onSubConnected = (resp: any) => {
     console.log('sub connected ?')
     transportCallbacks[resp.data.transportId]()
 }
 
-const onProducerTransportCreated = async (event) => {
+const onProducerTransportCreated = async (event: any) => {
     if (event.error){
         console.error('producer transport create error: ', event.error);
         return;
@@ -284,7 +281,7 @@ const subTransportListen = async (transport: Transport) => {
             data: {
                 transportId: transport.id,
                 dtlsParameters,
-                currRoomId
+                roomId: currRoomId
             }
         }
         console.log('pog');
@@ -328,12 +325,11 @@ const subTransportListen = async (transport: Transport) => {
     consume(transport.id);
 }
 
-const consume = async (tId) => {
+const consume = async (tId: any) => {
     const { rtpCapabilities } = device;
     //for (const pId of producers) {
     for (let cId in producers) {
-        console.log(producers)
-        if (cId == clientId) {
+        if (cId as unknown as number == clientId) {
             continue
         }
         console.log("DEBUG: " + producers[cId]["video"]);
@@ -396,7 +392,7 @@ const subscribe = async () => {
     socket.send(resp);
 }
 
-const onSubscribed = async (resp) => {
+const onSubscribed = async (resp: any) => {
     const {
         producerId,
         transportId,
@@ -405,31 +401,22 @@ const onSubscribed = async (resp) => {
         rtpParameters,
     } = resp.data;
 
-    console.log(`pId: ${producerId}`)
-
-    let codecOptions = {};
+    //let codecOptions = {};
     const consumer = await consumeTransport.consume({
         id,
         producerId,
         kind,
-        rtpParameters,
-        codecOptions,
+        rtpParameters
+        //codecOptions,
     });
 
+    let waitingTrack: MediaStreamTrack = undefined;
     remoteStream = stream;
     streams[transportId] = stream;
     if(kind == "video"){
-        console.log(document.getElementById("remoteVideoSection"))
-        if (!streams[pId2cId[producerId]]) {
-            // If stream doesn't exist, create it and add it to our streams.
-            const { track } = consumer
-            const stream = new MediaStream([track]);
-            streams[pId2cId[producerId]] = stream;
-        }
-        else{
-            // Else add the track into a stream.
-            streams[pId2cId[producerId]].addTrack(consumer.track);
-        }
+        const { track } = consumer
+        const stream = new MediaStream([track]);
+        streams[pId2cId[producerId]] = stream;
         console.log('epicness')
 
         let videoSect = document.getElementById("remoteVideoSection")
@@ -445,14 +432,16 @@ const onSubscribed = async (resp) => {
         let remoteName = document.createTextNode(pId2cId[producerId] + ":")
         videoSect.appendChild(remoteName)
         videoSect.appendChild(videoDiv)
+
+        if (waitingTrack){
+            streams[pId2cId[producerId]].addTrack(waitingTrack)
+        }
     }
     else {
         if (!streams[pId2cId[producerId]]) {
-            // Same as above, but for audio tracks.
-            // Fixes problems where tracks arrive in a different order.
-            const { track } = consumer
-            const stream = new MediaStream([track]);
-            streams[pId2cId[producerId]] = stream;
+            // If audio arrives behind video, put it into a buffer so that we always initialise audio AFTER video.
+            const { track } = consumer;
+            waitingTrack = track;
         }
         else{
             streams[pId2cId[producerId]].addTrack(consumer.track);
@@ -493,7 +482,7 @@ function createRoom() {
     }))
 }
 
-function onRoomCreated(resp) {
+function onRoomCreated(resp: any) {
     const { roomId } = resp.data
     currRoomId = roomId
     console.log("New room id is: " + currRoomId)
@@ -528,9 +517,9 @@ function submitMessage() {
     socket.send(JSON.stringify({
         type: "chat",
         data: {
-            currRoomId: document.getElementById("currRoomId").value, 
-            clientId: document.getElementById("clientId").value,
-            message: document.getElementById("chatMsg").value
+            //currRoomId: document.getElementById("currRoomId").value, 
+            //clientId: document.getElementById("clientId").value,
+            //message: document.getElementById("chatMsg").value
         }
     }))
 
@@ -541,7 +530,7 @@ function submitMessage() {
     //document.getElementById("chatMsg").value = ""
 }
 
-function onChat(resp) {
+function onChat(resp: any) {
     //divChat = document.getElementById("div_chat")
 
     const {from, message} = resp.data
@@ -586,7 +575,7 @@ const loadDevice = async (routerRtpCapabilities: RtpCapabilities) => {
     }
     await device.load({routerRtpCapabilities});
 }
-let stream;
+let stream: any;
 const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
     if (!device.canProduce('video')) {
         console.error('cannot produce video');
@@ -635,5 +624,5 @@ async function debug_setClientIdTo1(){
 
 // We'll be needing these, probably.
 // Remove as required.
-export { connect, subTransportListen, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
-        subscribe, publish, loadDevice, getUserMedias, getScreenShare, getMicrophone, debug_setClientIdTo1 }
+export { connect, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
+        subscribe, publish, getUserMedias, getScreenShare, getMicrophone, debug_setClientIdTo1 }
