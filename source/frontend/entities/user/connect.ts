@@ -38,7 +38,7 @@ let transportCallbacks: any = {};
 
 let currRoomId: number;
 let clientId: number = 400000;
-let producerId_global;
+let producerId_global: string;
 
 let socket: WebSocket;
 
@@ -123,7 +123,7 @@ const connect = () => {
                 break;
             case "produce":
                 producerId_global = resp.data.producerId;
-                callbacks[resp.data.kind]({id: resp.data.producerId});
+                callbacks[resp.data.kind]({id: producerId_global});
                 break;
             case "createRoom":
                 onRoomCreated(resp);
@@ -166,7 +166,7 @@ const onProducerTransportCreated = async (event: any) => {
     }
 
     transport = device.createSendTransport(event.data.params)
-    
+
     transport.on('connect', async ({dtlsParameters}, callback, errback) => {
         const message = {
             type: 'connectTransport',
@@ -174,14 +174,14 @@ const onProducerTransportCreated = async (event: any) => {
                 roomId: currRoomId,
                 isProducer: true,
                 transportId: transport.id,
-                dtlsParameters
+                dtlsParameters: dtlsParameters
             }
         }
 
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        callback();
+        //callback();
     });
 
     //start transport on producer
@@ -190,16 +190,16 @@ const onProducerTransportCreated = async (event: any) => {
             type: 'produce',
             data: {
                 roomId: currRoomId,
-                clientId,
+                clientId: clientId,
                 transportId: transport.id,
-                kind,
-                rtpParameters
+                kind: kind,
+                rtpParameters: rtpParameters
             }
         };
         const resp = JSON.stringify(message);
         callbacks[kind]=callback
         socket.send(resp);
-        callback({id: transport.id});
+        //callback({id: producerId_global});
     });
     // end transport producer
 
@@ -231,17 +231,7 @@ const onProducerTransportCreated = async (event: any) => {
         const track = stream.getVideoTracks()[0];
         console.log("DEBUG track: " + track.kind)
 
-        const params = { track: track,
-                        encodings   :
-                        [
-                        { maxBitrate: 100000 },
-                        { maxBitrate: 300000 },
-                        { maxBitrate: 900000 }
-                        ],
-                        codecOptions :
-                        {
-                        videoGoogleStartBitrate : 1000
-                        } };
+        const params = { track: track };
         producer = await transport.produce(params);
 
         // User may choose to share their screen, but not their audio. This is a fix for that.
@@ -288,7 +278,7 @@ const subTransportListen = async (transport: Transport) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        callback()
+        //callback()
     });
     transport.on('connectionstatechange', async (state) => {
         console.log(state)
@@ -440,6 +430,7 @@ const onSubscribed = async (resp: any) => {
     else {
         if (!streams[pId2cId[producerId]]) {
             // If audio arrives behind video, put it into a buffer so that we always initialise audio AFTER video.
+            // This fixes some weird issues with loading video.
             const { track } = consumer;
             waitingTrack = track;
         }
@@ -458,7 +449,7 @@ const publish = (caller: string) => {
     const message = {
         type: 'createTransport',
         data: {
-            clientId,
+            clientId: clientId,
             forceTcp: false,
             rtpCapabilities: device.rtpCapabilities,
             isProducer: true,

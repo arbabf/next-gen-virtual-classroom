@@ -58,10 +58,10 @@ const Home: NextPage = () => {
 					<Button onClick={getMicrophone}>
 							<span>{'Share microphone'}</span>
 					</Button>
-					<Button onClick={(_) => publish("cam")}>
+					<Button onClick={() => publish("cam")}>
 							<span>{'Share camera'}</span>
 					</Button>
-					<Button onClick={(_) => publish("scrn")}>
+					<Button onClick={() => publish("scrn")}>
 							<span>{'Share screen'}</span>
 					</Button>
 					<Button onClick={getAllProducers}>
