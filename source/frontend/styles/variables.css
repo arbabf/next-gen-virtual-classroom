@@ -1,5 +1,7 @@
 /* Define base variable assignments */
 :root {
+	--fonts: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+		'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	--background: white;
 	--background-tint-faint: var(--accent-tint-light);
 	--foreground: var(--gray-900);
@@ -46,6 +48,10 @@
 	--button-inverted-fill: white;
 	--button-inverted-disabled-fill: var(--blue-50);
 	--button-inverted-disabled-text: var(--blue-200);
+	--button-light-background: var(--blue-50);
+	--button-light-background-hover: var(--blue-100);
+	--button-light-foreground: var(--blue-900);
+	--button-light-foreground-disabled: var(--gray-900-25);
 
 	--alert-color: var(--red-500);
 
@@ -80,7 +86,10 @@
 		--link-color: var(--blue-300);
 		--link-color-hover: var(--blue-500);
 		--link-color-disabled: var(--blue-300-faded);
+
 		--button-fill-disabled: var(--blue-800);
+		--button-light-background: var(--blue-800-desaturated);
+		--button-light-foreground: var(--blue-100);
 
 		--alert-color: var(--red-400);
 

@@ -3,4 +3,6 @@
 	padding: var(--spacing-xs);
 	background-color: var(--background);
 	border-radius: var(--border-rounding-small);
+	display: flex;
+	gap: var(--spacing-s);
 }

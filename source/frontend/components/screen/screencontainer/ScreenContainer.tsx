@@ -82,6 +82,33 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 			classes += ' ' + styles.active;
 		}
 
+		// screen editor parts
+		const mainList = <div className={styles.editorMainList}>
+			<Button onClick={this.toggleMedia} light>
+				<Icon iconName="screen_share" />
+				<span>Share screen</span>
+			</Button>
+			<Button light disabled>
+				<Icon iconName="web_asset" />
+				<span>Embed a page</span>
+			</Button>
+			<Button light disabled>
+				<Icon iconName="whiteboard" />
+				<span>Whiteboard</span>
+			</Button>
+			<Button light disabled>
+				<Icon iconName="apps" />
+				<span>More media types</span>
+			</Button>
+		</div>;
+
+		const fileDrop = <div className={styles.editorFileDrop}>
+			<Button light vertical disabled>
+				<Icon iconName="file_upload" size="2.5em" />
+				<span>Upload a file</span>
+			</Button>
+		</div>
+
 		return (
 			<details className={classes}>
 				<summary>
@@ -94,22 +121,22 @@ class ScreenContainer extends Component<ScreenContainerProps, ScreenContainerSta
 				)} */}
 				<div className={styles.screenContent}>
 					{!this.state.mediaOn || this.state.mediaSelectorOn ? (
-						<ScreenEditor>
-							<Button onClick={this.toggleMedia}>
-								<span>{'Toggle media'}</span>
-							</Button>
-						</ScreenEditor>
+						<ScreenEditor mainList={mainList} fileShareSpace={fileDrop} />
 					) : (
 						<Panel label="Screen" media={this.state.mediaOn} expandable />
 					)}
-					<ButtonSet className={styles.buttons}>
-						{this.state.mediaOn && (
+					{this.state.mediaOn &&
+						<ButtonSet className={styles.buttons}>
 							<Button onClick={this.toggleMediaSelector} inverted>
 								<Icon iconName={this.state.mediaSelectorOn ? 'arrow_back' : 'present_to_all'} />
-								<span>{this.state.mediaSelectorOn ? 'Show screen' : 'Select media'}</span>
+								<span>{this.state.mediaSelectorOn ? 'Show screen' : 'Change share'}</span>
 							</Button>
-						)}
-					</ButtonSet>
+							<Button onClick={this.toggleMedia} inverted>
+								<Icon iconName="cancel_presentation" />
+								<span>Stop sharing</span>
+							</Button>
+						</ButtonSet>
+					}
 				</div>
 			</details>
 		);
