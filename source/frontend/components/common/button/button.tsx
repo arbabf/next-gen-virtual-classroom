@@ -24,6 +24,21 @@ type ButtonProps = {
 	 * Whether button is blue on white
 	 */
 	inverted?: boolean;
+
+	/**
+	 * Whether this is a slimmed-down button
+	 */
+	slim?: boolean;
+
+	/**
+	 * Whether the button should be shown in a less-saturated manner.
+	 */
+	light?: boolean;
+
+	/**
+	 * Whether to stack contents vertically
+	 */
+	vertical?: boolean;
 };
 
 /**
@@ -55,13 +70,11 @@ class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
 	render() {
 		let classes = styles.button;
 
-		if (this.props.unfilled) {
-			classes += ' ' + styles.unfilled;
-		}
-
-		if (this.props.inverted) {
-			classes += ' ' + styles.inverted;
-		}
+		if (this.props.unfilled) classes += ' ' + styles.unfilled;
+		if (this.props.inverted) classes += ' ' + styles.inverted;
+		if (this.props.slim) classes += ' ' + styles.slim;
+		if (this.props.light) classes += ' ' + styles.light;
+		if (this.props.vertical) classes += ' ' + styles.vertical;
 
 		return (
 			<button

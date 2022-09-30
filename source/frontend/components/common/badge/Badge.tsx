@@ -90,7 +90,7 @@ export class Badge extends Component<PropsWithChildren<BadgeProps>> {
 		if (this.props.inSet) classes += ` ${styles.inSet}`;
 
 		return <div className={classes}>
-			<Icon iconName={iconName} />
+			<Icon iconName={iconName} size={'inherit'} />
 		</div>
 	}
 }

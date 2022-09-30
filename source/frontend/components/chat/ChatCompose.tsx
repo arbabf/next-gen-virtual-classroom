@@ -55,7 +55,7 @@ export class ChatCompose extends Component<ChatComposeProps, ChatComposeState> {
 			</div>
 			<div className={styles.composeBox}>
 				<textarea value={this.state.message} onChange={this.onMessageChange.bind(this)} />
-				<Button onClick={this.sendMessage.bind(this)} unfilled>
+				<Button onClick={this.sendMessage.bind(this)} unfilled slim>
 					<Icon iconName="send" />
 				</Button>
 			</div>

@@ -72,6 +72,8 @@ type RoomViewState = {
  * Views a room. Main view of the overall app. It manages the runtime state of the room and renders it.
  */
 export default class RoomView extends Component<RoomViewProps, RoomViewState> {
+	private navbarIconSize = '2em';
+
 	state: RoomViewState = {
 		chatVisible: false,
 		settingsVisible: false,
@@ -109,7 +111,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 				<Navbar>
 					<NavbarHeader label={this.props.room.name} />
 					<NavbarItem mobile active>
-						<Icon iconName="home" />
+						<Icon iconName="home" size={this.navbarIconSize} />
 					</NavbarItem>
 
 					<NavbarItem
@@ -119,7 +121,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 						active={this.state.chatVisible}
 						id="nav-open-chat"
 					>
-						<Icon iconName="forum" />
+						<Icon iconName="forum" size={this.navbarIconSize} />
 					</NavbarItem>
 
 					<NavbarItem
@@ -129,7 +131,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 						active={this.state.settingsVisible}
 						id="nav-open-settings"
 					>
-						<Icon iconName="settings" />
+						<Icon iconName="settings" size={this.navbarIconSize} />
 					</NavbarItem>
 				</Navbar>
 

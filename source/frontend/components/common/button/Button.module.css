@@ -1,7 +1,8 @@
 .button {
 	background-color: var(--button-fill);
 	color: var(--button-foreground);
-	font-weight: bold;
+	font-weight: 600;
+	font-family: var(--fonts);
 
 	padding: var(--spacing-s);
 	flex-shrink: 0;
@@ -17,6 +18,11 @@
 	flex-wrap: nowrap;
 	align-items: center;
 	gap: var(--spacing-xs);
+}
+
+.slim {
+	padding: var(--spacing-xs);
+	border-radius: var(--border-rounding-small);
 }
 
 .button[disabled]:hover {
@@ -74,4 +80,26 @@
 .inverted[disabled] {
 	color: var(--button-inverted-disabled-text);
 	background-color: var(--button-inverted-disabled-fill);
+}
+
+.light {
+	background-color: var(--button-light-background);
+	color: var(--button-light-foreground);
+}
+
+.light:hover {
+	background-color: var(--button-light-background-hover);
+}
+
+.light[disabled] {
+	color: var(--button-light-foreground-disabled);
+}
+
+.light[disabled]:hover {
+	background-color: var(--button-light-background);
+}
+
+.vertical {
+	flex-direction: column;
+	justify-content: center;
 }

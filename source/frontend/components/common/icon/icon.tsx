@@ -42,7 +42,7 @@ type IconProps = {
 class Icon extends Component<IconProps> {
 	render() {
 		// default values
-		let size = '1em';
+		let size = '1.5em';
 		let altText = '';
 
 		if (this.props.size) {
@@ -68,7 +68,7 @@ class Icon extends Component<IconProps> {
 			return (
 				<span
 					className={classes}
-					style={this.props.size !== undefined ? iconFontStyle : undefined}
+					style={iconFontStyle}
 				>
 					{this.props.iconName}
 				</span>
