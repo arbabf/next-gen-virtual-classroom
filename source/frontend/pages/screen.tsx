@@ -5,7 +5,7 @@ import styles from '../styles/pages/Home.module.css';
 import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Button from '../components/common/button/button';
-import { connect, debug_setClientIdTo1, getAllProducers, createRoom, joinRoom, leaveRoom, getMicrophone, publish } from '../entities/user/connect';
+import { connect, debug_setClientIdTo1, debug_setClientIdTo2, getAllProducers, createRoom, joinRoom, leaveRoom, publish } from '../entities/user/connect';
 
 const Home: NextPage = () => {
 	return (
@@ -55,11 +55,8 @@ const Home: NextPage = () => {
 					<Button onClick={leaveRoom}>
 							<span>{'Leave Room'}</span>
 					</Button>
-					<Button onClick={getMicrophone}>
-							<span>{'Share microphone'}</span>
-					</Button>
-					<Button onClick={() => publish("cam")}>
-							<span>{'Share camera'}</span>
+					<Button onClick={() => publish("cam")}> 
+							<span>{'Share camera/microphone'}</span> 
 					</Button>
 					<Button onClick={() => publish("scrn")}>
 							<span>{'Share screen'}</span>
@@ -69,6 +66,9 @@ const Home: NextPage = () => {
 					</Button>
 					<Button onClick={debug_setClientIdTo1}>
 							<span>{'Client ID Debug'}</span>
+					</Button>
+					<Button onClick={debug_setClientIdTo2}>
+							<span>{'Client ID Debug #2'}</span>
 					</Button>
 				</ButtonSet>
 				<form>

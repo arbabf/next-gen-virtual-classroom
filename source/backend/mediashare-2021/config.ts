@@ -49,7 +49,9 @@ export const config = {
             listenIps: [
                 {
                     ip: '0.0.0.0',
-                    announcedIp: '10.0.2.15' // replace with public IP address
+                    announcedIp: '127.0.0.1' // replace with public IP address
+                                            // before it was 10.0.2.15, a virtualbox-only IP and it's noted here because i spent 7 FUCKING DAYS ON THIS
+                                            // SEVEN DAYS I WILL NEVER GET BACK BECAUSE I GLANCED OVER THIS
                 },
             ] as TransportListenIp[],
             maxIncomeBitrate: 1500000,

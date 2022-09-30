@@ -29,15 +29,16 @@ let produceCallback, produceErrback;
 let consumerCallback, ConsumerErrback;
 const websocketURL = 'ws://localhost:8002/ws';
 
-//let producers = new Array();
 let producers: any = {};
 let pId2cId: any = {};
 let streams: any = {};
+// List of callbacks, because we can't guarantee the server has actually processed the information until we get a response back.
+// We call whichever callback we need using the response's ID.
 let callbacks: any = {};
 let transportCallbacks: any = {};
 
 let currRoomId: number;
-let clientId: number = 400000;
+let clientId: string = '400000';
 let producerId_global: string;
 
 let socket: WebSocket;
@@ -181,7 +182,6 @@ const onProducerTransportCreated = async (event: any) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        //callback();
     });
 
     //start transport on producer
@@ -199,7 +199,6 @@ const onProducerTransportCreated = async (event: any) => {
         const resp = JSON.stringify(message);
         callbacks[kind]=callback
         socket.send(resp);
-        //callback({id: producerId_global});
     });
     // end transport producer
 
@@ -228,19 +227,40 @@ const onProducerTransportCreated = async (event: any) => {
     let stream: any;
     try {
         stream = await getUserMedias(transport, isWebcam);
-        const track = stream.getVideoTracks()[0];
-        console.log("DEBUG track: " + track.kind)
-
-        const params = { track: track };
-        producer = await transport.produce(params);
-
-        // User may choose to share their screen, but not their audio. This is a fix for that.
-        if (stream.getAudioTracks().length > 0){
-            const track2 = stream.getAudioTracks()[0];
-            console.log("DEBUG track2: " + track2.kind)
-
-            const params2 = { track: track2 };
-            producer2 = await transport.produce(params2);
+        if (!isWebcam)
+        {
+            // sharing screen/system audio
+            const track = stream.getVideoTracks()[0];
+            console.log("DEBUG track: " + track.kind)
+    
+            const params = { track: track };
+            producer = await transport.produce(params);
+    
+            // User may choose to share their screen, but not their audio. This is a fix for that.
+            if (stream.getAudioTracks().length > 0){
+                const track2 = stream.getAudioTracks()[0];
+                console.log("DEBUG track2: " + track2.kind)
+    
+                const params2 = { track: track2 };
+                producer2 = await transport.produce(params2);
+            }
+        }
+        else{
+            // sharing audio input/webcam
+            const track = stream.getAudioTracks()[0];
+            console.log("DEBUG track: " + track.kind)
+    
+            const params = { track: track };
+            producer = await transport.produce(params);
+    
+            // same as clause above, except for video instead
+            if (stream.getVideoTracks().length > 0){
+                const track2 = stream.getVideoTracks()[0];
+                console.log("DEBUG track2: " + track2.kind)
+    
+                const params2 = { track: track2 };
+                producer2 = await transport.produce(params2);
+            }
         }
         
     } catch (error) {
@@ -278,7 +298,6 @@ const subTransportListen = async (transport: Transport) => {
         const resp = JSON.stringify(message);
         socket.send(resp);
         transportCallbacks[transport.id] = callback;
-        //callback()
     });
     transport.on('connectionstatechange', async (state) => {
         console.log(state)
@@ -287,7 +306,7 @@ const subTransportListen = async (transport: Transport) => {
                 //textSubscribe.innerHTML = 'subscribing...';
                 break;
             case 'connected':
-                remoteVideo.srcObject = remoteStream;
+                //remoteVideo.srcObject = remoteStream;
                 /*const msg = {
                     type: "resume",
                     data: {
@@ -319,7 +338,7 @@ const consume = async (tId: any) => {
     const { rtpCapabilities } = device;
     //for (const pId of producers) {
     for (let cId in producers) {
-        if (cId as unknown as number == clientId) {
+        if (cId == clientId) {
             continue
         }
         console.log("DEBUG: " + producers[cId]["video"]);
@@ -566,7 +585,7 @@ const loadDevice = async (routerRtpCapabilities: RtpCapabilities) => {
     }
     await device.load({routerRtpCapabilities});
 }
-let stream: any;
+let stream: MediaStream;
 const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
     if (!device.canProduce('video')) {
         console.error('cannot produce video');
@@ -578,7 +597,29 @@ const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
         // await navigator.mediaDevices.getUserMedia({video: true, audio: true}) :
         // await navigator.mediaDevices.getDisplayMedia({video: true});
         if (isWebcam){
-            stream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
+            // TODO: split camera, microphone share
+            let stream1: MediaStream = undefined
+            let stream2: MediaStream = undefined
+            try {
+                stream1 = await navigator.mediaDevices.getUserMedia({audio: true});
+                stream = stream1
+            }
+            catch (e){
+                console.log("Microphone not found")
+            }
+            try {
+                stream2 = await navigator.mediaDevices.getUserMedia({video: true})
+                if (stream) {
+                    stream.addTrack(stream2.getVideoTracks()[0])
+                }
+                else{
+                    stream = stream2
+                }
+            }
+            catch (e){
+                console.log("Webcam not found")
+            }
+            if (!stream1 && !stream2) throw 'No suitable user media found!';
             console.log("audio and video share");
         }else{
             // stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
@@ -592,10 +633,10 @@ const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
     return stream;
 }
 
-async function getMicrophone(){
-    const audio = await navigator.mediaDevices.getUserMedia({audio: true})
-    return new MediaStream([audio.getTracks()[0]]);
-}
+// async function getMicrophone(){
+//     const audio = await navigator.mediaDevices.getUserMedia({audio: true})
+//     return new MediaStream([audio.getTracks()[0]]);
+// }
 
 async function getScreenShare(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
@@ -610,10 +651,13 @@ async function getScreenShare(){
 //      DEBUG
 //==================
 async function debug_setClientIdTo1(){
-    clientId = 1;
+    clientId = '1';
+}
+async function debug_setClientIdTo2(){
+    clientId = '2';
 }
 
 // We'll be needing these, probably.
 // Remove as required.
 export { connect, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
-        subscribe, publish, getUserMedias, getScreenShare, getMicrophone, debug_setClientIdTo1 }
+        subscribe, publish, getUserMedias, getScreenShare, debug_setClientIdTo1, debug_setClientIdTo2 }
