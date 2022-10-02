@@ -1,5 +1,6 @@
 import { Component, ReactNode } from 'react';
-import { RoomInfo, testRoom } from '../../entities/Room';
+import { RoomInfo } from '../../entities/Room';
+import { testRoom } from '../../entities/TestEntities';
 import { User } from '../../entities/User';
 import { UserAPI } from '../../lib/UserAPI';
 import Button from '../common/button/button';

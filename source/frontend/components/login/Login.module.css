@@ -1,0 +1,9 @@
+.main {
+	max-width: 500px;
+	margin: var(--spacing-m) auto;
+	padding-bottom: var(--spacing-m);
+}
+
+.main h1 {
+	text-align: center;
+}

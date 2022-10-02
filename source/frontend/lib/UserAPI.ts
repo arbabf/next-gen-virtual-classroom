@@ -14,4 +14,23 @@ export class UserAPI {
 			resolve([testRoom]);
 		});
 	}
+
+	/**
+	 * Submits login email to server, which checks if a user exists with that email.
+	 * 
+	 * UI will then proceed to next step in login flow.
+	 * 
+	 * @param email Email to be checked
+	 * @returns email login response with flow and user ID or false if email doesn't exist
+	 */
+	static async loginSubmitEmail(email: string) {
+		return new Promise<string | false>((resolve, reject) => {
+			// make the fetch
+
+			// check for errors
+
+			// return
+			resolve('0');
+		});
+	}
 }
