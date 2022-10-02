@@ -1,11 +1,13 @@
 import assert from 'assert';
 import { formatDistance } from 'date-fns';
-import { Component, ReactNode } from "react";
+import React, { Component, ReactNode } from "react";
 import ReactMarkdown from 'react-markdown';
 import { ChatMessage as ChatMessageInfo } from '../../../entities/chat/ChatMessage';
+import ButtonSet from '../../common/buttonset/buttonset';
 import Icon from "../../common/icon/icon";
 import ChatDisplay from "../ChatDisplay";
 import styles from "./ChatMessage.module.css";
+import Button from '../../common/button/button';
 
 type ChatMessageProps = {
 	/**
@@ -22,6 +24,11 @@ type ChatMessageProps = {
 	 * Depth of this chat message
 	 */
 	depth: number;
+
+	/**
+	 * Callback to trigger reply focus for chat compose box
+	 */
+	onReplyFocus?: (message: ChatMessageInfo) => void;
 }
 
 type ChatMessageViewState = {
@@ -29,6 +36,11 @@ type ChatMessageViewState = {
 	 * Whether to show the replies or not. Used to change the "Show replies" button.
 	 */
 	showChildren: boolean;
+
+	/**
+	 * Whether the message is collapsed to just the byline.
+	 */
+	collapsed: boolean;
 }
 
 /**
@@ -43,53 +55,79 @@ const allowedMDElements = [
  */
 export class ChatMessage extends Component<ChatMessageProps, ChatMessageViewState> {
 	state: ChatMessageViewState = {
-		showChildren: false
+		showChildren: false,
+		collapsed: false
 	}
 
 	render(): ReactNode {
-		let classes = "";
+		let classes = styles.message;
+
+		if (this.state.collapsed) classes += " " + styles.collapsed;
+		if (!this.state.showChildren) classes += " " + styles.hideChildren;
 
 		const message = this.props.message;
 		const replies = this.props.replyMap.get(message.id);
 
 		assert(message.sender !== undefined, "Message sender is undefined");
 
-		return <details className={styles.message} open>
-			<summary className={styles.byline}>
+		return <div className={classes}>
+			<div className={styles.byline} onClick={(_) => this.setState({ collapsed: !this.state.collapsed })}>
 				<span className={styles.author}>{message.sender.name}</span>
 				<span className={styles.time}>
 					{formatDistance(message.timestamp, new Date())} ago
 				</span>
-				<Icon className={styles.expandIcon} iconName="expand_more" />
-			</summary>
-
-			<div className={styles.messageBody}>
-				<ReactMarkdown allowedElements={allowedMDElements}>
-					{message.body}
-				</ReactMarkdown>
+				<Icon
+					className={styles.expandIcon}
+					iconName={this.state.collapsed ? "expand_more" : "expand_less"} />
 			</div>
+			<div className={styles.content}>
+				<div className={styles.messageBody}>
+					<ReactMarkdown allowedElements={allowedMDElements}>
+						{message.body}
+					</ReactMarkdown>
+				</div>
 
-			{this.props.depth <= ChatDisplay.maxDepth && replies && replies.length > 0 &&
-				<details className={styles.children} onClick={this.onShowHideRepliesClick.bind(this)}>
-					<summary className={styles.showHideReplies}>
-						<Icon className={styles.expandIcon} iconName="expand_more" />
-						<span className={styles.repliesCount}>{this.state.showChildren ? "Hide" : "Show"} {replies.length} {replies.length > 1 ? "replies" : "reply"}</span>
-					</summary>
-					{replies.map(
-						(reply) =>
-							<ChatMessage key={reply.id} message={reply} replyMap={this.props.replyMap} depth={this.props.depth + 1} />
-					)}
-				</details>
-			}
-		</details>
+				<ButtonSet className={styles.messageButtonSet}>
+					{this.shouldShowReplies() && replies &&
+						<Button slim inverted onClick={(_) => this.setState({ showChildren: !this.state.showChildren })}>
+							<Icon
+								iconName={this.state.showChildren ? "expand_less" : "expand_more"} />
+							<span>{this.state.showChildren ? "Hide" : "Show"} {replies.length} {replies.length > 1 ? "replies" : "reply"}</span>
+						</Button>
+					}
+					{this.props.onReplyFocus &&
+						<Button slim inverted onClick={(_) => this.props.onReplyFocus(this.props.message)}>
+							<Icon iconName="reply" />
+							<span>Reply</span>
+						</Button>
+					}
+				</ButtonSet>
+
+				{this.shouldShowReplies() && replies &&
+					<div className={styles.children}>
+						{replies.map(
+							(reply) =>
+								<ChatMessage key={reply.id} message={reply} replyMap={this.props.replyMap} depth={this.props.depth + 1} onReplyFocus={this.props.onReplyFocus?.bind(this)} />
+						)}
+					</div>
+				}
+
+			</div>
+		</div >
 	}
 
 	/**
-	 * Synchronises the "show/hide" message with the state of displaying replies.
+	 * Checks if this message should be rendering out its replies. Based on depth and whether there
+	 * are replies to show.
 	 * 
-	 * @param event produced when clicking show/hide replies
+	 * @returns true if this message should show replies
 	 */
-	private onShowHideRepliesClick(event: React.MouseEvent<HTMLDetailsElement, MouseEvent>) {
-		this.setState({ showChildren: !event.currentTarget.open });
+	private shouldShowReplies(): boolean {
+		const replies = this.props.replyMap.get(this.props.message.id);
+
+		if (this.props.depth <= ChatDisplay.maxDepth && replies && replies.length > 0)
+			return true;
+		else
+			return false;
 	}
 }

@@ -23,6 +23,11 @@ type ChatComposeProps = {
 	 * The message being replied to (if applicable)
 	 */
 	replyingTo?: ChatMessage;
+
+	/**
+	 * Clears message reply focus
+	 */
+	clearReplyFocus: () => void;
 }
 
 type ChatComposeState = {
@@ -50,9 +55,15 @@ export class ChatCompose extends Component<ChatComposeProps, ChatComposeState> {
 
 		return <div className={styles.box}>
 			{this.props.replyingTo &&
-				<div className={styles.replyStatusBox}>
+				<Button className={styles.replyStatusBox} light slim onClick={(_) => this.props.clearReplyFocus()}>
+					<Icon iconName="reply"
+						size="1.25em" />
 					<span>Replying to {this.props.replyingTo?.sender.name}</span>
-				</div>
+					<Icon
+						iconName="close"
+						size="1.25em"
+					/>
+				</Button>
 			}
 
 			<div className={styles.composeBox}>

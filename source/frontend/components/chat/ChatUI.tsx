@@ -42,6 +42,11 @@ type ChatUIState = {
 	 * Current scope being viewed
 	 */
 	scope: ChatRecipient;
+
+	/**
+	 * Current reply focus
+	 */
+	replyFocus?: ChatMessageInfo;
 }
 
 export default class ChatUI extends Component<ChatUIProps> {
@@ -68,10 +73,22 @@ export default class ChatUI extends Component<ChatUIProps> {
 				<ChatDisplay>
 					{this.state.topLevelMessages.map(
 						(message) =>
-							<ChatMessage key={message.id} message={message} replyMap={this.state.messageReplies} depth={1} />
+							<ChatMessage
+								key={message.id}
+								message={message}
+								replyMap={this.state.messageReplies}
+								depth={1}
+								onReplyFocus={this.setReplyFocus.bind(this)} />
 					)}
 				</ChatDisplay>
-				<ChatCompose sender={this.props.user} room={this.props.room} onMessageSent={this.onMessageSent.bind(this)} currentScope={this.state.scope} />
+				<ChatCompose
+					sender={this.props.user}
+					room={this.props.room}
+					onMessageSent={this.onMessageSent.bind(this)}
+					currentScope={this.state.scope}
+					replyingTo={this.state.replyFocus}
+					clearReplyFocus={() => this.setState({ replyFocus: undefined })}
+				/>
 			</div>
 		);
 	}
@@ -98,6 +115,9 @@ export default class ChatUI extends Component<ChatUIProps> {
 			else this.state.messageReplies.set(message.parent, [message]);
 		}
 		else this.state.topLevelMessages.push(message);
+
+		// clear the reply focus
+		this.setState({ replyFocus: undefined });
 	}
 
 	/**
@@ -127,5 +147,14 @@ export default class ChatUI extends Component<ChatUIProps> {
 		}
 
 		this.setState({ messageReplies, topLevelMessages });
+	}
+
+	/**
+	 * Call back to set reply focus on the calling message.
+	 * 
+	 * @param message message to set reply focus to
+	 */
+	private setReplyFocus(message: ChatMessageInfo) {
+		this.setState({ replyFocus: message });
 	}
 }
