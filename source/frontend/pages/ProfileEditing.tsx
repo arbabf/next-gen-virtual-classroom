@@ -4,6 +4,7 @@ import React from 'react';
 import styles from '../styles/pages/Home.module.css';
 import {UserView} from '../components/user/UserView'
 import {testRoomUser} from '../entities/TestEntities'
+import {UserEditingView} from '../components/user/UserEditingView'
 
 
 const Home: NextPage = () => {
@@ -16,10 +17,11 @@ const Home: NextPage = () => {
 			</Head>
 			<main className={styles.main}>
 				<UserView user={testRoomUser} loggedInUser={testRoomUser}/>
+				<UserEditingView user={testRoomUser}/>
 			</main>
-			<div>
-				
-			</div>
+			<main>
+
+			</main>
 	
 
 		</>

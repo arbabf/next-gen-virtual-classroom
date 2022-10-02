@@ -1,0 +1,46 @@
+.container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+
+	--square-avatar-padding: calc((var(--avatar-width) - var(--avatar-height)) / 2)
+}
+
+.name {
+	font-weight: 500;
+}
+
+.frame {
+	height: var(--avatar-height);
+	width: var(--avatar-width);
+	overflow: hidden;
+	position: relative;
+	margin: var(--spacing-xs);
+}
+
+.square {
+	width: var(--avatar-height);
+	margin: var(--spacing-xs) calc(var(--square-avatar-padding) + var(--spacing-xs));
+}
+
+.badgeSet {
+	position: absolute;
+	z-index: 2;
+}
+
+.badgeSet:last-child {
+	bottom: 0;
+}
+
+.squareBadgeSet {
+	left: var(--square-avatar-padding);
+}
+
+.badgeWrapper {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
