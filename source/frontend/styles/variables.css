@@ -5,6 +5,7 @@
 	--background: white;
 	--background-tint-faint: var(--accent-tint-light);
 	--foreground: var(--gray-900);
+	--foreground-faint: var(--gray-600);
 
 	--vertical-padding: var(--spacing-m);
 	--horizontal-padding: var(--spacing-m);
@@ -83,6 +84,7 @@
 		--background: var(--gray-900);
 		--background-tint-faint: var(--accent-tint-dark);
 		--foreground: var(--gray-50);
+		--foreground-faint: var(--gray-300);
 		--link-color: var(--blue-300);
 		--link-color-hover: var(--blue-500);
 		--link-color-disabled: var(--blue-300-faded);
