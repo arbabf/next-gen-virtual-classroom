@@ -6,7 +6,6 @@
 
 import { Component } from 'react';
 import styles from './Panel.module.css';
-import {getScreenShareWithMicrophone, subscribe} from '../../../entities/user/connect';
 
 /**
  * Panel properties.

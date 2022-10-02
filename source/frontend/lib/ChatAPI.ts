@@ -16,18 +16,15 @@ export class ChatAPI {
 			let alice = new User("Alice");
 			let george = new User("George");
 
-			let log = [
-				new ChatMessage(bob, room, "Hello!", [
-					new ChatMessage(alice, room, "Hi!"),
-					new ChatMessage(george, room, "How are you?")
-				]),
-				new ChatMessage(alice, room, "Do we have **Markdown** support?", [
-					new ChatMessage(bob, room, "What do you mean?", [
-						new ChatMessage(alice, room, "If we have _italics_ and **bold** text, we probably do."),
-					]),
-				]),
-				new ChatMessage(george, room, "Here's the link to the [GitHub repo](https://github.com/arbabf/next-gen-virtual-classroom)"),
-			];
+			let log: ChatMessage[] = [];
+
+			let bobMsg = new ChatMessage(bob, room, "Hello!");
+			log.push(bobMsg, new ChatMessage(alice, room, "Hi!", bobMsg.id), new ChatMessage(george, room, "How are you?", bobMsg.id));
+
+			let aliceMsg = new ChatMessage(alice, room, "Do we have **Markdown** support?");
+			let aliceMsg_bob = new ChatMessage(bob, room, "What do you mean?", aliceMsg.id);
+			let aliceMsg_bob_alice = new ChatMessage(alice, room, "If we have _italics_ and **bold** text, we probably do.", aliceMsg_bob.id);
+			log.push(aliceMsg, aliceMsg_bob, aliceMsg_bob_alice);
 
 			resolve(log);
 		});

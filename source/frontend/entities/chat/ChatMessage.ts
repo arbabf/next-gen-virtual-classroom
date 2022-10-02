@@ -15,18 +15,14 @@ export class ChatMessage {
 	recipient: ChatRecipient;
 	body: string;
 	timestamp: Date;
-	replies: ChatMessage[];
+	parent?: string;
 
-	constructor(sender: User, recipient: ChatRecipient, body: string, replies: ChatMessage[] = [], id: string = uuidv4(), timestamp: Date = new Date()) {
+	constructor(sender: User, recipient: ChatRecipient, body: string, parentMessage?: string, id: string = uuidv4(), timestamp: Date = new Date()) {
 		this.sender = sender;
 		this.recipient = recipient;
 		this.body = body;
+		this.parent = parentMessage;
 		this.id = id;
 		this.timestamp = timestamp;
-		this.replies = replies;
-	}
-
-	reply(message: ChatMessage) {
-		this.replies.push(message);
 	}
 }

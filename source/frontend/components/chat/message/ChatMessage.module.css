@@ -1,5 +1,6 @@
 .message {
-	border-left: solid 3px var(--gray-300);
+	border-left: solid 3px var(--link-color);
+	border-left-color: var(--link-color);
 	padding: var(--spacing-xxs) 0;
 	padding-left: var(--spacing-xs);
 	margin: var(--spacing-s) 0;
@@ -9,12 +10,16 @@
 	margin-bottom: 0;
 }
 
-.message[open] {
-	border-left-color: var(--link-color);
+.collapsed .content {
+	display: none;
 }
 
-.message[open]>.byline>.expandIcon {
-	rotate: 180deg;
+.message.collapsed {
+	border-left-color: var(--gray-300);
+}
+
+.hideChildren .children {
+	display: none;
 }
 
 .byline {
@@ -63,6 +68,10 @@
 
 .repliesCount {
 	font-size: var(--text-xs);
+}
+
+.messageButtonSet {
+	margin: 0 !important;
 }
 
 @media (prefers-color-scheme: dark) {
