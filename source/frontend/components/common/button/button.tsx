@@ -39,6 +39,11 @@ type ButtonProps = {
 	 * Whether to stack contents vertically
 	 */
 	vertical?: boolean;
+
+	/**
+	 * Additional classes
+	 */
+	className?: string;
 };
 
 /**
@@ -75,6 +80,7 @@ class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
 		if (this.props.slim) classes += ' ' + styles.slim;
 		if (this.props.light) classes += ' ' + styles.light;
 		if (this.props.vertical) classes += ' ' + styles.vertical;
+		if (this.props.className) classes += ' ' + this.props.className;
 
 		return (
 			<button
