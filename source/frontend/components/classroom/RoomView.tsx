@@ -15,6 +15,8 @@ import SettingsPage from '../settings/SettingsPage';
 import { Table } from '../tables/Table';
 import { TableContainer } from '../tables/TableContainer';
 import RoomSpace from './RoomSpace';
+import assert from 'assert';
+
 
 type RoomViewProps = {
 	/**
@@ -95,7 +97,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		const roamingArea: ReactNode = <Table state={this.state.roamingSpace.state} roaming />;
 
 		/** Part of the room where the tables will be placed */
-		const tableArea: ReactNode = <TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} />;
+		const tableArea: ReactNode = <TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} changeTableCallback={this.joinTable.bind(this)}/>;
 
 		/** Part of the room where screens will be placed */
 		const screenArea: ReactNode = <ScreenSpace>
@@ -229,7 +231,70 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 			if (table.id === targetTableId) return table.withState(newState);
 			else return table;
 		});
-
 		this.setState({ tables: edited });
+	}
+
+	// Change table
+	/**
+	 * Change table according to the table user clicked
+	 * @param table Table to change to
+	 */
+	protected joinTable(targetTableId:string){
+		console.log("In join table");
+		// find prevTable
+		this.state.tables.filter( (table) => table.state?.participants.find(participant =>
+			participant.globalInfo.id === this.state.currentUser.globalInfo.id
+		)).forEach( (prevTable) => {
+			const participants = prevTable.state?.participants.filter((user) => 
+			user.globalInfo.id !== this.state.currentUser.globalInfo.id);
+			let newState = new TableState(prevTable, participants);
+			this.editTableState(prevTable.id,newState);
+		});
+
+/**
+ * const prevTable = this.state.tables.find(table =>{
+			
+			// find user
+			const user = table.state?.participants.find(participant =>
+				participant.globalInfo.id === this.state.currentUser.globalInfo.id
+			)
+			// if user found
+			if(user){
+				console.log("Found User " + user.getName());
+				return true
+			}
+			console.log("User not found - linw 259");
+			return false
+		})
+
+
+		
+		// have prev table,
+		if (prevTable){
+			// remove from prevTable
+			console.log("Prev table's index: " + prevTable.id)
+			//const userIndex = prevTable?.state?.participants.findIndex(participant => {
+			//	participant.globalInfo.id === this.state.currentUser.globalInfo.id;
+			//});
+			//assert(userIndex, "Participant must be found in table state");
+			//console.log("User index " + userIndex);
+
+			prevTable.state?.participants.filter((user) => user.globalInfo.id !== this.state.currentUser.globalInfo.id);
+			let newState = new TableState(prevTable, prevTable.state?.participants);
+			this.editTableState(prevTable.id,newState);
+		}
+ */
+		
+		// add to curr table
+		const newUser = this.state.currentUser;
+		const currTable = this.state.tables.find(table => 
+			table.id === targetTableId
+		)
+		if(currTable && currTable.state){
+			console.log("Curr table index is " + currTable);
+			currTable.state.participants.push(newUser);
+			this.editTableState(currTable.id,currTable.state);
+			currTable.state?.participants.map(pa=>console.log(pa.getName()));
+		}
 	}
 }

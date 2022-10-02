@@ -17,6 +17,7 @@ type TableContainerProps = {
 	showEditor?: boolean;
 	tables: TableInfo[];
 	editTableCallback: Function;
+	changeTableCallback: Function;
 };
 
 type TableContainerState = {
@@ -29,6 +30,12 @@ type TableContainerState = {
 	 * Active table for editing
 	 */
 	activeTable: TableInfo;
+
+	/**
+	 * Target table for switching
+	 */
+	targetTable: TableInfo;
+
 };
 
 export class TableContainer extends Component<TableContainerProps, TableContainerState> {
@@ -38,6 +45,7 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 		this.state = {	// set states
 			showEditor: this.props.showEditor || false,
 			activeTable: this.props.tables[0] || testTableState,	// test table
+			targetTable:this.props.tables[0] || testTableState
 		};
 	}
 
@@ -47,9 +55,14 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 				{this.props.tables.map((table) => (
 					<Table
 						key={table.id}
-						state={table.state}
-						toggleEditor={(_) =>
-							this.setState({ showEditor: !this.state.showEditor, activeTable: table })
+						state={table.state}	
+						toggleEditor={(event) => {
+							event.stopPropagation();
+							this.setState({ showEditor: !this.state.showEditor, activeTable: table });
+						  }
+						}
+						onJoin={() => 
+							this.changeTable(table.id)
 						}
 					/>
 				))}
@@ -106,5 +119,12 @@ export class TableContainer extends Component<TableContainerProps, TableContaine
 			//error
 			console.error("Table state not found");
 		}
+	}
+
+	changeTable(targetTableId:String) {
+		console.log("In change table - TableContainer After")
+		console.log("Table id: " + targetTableId);
+		this.props.changeTableCallback(targetTableId);
+		
 	}
 }

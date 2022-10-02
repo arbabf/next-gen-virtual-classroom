@@ -3,7 +3,10 @@ import Head from 'next/head';
 import React from 'react';
 import RoomView from '../components/classroom/RoomView';
 import { testRoom, testUser } from '../entities/TestEntities';
+import { User } from '../entities/User';
 import styles from '../styles/pages/Home.module.css';
+
+const newUser = new User('Olivia Chang', 'olivia@example.com', '4');
 
 const Home: NextPage = () => {
 	return (
@@ -14,7 +17,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<RoomView room={testRoom} user={testUser} />
+			<RoomView room={testRoom} user={newUser} />
 		</>
 	);
 };

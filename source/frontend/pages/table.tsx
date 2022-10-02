@@ -3,7 +3,8 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/pages/Home.module.css';
 import { TableContainer } from '../components/tables/TableContainer';
-import { testTableState } from '../entities/TestEntities';
+import { testTableInfo, testTableState } from '../entities/TestEntities';
+
 //import TableContainer from
 
 const Home: NextPage = () => {
@@ -20,9 +21,9 @@ const Home: NextPage = () => {
 			</main>
 
 			<main className={styles.main}>
-				<TableContainer tables={[testTableState]} />
+			<TableContainer tables={[testTableInfo.withState(testTableState)]} editTableCallback={() => { return; }} />
 			</main>
-		</>
+			</>
 	);
 };
 

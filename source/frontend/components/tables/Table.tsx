@@ -1,4 +1,4 @@
-import { Component, MouseEventHandler } from 'react';
+import React, { Component, MouseEventHandler } from 'react';
 import { TableState } from '../../entities/Table';
 import { UserAction } from '../../entities/user/UserAction';
 import { Badge } from '../common/badge/Badge';
@@ -27,9 +27,17 @@ type TableProps = {
 	 * Whether this table is a stage
 	 */
 	stage?: boolean;
+
+	/**
+	 * When click table to change
+	 */
+	onJoin?: MouseEventHandler;
+
 };
 
+
 export class Table extends Component<TableProps> {
+
 	render() {
 		let classes = styles.table;
 
@@ -38,7 +46,8 @@ export class Table extends Component<TableProps> {
 		else classes += ` ${styles.regular}`;
 
 		return (
-			<div className={classes}>
+			/** Should add onclick here - change table */
+			<div className={classes} onClick = {this.props.onJoin} >	
 				{this.props.stage && <div className={styles.badge}>
 					<Badge type={UserAction.inDiscussion} size="medium" />
 				</div>}
@@ -54,4 +63,7 @@ export class Table extends Component<TableProps> {
 			</div>
 		);
 	}
+
+	// do onJoin
+
 }

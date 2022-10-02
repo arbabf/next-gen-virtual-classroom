@@ -46,7 +46,7 @@ export class RoomStateAPI {
 			// check errors
 
 			// resolve by mapping given room's table new table states with test users
-			const stateMap = room.layout.tables.reduce((map, table) => map.set(table.id, new TableState(table, testRoomUserList)), new Map<String, TableState>());
+			const stateMap = room.layout.tables.reduce((map, table) => map.set(table.id, new TableState(table, [...testRoomUserList])), new Map<String, TableState>());
 
 			resolve(stateMap);
 		});
