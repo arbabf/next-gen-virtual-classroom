@@ -59,6 +59,8 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 					</BadgeSet>
 				</div>
 				<span className={styles.name}>{this.props.user.globalInfo.name}</span>
+                <span className={styles.name}>{this.props.user.globalInfo.email}</span>
+                <span className={styles.name}>{this.props.user.globalInfo.id}</span>
 				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
 			</div>
         );
