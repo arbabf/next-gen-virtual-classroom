@@ -49,3 +49,5 @@ export const testRoomLayout: RoomLayout = new RoomLayout([testScreenInfo], [test
 testRoomTemp.layout = testRoomLayout;
 
 export const testRoom = testRoomTemp;
+
+export const testRoomUser = new RoomUser(testUser)
