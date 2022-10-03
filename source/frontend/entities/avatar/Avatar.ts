@@ -8,6 +8,8 @@ import { AvatarShape } from './AvatarShape';
 export abstract class Avatar {
 	id: string;
 
+	abstract readonly serialisationKey: string;
+
 	/**
 	 * Shape of the avatar, used to help place it on the screen
 	 */

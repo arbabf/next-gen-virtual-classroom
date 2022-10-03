@@ -16,6 +16,7 @@ import { Table } from '../tables/Table';
 import { TableContainer } from '../tables/TableContainer';
 import RoomSpace from './RoomSpace';
 import assert from 'assert';
+import { fetchUserFromStorage } from '../../lib/storage/UserStorage';
 
 
 type RoomViewProps = {
@@ -48,6 +49,11 @@ type RoomViewState = {
 	 * Current room's specific user info
 	 */
 	currentUser: RoomUser;
+
+	/**
+	 * current user info
+	 */
+	currentUserInfo: User;
 
 	/**
 	 * Participants of this room
@@ -84,10 +90,17 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		tables: this.props.room.layout.tables,
 		roamingSpace: this.props.room.layout.roamingSpace,
 		stage: this.props.room.layout.stage,
+		currentUserInfo: this.props.user
 	};
 
 	componentDidMount() {
-		this.fetchState();
+		const user = this.fetchUserFromStorage();
+
+		this.getCurrentRoomUser(user ?? this.props.user);
+
+		this.getParticipants();
+		this.getTableStates();
+		this.getRoamingAndStageStates();
 	}
 
 	render(): ReactNode {
@@ -99,7 +112,7 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 		const roamingArea: ReactNode = <Table state={this.state.roamingSpace.state} roaming />;
 
 		/** Part of the room where the tables will be placed */
-		const tableArea: ReactNode = <TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} changeTableCallback={this.joinTable.bind(this)}/>;
+		const tableArea: ReactNode = <TableContainer tables={this.state.tables} editTableCallback={this.editTableState.bind(this)} changeTableCallback={this.joinTable.bind(this)} />;
 
 		/** Part of the room where screens will be placed */
 		const screenArea: ReactNode = <ScreenSpace>
@@ -146,22 +159,15 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	}
 
 	/**
-	 * Fetches the current room state from appropriate servers and middleware.
-	 */
-	private fetchState() {
-		this.getCurrentRoomUser();
-		this.getParticipants();
-		this.getTableStates();
-		this.getRoamingAndStageStates();
-	}
-
-	/**
 	 * Gets live user info for this room
+	 * 
+	 * @param user User to get info for - a copy of the currently logged-in user
 	 */
-	private getCurrentRoomUser() {
-		RoomInfoAPI.getRoomUser(this.props.user).then((roomUser) => {
+	private getCurrentRoomUser(user: User) {
+		RoomInfoAPI.getRoomUser(user).then((roomUser) => {
 			this.setState({ currentUser: roomUser });
-		});
+		})
+			.catch((err) => console.error(err));
 	}
 
 	/**
@@ -241,62 +247,71 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 	 * Change table according to the table user clicked
 	 * @param table Table to change to
 	 */
-	protected joinTable(targetTableId:string){
+	protected joinTable(targetTableId: string) {
 		console.log("In join table");
 		// find prevTable
-		this.state.tables.filter( (table) => table.state?.participants.find(participant =>
+		this.state.tables.filter((table) => table.state?.participants.find(participant =>
 			participant.globalInfo.id === this.state.currentUser.globalInfo.id
-		)).forEach( (prevTable) => {
-			const participants = prevTable.state?.participants.filter((user) => 
-			user.globalInfo.id !== this.state.currentUser.globalInfo.id);
+		)).forEach((prevTable) => {
+			const participants = prevTable.state?.participants.filter((user) =>
+				user.globalInfo.id !== this.state.currentUser.globalInfo.id);
 			let newState = new TableState(prevTable, participants);
-			this.editTableState(prevTable.id,newState);
+			this.editTableState(prevTable.id, newState);
 		});
 
-/**
- * const prevTable = this.state.tables.find(table =>{
-			
-			// find user
-			const user = table.state?.participants.find(participant =>
-				participant.globalInfo.id === this.state.currentUser.globalInfo.id
-			)
-			// if user found
-			if(user){
-				console.log("Found User " + user.getName());
-				return true
-			}
-			console.log("User not found - linw 259");
-			return false
-		})
-
-
+		/**
+		 * const prevTable = this.state.tables.find(table =>{
+					
+					// find user
+					const user = table.state?.participants.find(participant =>
+						participant.globalInfo.id === this.state.currentUser.globalInfo.id
+					)
+					// if user found
+					if(user){
+						console.log("Found User " + user.getName());
+						return true
+					}
+					console.log("User not found - linw 259");
+					return false
+				})
 		
-		// have prev table,
-		if (prevTable){
-			// remove from prevTable
-			console.log("Prev table's index: " + prevTable.id)
-			//const userIndex = prevTable?.state?.participants.findIndex(participant => {
-			//	participant.globalInfo.id === this.state.currentUser.globalInfo.id;
-			//});
-			//assert(userIndex, "Participant must be found in table state");
-			//console.log("User index " + userIndex);
-
-			prevTable.state?.participants.filter((user) => user.globalInfo.id !== this.state.currentUser.globalInfo.id);
-			let newState = new TableState(prevTable, prevTable.state?.participants);
-			this.editTableState(prevTable.id,newState);
-		}
- */
 		
+				
+				// have prev table,
+				if (prevTable){
+					// remove from prevTable
+					console.log("Prev table's index: " + prevTable.id)
+					//const userIndex = prevTable?.state?.participants.findIndex(participant => {
+					//	participant.globalInfo.id === this.state.currentUser.globalInfo.id;
+					//});
+					//assert(userIndex, "Participant must be found in table state");
+					//console.log("User index " + userIndex);
+		
+					prevTable.state?.participants.filter((user) => user.globalInfo.id !== this.state.currentUser.globalInfo.id);
+					let newState = new TableState(prevTable, prevTable.state?.participants);
+					this.editTableState(prevTable.id,newState);
+				}
+		 */
+
 		// add to curr table
 		const newUser = this.state.currentUser;
-		const currTable = this.state.tables.find(table => 
+		const currTable = this.state.tables.find(table =>
 			table.id === targetTableId
 		)
-		if(currTable && currTable.state){
+		if (currTable && currTable.state) {
 			console.log("Curr table index is " + currTable);
 			currTable.state.participants.push(newUser);
-			this.editTableState(currTable.id,currTable.state);
-			currTable.state?.participants.map(pa=>console.log(pa.getName()));
+			this.editTableState(currTable.id, currTable.state);
+			currTable.state?.participants.map(pa => console.log(pa.getName()));
 		}
+	}
+
+	/**
+	 * Fetches user from localStorage
+	 */
+	private fetchUserFromStorage() {
+		const user = fetchUserFromStorage();
+		if (user) this.setState({ currentUserInfo: user });
+		return user;
 	}
 }
