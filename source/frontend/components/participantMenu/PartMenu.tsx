@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Component } from 'react';
 import { RoomUser } from '../../entities/user/RoomUser';
 import Button from '../common/button/button';
@@ -26,21 +28,24 @@ export default class PartMenu extends Component<PartMenuProps> {
 		return (
 			<div className={classes}>
 				<section className={styles.section}>
+					
 					<Button unfilled>
 						<span>Direct Message</span>
 					</Button>
 
-					<Button unfilled>
+					<Button unfilled onClick={() => alert("Invitation Sent!")}>
 						<span>Add Friend</span>
 					</Button>
 
-					<Button unfilled>
+					<Button unfilled onClick={() => alert("Invitation Sent!")}>
 						<span>Invite To Table</span>
 					</Button>
 
-					<Button unfilled>
-						<span>See Profile</span>
-					</Button>
+					<Link href={"/profile"}>
+						<Button unfilled>
+							<span>See Profile</span>
+						</Button>
+					</Link>
 				</section>
 			</div>
 		);
