@@ -1,3 +1,5 @@
+import { RoomGroup } from './org/RoomGroup';
+import { RoomGroupType } from './org/RoomGroupType';
 import { Organisation } from './Organisation';
 import { Folder } from './resources/Folder';
 import { Resource } from './resources/Resource';
@@ -23,6 +25,13 @@ export const testUser3 = new User('Kelvin Smith', 'kelvin@example.com', '2');
 export const testUserList = [testUser, testUser2, testUser3];
 export const testRoomUserList = testUserList.map((user) => new RoomUser(user));
 
+// room groups
+export const groupTypeBuilding = new RoomGroupType('Building', 'A building with multiple floors');
+export const groupTypeFloor = new RoomGroupType('Floor', 'A floor within a building');
+
+export const roomGroupLTB = new RoomGroup('Learning and Teaching Building', 'A large building with 4 floors', groupTypeBuilding);
+export const roomGroupLTBLevel2 = new RoomGroup('Level 2', 'Second floor of the LTB', groupTypeFloor, [roomGroupLTB]);
+
 // dependent test entities
 export const testFolder = new Folder([], 'Test Folder');
 
@@ -38,6 +47,7 @@ let testRoomTemp = new RoomInfo(
 	'Test Room',
 	'Room made for testing purposes',
 	testOrganisation,
+	roomGroupLTBLevel2,
 	'0'
 );
 
@@ -51,3 +61,4 @@ testRoomTemp.layout = testRoomLayout;
 export const testRoom = testRoomTemp;
 
 export const testRoomUser = new RoomUser(testUser)
+
