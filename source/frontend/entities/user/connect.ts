@@ -110,7 +110,7 @@ const connect = () => {
                 if (resp.data.isProducer) {
                     onProducerTransportCreated(resp);
                 } else {
-                    onConsumerTransportCreated(resp, socket);
+                    onConsumerTransportCreated(resp);
                 }
                 break;
             case 'connectTransport':
@@ -273,7 +273,7 @@ const onRouterCapbabilities = (resp: any) => {
     loadDevice(resp.data.rtpCapabilities);
 }
 
-const onConsumerTransportCreated = async (event: any, socket: WebSocket) => {
+const onConsumerTransportCreated = async (event: any) => {
     if (event.error){
         console.error('consumer transport create error: ', event.error);
         return;
@@ -341,36 +341,38 @@ const consume = async (tId: any) => {
         if (cId == clientId) {
             continue
         }
-        console.log("DEBUG: " + producers[cId]["video"]);
+        if (producers[cId]["video"]){
+            console.log("DEBUG: " + producers[cId]["video"]);
+            const video = { 
+                type: 'consume', 
+                data: {
+                    roomId: currRoomId,
+                    clientId,
+                    producerId: producers[cId]["video"],
+                    transportId: tId,
+                    rtpCapabilities
+                }
+            };
+            const vidResp = JSON.stringify(video);
+            socket.send(vidResp);
+        }
         console.log("DEBUG ------------------------")
-        console.log("DEBUG: " + producers[cId]["audio"]);
-        const video = { 
-            type: 'consume', 
-            data: {
-                roomId: currRoomId,
-                clientId,
-                producerId: producers[cId]["video"],
-                transportId: tId,
-                rtpCapabilities
-            }
-        };
-
-        const audio = { 
-            type: 'consume', 
-            data: {
-                roomId: currRoomId,
-                clientId,
-                producerId: producers[cId]["audio"],
-                transportId: tId,
-                rtpCapabilities
-            }
-        };
-
-        const vidResp = JSON.stringify(video);
-        socket.send(vidResp);
-
-        const audResp = JSON.stringify(audio);
-        socket.send(audResp);
+        if (producers[cId]["audio"]){
+            console.log("DEBUG: " + producers[cId]["audio"]);
+            const audio = { 
+                type: 'consume', 
+                data: {
+                    roomId: currRoomId,
+                    clientId,
+                    producerId: producers[cId]["audio"],
+                    transportId: tId,
+                    rtpCapabilities
+                }
+            };
+    
+            const audResp = JSON.stringify(audio);
+            socket.send(audResp);
+        }
     }
 }
 
@@ -420,11 +422,12 @@ const onSubscribed = async (resp: any) => {
     });
 
     let waitingTrack: MediaStreamTrack = undefined;
+    let stream: MediaStream = undefined;
     remoteStream = stream;
     streams[transportId] = stream;
     if(kind == "video"){
         const { track } = consumer
-        const stream = new MediaStream([track]);
+        stream = new MediaStream([track]);
         streams[pId2cId[producerId]] = stream;
         console.log('epicness')
 
@@ -456,6 +459,10 @@ const onSubscribed = async (resp: any) => {
         else{
             streams[pId2cId[producerId]].addTrack(consumer.track);
         }
+    }
+    if (!stream){
+        // Stream not created. This is due to video not existing but audio existing.
+        stream = new MediaStream([waitingTrack])
     }
 }
 
