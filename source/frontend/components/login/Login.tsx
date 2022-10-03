@@ -2,6 +2,7 @@ import { Component } from "react";
 import Card from "../common/card/card";
 import styles from "./Login.module.css";
 import { LoginFlow } from "./LoginFlow";
+import { SignUp } from "./SignUp";
 
 type LoginProps = {
 
@@ -24,7 +25,8 @@ export class Login extends Component {
 			<h1>{
 				this.state.loggingIn ? "Log in" : "Sign up"
 			}</h1>
-			<LoginFlow />
+			{this.state.loggingIn && <LoginFlow onSignUp={() => this.setState({ loggingIn: false })} />}
+			{!this.state.loggingIn && <SignUp onLogin={() => this.setState({ loggingIn: true })} />}
 		</Card>;
 	}
 }

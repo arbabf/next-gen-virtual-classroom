@@ -47,31 +47,13 @@ type ButtonProps = {
 };
 
 /**
- * State of a button that can be dynamically controlled.
- *
- * e.g. a send button can be disabled until a message is written
- */
-type ButtonState = {
-	disabled: boolean;
-};
-
-/**
  * Represents a simple button containing a label and icons at either end. It accepts a click
  * listener.
  *
  * It can be disabled (preventing clicks and greying itself out) and it can have a filled in or
  * unfilled style.
  */
-class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
-	constructor(props: ButtonProps) {
-		super(props);
-
-		this.state = {
-			// sets to false by default (not defined in props), otherwise use the props value
-			disabled: this.props.disabled === undefined ? false : this.props.disabled,
-		};
-	}
-
+class Button extends Component<PropsWithChildren<ButtonProps>> {
 	render() {
 		let classes = styles.button;
 
@@ -85,8 +67,8 @@ class Button extends Component<PropsWithChildren<ButtonProps>, ButtonState> {
 		return (
 			<button
 				className={classes}
-				onClick={this.state.disabled ? undefined : this.props.onClick}
-				disabled={this.state.disabled}
+				onClick={this.props.disabled ? undefined : this.props.onClick}
+				disabled={this.props.disabled}
 			>
 				{this.props.children}
 			</button>

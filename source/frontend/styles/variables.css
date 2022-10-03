@@ -41,14 +41,14 @@
 	--border-strong: var(--border-strong-width) solid var(--border-color-strong);
 
 	--button-fill: var(--blue-500);
-	--button-fill-disabled: var(--blue-200);
+	--button-fill-disabled: var(--blue-100);
 	--button-fill-hover: var(--blue-600);
 	--button-foreground: white;
-	--button-foreground-disabled: #fff4;
+	--button-foreground-disabled: #fff8;
 	--button-unfilled-hover: var(--accent-tp-12);
 	--button-inverted-fill: white;
-	--button-inverted-disabled-fill: var(--blue-50);
-	--button-inverted-disabled-text: var(--blue-200);
+	--button-inverted-disabled-fill: white;
+	--button-inverted-disabled-text: var(--blue-100);
 	--button-light-background: var(--blue-50);
 	--button-light-background-hover: var(--blue-100);
 	--button-light-foreground: var(--blue-900);
