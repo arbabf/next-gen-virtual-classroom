@@ -1,5 +1,6 @@
+import { RoomGroup } from '../entities/org/RoomGroup';
 import { RoomInfo } from '../entities/Room';
-import { testRoom, testUser } from '../entities/TestEntities';
+import { groupTypeFloor, roomGroupLTB, roomGroupLTBLevel2, testOrganisation, testRoom, testUser } from '../entities/TestEntities';
 import { User } from '../entities/User';
 import { AuthFlow } from './auth/AuthFlow';
 import { EmailFlowResponse } from './auth/LoginResponses';
@@ -13,7 +14,12 @@ export class UserAPI {
 			// check for errors
 
 			// return
-			resolve([testRoom]);
+			// make up more rooms to show hierarchy
+			const LTBLevelG = new RoomGroup('LTB Level G', 'Ground floor of the LTB', groupTypeFloor, [roomGroupLTB]);
+			const levelGRoom = new RoomInfo('G.52', 'Another test room', testOrganisation, LTBLevelG);
+			const level2Room2 = new RoomInfo('2.20', 'Another test room', testOrganisation, roomGroupLTBLevel2);
+
+			resolve([testRoom, levelGRoom, level2Room2]);
 		});
 	}
 

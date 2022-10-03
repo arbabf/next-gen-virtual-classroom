@@ -153,8 +153,8 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 					map.set(entity.id, node);
 				}
 
-				// add to top-level
-				rootNodes.push(node);
+				// add to top-level if it doesn't exist
+				if (!rootNodes.find((n) => n.id === entity.id)) rootNodes.push(node);
 
 				// return this node
 				return node;
@@ -165,10 +165,15 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 
 				// add self to parent
 				const node = new DirectoryNode(entity);
-				parent.children.push(node);
+
+				// get from map or use parent if not found
+				let parentToUpdate = map.get(parent.id) ?? parent;
+
+				if (!parentToUpdate.children.find((n) => n.id === entity.id))
+					parentToUpdate.children.push(node);
 
 				// update parent in map
-				map.set(parent.id, parent);
+				map.set(parentToUpdate.id, parentToUpdate);
 
 				// return self
 				return node;
@@ -184,7 +189,7 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 				if (!map.has(entity.id)) map.set(entity.id, node);
 
 				// add to top-level
-				rootNodes.push(node);
+				if (!rootNodes.find((n) => n.id === entity.id)) rootNodes.push(node);
 
 				return node;
 			}
@@ -194,10 +199,15 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 
 				// add self
 				const node = new DirectoryNode(entity);
-				parent.children.push(node);
 
-				// update map
-				map.set(parent.id, parent);
+				// get from map or use parent if not found
+				let parentToUpdate = map.get(parent.id) ?? parent;
+
+				if (!parentToUpdate.children.find((n) => n.id === entity.id))
+					parentToUpdate.children.push(node);
+
+				// update parent in map
+				map.set(parentToUpdate.id, parentToUpdate);
 
 				// return self
 				return node;
@@ -214,6 +224,9 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 	 * @param node The node to render
 	 */
 	private renderNode(node: DirectoryNode): ReactNode {
+		// get updated children
+		const children = this.state.nodes.get(node.id)?.children;
+
 		return (
 			<Card key={node.id}>
 				<h3>{node.entity.name}</h3>
@@ -223,7 +236,7 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 						<span>Join</span>
 					</Button>
 				}
-				{node.children && node.children.length > 0 &&
+				{children && children.length > 0 &&
 					<div className={styles.roomList}>
 						{node.children.map((child) => this.renderNode(child))}
 					</div>
