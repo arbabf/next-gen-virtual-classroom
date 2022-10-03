@@ -1,15 +1,13 @@
 import assert from 'assert';
-import { Component, MouseEvent } from 'react';
-import { AvatarShape } from '../../entities/avatar/AvatarShape';
-import { Facilitator } from '../../entities/roles/Facilitator';
-import { Host } from '../../entities/roles/Host';
+import { Component } from 'react';
 import { RoomUser } from '../../entities/user/RoomUser';
 import { AvatarView } from '../avatars/AvatarView';
 import { Badge } from '../common/badge/Badge';
 import { BadgeSet } from '../common/badge/BadgeSet';
 import { BadgeUserTypes } from '../common/badge/BadgeTypes';
-import PartMenu from '../participantMenu/PartMenu';
-import styles from './UserView.module.css';
+import styles from './UserEditingView.module.css';
+import Button from '../common/button/button'
+import ReactDOM from 'react-dom';
 
 type UserEditingViewProps = {
 	/**
@@ -23,12 +21,23 @@ type UserEditingViewState = {
 	 * Whether to show the user context menu
 	 */
 	showContextMenu: boolean;
+
+    newName: string;
+
+    newID: string;
+
+    newEmail: string|undefined;
 }
+
+
 
 export class UserEditingView extends Component<UserEditingViewProps, UserEditingViewState> {
 
 	state: UserEditingViewState = {
-		showContextMenu: false
+		showContextMenu: false,
+        newName: this.props.user.globalInfo.name,
+        newID: this.props.user.globalInfo.id,
+        newEmail: this.props.user.globalInfo.email
 	}
 
     render(){
@@ -44,6 +53,10 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 
         let roleBadgeType: BadgeUserTypes | undefined;
 
+        this.setState({newName: this.props.user.globalInfo.name})
+        this.setState({newID: this.props.user.globalInfo.id})
+        this.setState({newEmail: this.props.user.globalInfo.email})
+
         return(
 			<div className={styles.container}>
 				<div className={styles.badgeWrapper}>
@@ -58,13 +71,53 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 						{this.props.user.state?.currentActions.map((action) => <Badge key={action} type={action} />)}
 					</BadgeSet>
 				</div>
-				<span className={styles.name}>{this.props.user.globalInfo.name}</span>
-                <span className={styles.name}>{this.props.user.globalInfo.email}</span>
-                <span className={styles.name}>{this.props.user.globalInfo.id}</span>
-				<PartMenu user={this.props.user} hidden={!this.state.showContextMenu} />
+
+                <span className={styles.name}>Name</span>
+                <textarea id = "textName" value={this.props.user.globalInfo.name} onChange={this.onNameChange.bind(this)}/>
+                <span className={styles.name}>Email</span>
+                <textarea id = "textEmail" value={this.props.user.globalInfo.email} onChange={this.onEmailChange.bind(this)}/>
+                <span className={styles.name}>ID</span>
+                <textarea id = "textID"value={this.props.user.globalInfo.id} onChange={this.onIDChange}/>
+                
+                <Button onClick = {this.onSaveClick.bind(this)}>
+                    Save
+                </Button>
+                <div id = "Saved">
+
+                </div>
 			</div>
-        );
-    }
+            )
+        }
+        private onNameChange(event: React.ChangeEvent<HTMLTextAreaElement>){
+            this.setState({newName: event.target.value})
+        }
+
+        private onIDChange(event: React.ChangeEvent<HTMLTextAreaElement>){
+            this.setState({newID: event.target.value})
+        }
+
+        private onEmailChange(event: React.ChangeEvent<HTMLTextAreaElement>){
+            this.setState({newEmail: event.target.value})
+        }
+
+        private onSaveClick(this: this){
+            if(this.state.newID !== this.props.user.globalInfo.id){
+
+            }
+            if(this.state.newName !== this.props.user.globalInfo.name){
+                this.props.user.globalInfo.name = this.state.newName
+            }
+
+            if(this.state.newEmail !== this.props.user.globalInfo.email){
+                this.props.user.globalInfo.email = this.state.newEmail
+            }
+
+            if(document.getElementById('Saved')){
+                document.getElementById('Saved').innerHTML = "Saved"
+            }
+
+        }
+
 
 
 }
