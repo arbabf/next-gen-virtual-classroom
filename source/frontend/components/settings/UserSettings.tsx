@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Component } from 'react';
 import { RoomUser } from '../../entities/user/RoomUser';
 import Button from '../common/button/button';
@@ -24,10 +25,13 @@ export default class UserSettings extends Component<UserSettingsProps> {
 							<Icon iconName="logout" />
 							<span>Sign out</span>
 						</Button>
-						<Button unfilled>
-							<Icon iconName="person" />
-							<span>Avatar settings</span>
-						</Button>
+
+						<Link href={'/ProfileEditing'}>
+							<Button unfilled>
+								<Icon iconName="person" />
+								<span>Avatar settings</span>
+							</Button>
+						</Link>
 					</ButtonSet>
 				</Card>
 			</section>
