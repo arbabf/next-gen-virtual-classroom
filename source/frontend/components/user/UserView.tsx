@@ -87,6 +87,7 @@ export class UserView extends Component<UserViewProps, UserViewState> {
 	}
 
 	onUserClick(event: MouseEvent) {
+		event.stopPropagation();
 		this.setState({ showContextMenu: !this.state.showContextMenu });
 	}
 
