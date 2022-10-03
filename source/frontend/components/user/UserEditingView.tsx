@@ -1,6 +1,7 @@
 import assert from 'assert';
 import { Component } from 'react';
 import { RoomUser } from '../../entities/user/RoomUser';
+import { fetchUserFromStorage } from '../../lib/storage/UserStorage';
 import { BadgeUserTypes } from '../common/badge/BadgeTypes';
 import Button from '../common/button/button';
 import styles from './UserEditingView.module.css';
@@ -67,7 +68,7 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 				<span className={styles.name}>Email</span>
 				<textarea id="textEmail" value={this.state.newEmail} onChange={this.onEmailChange.bind(this)} />
 				<span className={styles.name}>ID</span>
-				<textarea id="textID" value={this.props.user.globalInfo.id} onChange={this.onIDChange.bind(this)} />
+				<textarea id="textID" value={this.state.newID} />
 
 				<Button onClick={this.onSaveClick.bind(this)}>
 					Save
@@ -107,9 +108,24 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 
 		statusMessage += " " + statuses.join(", ");
 
+		// save user to storage
+		localStorage.setItem('currentUser', JSON.stringify(user.globalInfo));
+
 		this.setState({ user, statusMessage });
 	}
 
+	componentDidMount() {
+		this.setUserFromStorage();
+	}
 
+	private setUserFromStorage() {
+		const user = fetchUserFromStorage();
+		if (user) {
+			const newName = user.name;
+			const newID = user.id;
+			const newEmail = user.email;
 
+			this.setState({ user: new RoomUser(user), newName, newID, newEmail })
+		};
+	}
 }
