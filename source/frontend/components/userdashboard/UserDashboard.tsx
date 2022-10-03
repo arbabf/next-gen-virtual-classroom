@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { Component, ReactNode } from 'react';
 import { RoomInfo } from '../../entities/Room';
 import { testRoom } from '../../entities/TestEntities';
@@ -20,15 +21,30 @@ type UserDashboardState = {
 	 * Set of rooms that the user would be a part of
 	 */
 	rooms: RoomInfo[];
+
+	/**
+	 * Logged-in user
+	 */
+	user?: User;
 };
 
 export default class UserDashboard extends Component<UserDashboardProps, UserDashboardState> {
-	state = {
+	state: UserDashboardState = {
 		rooms: [testRoom],
 	};
 
 	componentDidMount() {
-		UserAPI.getUserRooms(this.props.user).then((rooms) => this.setState({ rooms }));
+		// check storage for user info
+		const savedUser = this.fetchSavedUser();
+
+		if (savedUser) {
+			// fetch the user's rooms
+			UserAPI.getUserRooms(this.props.user).then((rooms) => this.setState({ rooms }));
+		}
+		else {
+			// redirect to login
+			Router.push('/login');
+		}
 	}
 
 	render(): ReactNode {
@@ -37,7 +53,7 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 				<main className="content">
 					<header>
 						<div className="container">
-							<h1>Welcome, {this.props.user.name}</h1>
+							<h1>Welcome{this.state.user && `, ${this.state.user.name}`}</h1>
 						</div>
 					</header>
 					<section>
@@ -59,5 +75,22 @@ export default class UserDashboard extends Component<UserDashboardProps, UserDas
 				</main>
 			</>
 		);
+	}
+
+	/**
+	 * Fetches the user's saved info from localStorage
+	 */
+	private fetchSavedUser(): User | undefined {
+		const savedUser = localStorage.getItem('currentUser');
+		if (savedUser) {
+			// set the fields to the saved user
+			const user = JSON.parse(savedUser) as User;
+
+			this.setState({ user });
+
+			return user;
+		}
+
+		return;
 	}
 }
