@@ -13,6 +13,12 @@
 	font-weight: 500;
 }
 
+.namePreview {
+    font-weight: 900;
+    color:deepskyblue;
+
+}
+
 .frame {
 	height: var(--avatar-height);
 	width: var(--avatar-width);

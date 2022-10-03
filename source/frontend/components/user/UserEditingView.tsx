@@ -55,6 +55,9 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 
         return(
 			<div className={styles.container}>
+                <span className={styles.namePreview}>{this.props.user.globalInfo.name}</span>
+                <span className={styles.namePreview}>{this.props.user.globalInfo.email}</span>
+                <span className={styles.namePreview}>{this.props.user.globalInfo.id}</span>
 				<div className={styles.badgeWrapper}>
 					<BadgeSet className={badgeSetClasses}>
 						{roleBadgeType && <Badge type={roleBadgeType} />}
@@ -111,6 +114,7 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
             if(document.getElementById('Saved')){
                 document.getElementById('Saved').innerHTML = "Saved"
             }
+            
 
         }
 
