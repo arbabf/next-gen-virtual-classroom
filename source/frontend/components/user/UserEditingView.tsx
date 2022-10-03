@@ -1,12 +1,10 @@
 import assert from 'assert';
 import { Component } from 'react';
 import { RoomUser } from '../../entities/user/RoomUser';
-import { AvatarView } from '../avatars/AvatarView';
-import { Badge } from '../common/badge/Badge';
-import { BadgeSet } from '../common/badge/BadgeSet';
 import { BadgeUserTypes } from '../common/badge/BadgeTypes';
 import Button from '../common/button/button';
 import styles from './UserEditingView.module.css';
+import { UserView } from './UserView';
 
 type UserEditingViewProps = {
 	/**
@@ -26,6 +24,8 @@ type UserEditingViewState = {
 	newID: string;
 
 	newEmail: string | undefined;
+	user: RoomUser;
+	statusMessage?: string;
 }
 
 
@@ -36,7 +36,8 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 		showContextMenu: false,
 		newName: this.props.user.globalInfo.name,
 		newID: this.props.user.globalInfo.id,
-		newEmail: this.props.user.globalInfo.email
+		newEmail: this.props.user.globalInfo.email,
+		user: this.props.user,
 	}
 
 	render() {
@@ -54,23 +55,11 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 
 		return (
 			<div className={styles.container}>
-				<span className={styles.namePreview}>{this.props.user.globalInfo.name}</span>
-				<span className={styles.namePreview}>{this.props.user.globalInfo.email}</span>
-				<span className={styles.namePreview}>{this.props.user.globalInfo.id}</span>
-				<span>
-					<div className={styles.badgeWrapper}>
-						<BadgeSet className={badgeSetClasses}>
-							{roleBadgeType && <Badge type={roleBadgeType} />}
-							{<Badge type={BadgeUserTypes.you} />}
-						</BadgeSet>
-						<div className={classes}>
-							<AvatarView avatar={avatar} />
-						</div>
-						<BadgeSet className={badgeSetClasses}>
-							{this.props.user.state?.currentActions.map((action) => <Badge key={action} type={action} />)}
-						</BadgeSet>
-					</div>
-				</span>
+				<span className={styles.namePreview}>{this.state.user.globalInfo.name}</span>
+				<span className={styles.namePreview}>{this.state.user.globalInfo.email}</span>
+				<span className={styles.namePreview}>{this.state.user.globalInfo.id}</span>
+
+				<UserView user={this.state.user} loggedInUser={this.state.user} hideName />
 
 
 				<span className={styles.name}>Name</span>
@@ -83,9 +72,9 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 				<Button onClick={this.onSaveClick.bind(this)}>
 					Save
 				</Button>
-				<div id="Saved">
-
-				</div>
+				{this.state.statusMessage &&
+					<div id="Saved">{this.state.statusMessage}</div>
+				}
 			</div>
 		)
 	}
@@ -102,20 +91,23 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 	}
 
 	private onSaveClick(this: this) {
-		if (this.state.newID !== this.props.user.globalInfo.id) {
+		const user = this.state.user;
+		let statusMessage = "Saved";
+		const statuses: String[] = [];
 
-		}
 		if (this.state.newName !== this.props.user.globalInfo.name) {
-			this.props.user.globalInfo.name = this.state.newName
+			user.globalInfo.name = this.state.newName;
+			statuses.push("name");
 		}
 
 		if (this.state.newEmail !== this.props.user.globalInfo.email) {
-			this.props.user.globalInfo.email = this.state.newEmail
+			user.globalInfo.email = this.state.newEmail;
+			statuses.push("email");
 		}
 
-		if (document.getElementById('Saved')) {
-			document.getElementById('Saved').innerHTML = "Saved"
-		}
+		statusMessage += " " + statuses.join(", ");
+
+		this.setState({ user, statusMessage });
 	}
 
 
