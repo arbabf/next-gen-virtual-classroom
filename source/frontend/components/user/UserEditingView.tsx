@@ -53,10 +53,6 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 
         let roleBadgeType: BadgeUserTypes | undefined;
 
-        this.setState({newName: this.props.user.globalInfo.name})
-        this.setState({newID: this.props.user.globalInfo.id})
-        this.setState({newEmail: this.props.user.globalInfo.email})
-
         return(
 			<div className={styles.container}>
 				<div className={styles.badgeWrapper}>
@@ -73,11 +69,11 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
 				</div>
 
                 <span className={styles.name}>Name</span>
-                <textarea id = "textName" value={this.props.user.globalInfo.name} onChange={this.onNameChange.bind(this)}/>
+                <textarea id = "textName" value={this.state.newName} onChange={this.onNameChange.bind(this)}/>
                 <span className={styles.name}>Email</span>
-                <textarea id = "textEmail" value={this.props.user.globalInfo.email} onChange={this.onEmailChange.bind(this)}/>
+                <textarea id = "textEmail" value={this.state.newEmail} onChange={this.onEmailChange.bind(this)}/>
                 <span className={styles.name}>ID</span>
-                <textarea id = "textID"value={this.props.user.globalInfo.id} onChange={this.onIDChange}/>
+                <textarea id = "textID" value={this.props.user.globalInfo.id} onChange={this.onIDChange.bind(this)}/>
                 
                 <Button onClick = {this.onSaveClick.bind(this)}>
                     Save
