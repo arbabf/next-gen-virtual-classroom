@@ -20,6 +20,12 @@
 	gap: var(--spacing-xs);
 }
 
+
+.button[disabled] {
+	background-color: var(--button-fill-disabled);
+	color: var(--button-foreground-disabled);
+}
+
 .slim {
 	padding: var(--spacing-xs);
 	border-radius: var(--border-rounding-small);
@@ -31,16 +37,6 @@
 
 .button:hover {
 	cursor: pointer;
-}
-
-.filled {
-	background-color: var(--button-fill);
-	color: var(--button-foreground);
-}
-
-.filled[disabled] {
-	background-color: var(--button-fill-disabled);
-	color: var(--button-foreground-disabled);
 }
 
 .filled:hover {
@@ -58,6 +54,7 @@
 
 .unfilled[disabled] {
 	color: var(--link-color-disabled);
+	background-color: transparent;
 }
 
 .unfilled:hover {
@@ -93,6 +90,7 @@
 
 .light[disabled] {
 	color: var(--button-light-foreground-disabled);
+	background-color: var(--button-light-background);
 }
 
 .light[disabled]:hover {
