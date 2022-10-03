@@ -23,6 +23,7 @@
 	padding-top: calc(var(--spacing-s) * 2);
 	font-size: var(--text-s);
 	background: transparent;
+	color: var(--foreground);
 }
 
 .field:focus-within {
