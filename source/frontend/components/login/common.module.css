@@ -1,0 +1,26 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-s);
+}
+
+.form h2 {
+	margin: 0;
+}
+
+.formGroup {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-s);
+}
+
+.formGroup:not(:first-child) {
+	border-top: var(--border-medium);
+	padding-top: var(--spacing-m);
+	margin-top: var(--spacing-s);
+}
+
+.loginButtonSet {
+	justify-content: space-between;
+	margin: 0 !important;
+}

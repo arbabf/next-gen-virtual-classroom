@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { ChangeEventHandler, Component } from "react";
 import styles from "./FormField.module.css";
 
 type FormFieldProps = {
@@ -26,6 +26,11 @@ type FormFieldProps = {
 	 * Value of the field to be controlled by parent
 	 */
 	value?: string | number;
+
+	/**
+	 * Function to call when the field changes
+	 */
+	onChange?: ChangeEventHandler;
 }
 
 export class FormField extends Component<FormFieldProps> {
@@ -37,6 +42,7 @@ export class FormField extends Component<FormFieldProps> {
 				id={this.props.id}
 				placeholder={this.props.placeholder}
 				value={this.props.value}
+				onChange={this.props.onChange}
 			/>
 		</div>
 	}

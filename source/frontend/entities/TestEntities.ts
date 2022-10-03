@@ -17,7 +17,7 @@ export const testResource = new Resource(
 );
 
 export const testUser = new User('John Smith', 'john@example.com', '0');
-export const testUser2 = new User('Will Smith', 'john@example.com', '1');
+export const testUser2 = new User('Will Smith', 'will@example.com', '1');
 export const testUser3 = new User('Kelvin Smith', 'kelvin@example.com', '2');
 
 export const testUserList = [testUser, testUser2, testUser3];

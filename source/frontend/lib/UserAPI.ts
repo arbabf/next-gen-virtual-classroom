@@ -1,6 +1,8 @@
 import { RoomInfo } from '../entities/Room';
-import { testRoom } from '../entities/TestEntities';
+import { testRoom, testUser } from '../entities/TestEntities';
 import { User } from '../entities/User';
+import { AuthFlow } from './auth/AuthFlow';
+import { EmailFlowResponse } from './auth/LoginResponses';
 
 export class UserAPI {
 	static async getUserRooms(user: User) {
@@ -24,13 +26,38 @@ export class UserAPI {
 	 * @returns email login response with flow and user ID or false if email doesn't exist
 	 */
 	static async loginSubmitEmail(email: string) {
-		return new Promise<string | false>((resolve, reject) => {
+		return new Promise<EmailFlowResponse | false>((resolve, reject) => {
 			// make the fetch
 
 			// check for errors
 
 			// return
-			resolve('0');
+			// test user
+			if (testUser.email === email) {
+				const response: EmailFlowResponse = {
+					id: testUser.id,
+					flow: AuthFlow.skip
+				};
+
+				resolve(response);
+			}
+			else {
+				resolve(false);
+			}
+		});
+	}
+
+	/**
+	 * Signs up a new user with given name and email
+	 */
+	static async signup(name: string, email: string) {
+		return new Promise<User>((resolve, reject) => {
+			// make the fetch
+
+			// check for errors
+
+			// return
+			resolve(new User(name, email))
 		});
 	}
 }
