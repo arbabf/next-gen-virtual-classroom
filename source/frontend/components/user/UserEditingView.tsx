@@ -58,18 +58,21 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
                 <span className={styles.namePreview}>{this.props.user.globalInfo.name}</span>
                 <span className={styles.namePreview}>{this.props.user.globalInfo.email}</span>
                 <span className={styles.namePreview}>{this.props.user.globalInfo.id}</span>
-				<div className={styles.badgeWrapper}>
-					<BadgeSet className={badgeSetClasses}>
-						{roleBadgeType && <Badge type={roleBadgeType} />}
-						{<Badge type={BadgeUserTypes.you} />}
-					</BadgeSet>
-					<div className={classes}>
-						<AvatarView avatar={avatar} />
-					</div>
-					<BadgeSet className={badgeSetClasses}>
-						{this.props.user.state?.currentActions.map((action) => <Badge key={action} type={action} />)}
-					</BadgeSet>
-				</div>
+                <span>
+                    <div className={styles.badgeWrapper}>
+                        <BadgeSet className={badgeSetClasses}>
+                            {roleBadgeType && <Badge type={roleBadgeType} />}
+                            {<Badge type={BadgeUserTypes.you} />}
+                        </BadgeSet>
+                        <div className={classes}>
+                            <AvatarView avatar={avatar} />
+                        </div>
+                        <BadgeSet className={badgeSetClasses}>
+                            {this.props.user.state?.currentActions.map((action) => <Badge key={action} type={action} />)}
+                        </BadgeSet>
+                    </div>
+                </span>
+
 
                 <span className={styles.name}>Name</span>
                 <textarea id = "textName" value={this.state.newName} onChange={this.onNameChange.bind(this)}/>
@@ -114,8 +117,6 @@ export class UserEditingView extends Component<UserEditingViewProps, UserEditing
             if(document.getElementById('Saved')){
                 document.getElementById('Saved').innerHTML = "Saved"
             }
-            
-
         }
 
 
