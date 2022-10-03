@@ -64,7 +64,7 @@ export class InitialStage extends Component<InitialStageProps, InitialStageState
 					<span>Return to login</span>
 				</Button>
 				<Button
-					onClick={(_) => this.props.createUser(this.state.emailField, this.state.nameField)}
+					onClick={(_) => this.props.createUser(this.state.nameField, this.state.emailField)}
 					disabled={this.state.nameField.length === 0 || this.state.emailField.length === 0}
 				>
 					<span>Next</span>
