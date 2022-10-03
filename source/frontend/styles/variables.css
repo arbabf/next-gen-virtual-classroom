@@ -91,7 +91,9 @@
 
 		--button-fill-disabled: var(--blue-800);
 		--button-light-background: var(--blue-800-desaturated);
+		--button-light-background-hover: var(--blue-700);
 		--button-light-foreground: var(--blue-100);
+		--button-light-foreground-disabled: #fff4;
 
 		--alert-color: var(--red-400);
 
