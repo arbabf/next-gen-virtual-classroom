@@ -23,7 +23,7 @@ export class Login extends Component {
 	render() {
 		return <Card className={styles.main}>
 			<h1>{
-				this.state.loggingIn ? "Log in" : "Sign up"
+				this.state.loggingIn ? "Log in" : "Create account"
 			}</h1>
 			{this.state.loggingIn && <LoginFlow onSignUp={() => this.setState({ loggingIn: false })} />}
 			{!this.state.loggingIn && <SignUp onLogin={() => this.setState({ loggingIn: true })} />}

@@ -17,13 +17,13 @@ type LoginFlowProps = {
 
 type LoginFlowState = {
 	currentFlow?: AuthFlow,
-	email?: string,
+	email: string,
 };
 
 export class LoginFlow extends Component<LoginFlowProps, LoginFlowState> {
 	state: LoginFlowState = {
 		currentFlow: undefined,
-		email: undefined,
+		email: '',
 	}
 
 	render() {
@@ -39,7 +39,7 @@ export class LoginFlow extends Component<LoginFlowProps, LoginFlowState> {
 			<ButtonSet className={styles.loginButtonSet}>
 				<Button onClick={() => this.props.onSignUp()} inverted>
 					<Icon iconName="person_add" />
-					<span>Sign up</span>
+					<span>Create account</span>
 				</Button>
 				<Button onClick={() => this.checkEmail()}>
 					<span>Next</span>
@@ -61,6 +61,7 @@ export class LoginFlow extends Component<LoginFlowProps, LoginFlowState> {
 			.then((response) => {
 				if (!response) this.props.onSignUp();
 				else if (response instanceof EmailFlowResponse) {
+					console.log("Got flow: " + response.flow);
 					this.setState({ currentFlow: response.flow });
 				}
 			});
