@@ -64,12 +64,6 @@ const Home: NextPage = () => {
 					<Button onClick={getAllProducers}>
 							<span>{'Subscribe'}</span>
 					</Button>
-					<Button onClick={debug_setClientIdTo1}>
-							<span>{'Client ID Debug'}</span>
-					</Button>
-					<Button onClick={debug_setClientIdTo2}>
-							<span>{'Client ID Debug #2'}</span>
-					</Button>
 				</ButtonSet>
 				<form>
                     <label htmlFor="roomId">Room ID: </label>

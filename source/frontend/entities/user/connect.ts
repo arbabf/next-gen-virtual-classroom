@@ -146,11 +146,19 @@ const connect = () => {
                     pId2cId[producers[cId]["audio"]] = cId;
                 }
                 subscribe();
+            case "retrieveDetails":
+                clientId = resp.data.clientId;
+                console.log(`Your client ID is: ${clientId}`)
+                break;
             default:
                 break;
         }
     }
-    console.log("Connected!");
+
+    socket.onopen = () => {
+        getUserInfo();
+        console.log("Connected!")
+    }
 }
 
 //connect();
@@ -246,14 +254,16 @@ const onProducerTransportCreated = async (event: any) => {
             }
         }
         else{
-            // sharing audio input/webcam
-            const track = stream.getAudioTracks()[0];
-            console.log("DEBUG track: " + track.kind)
+            // sharing microphone/webcam
+            // necessary to separate audio/video tracks in case we want to share microphone, webcam, both or none
+            if (stream.getAudioTracks.length > 0){
+                const track = stream.getAudioTracks()[0];
+                console.log("DEBUG track: " + track.kind)
     
-            const params = { track: track };
-            producer = await transport.produce(params);
-    
-            // same as clause above, except for video instead
+                const params = { track: track };
+                producer = await transport.produce(params);
+            }
+            
             if (stream.getVideoTracks().length > 0){
                 const track2 = stream.getVideoTracks()[0];
                 console.log("DEBUG track2: " + track2.kind)
@@ -460,9 +470,10 @@ const onSubscribed = async (resp: any) => {
             streams[pId2cId[producerId]].addTrack(consumer.track);
         }
     }
-    if (!stream){
+    if (!streams[pId2cId[producerId]]){
         // Stream not created. This is due to video not existing but audio existing.
         stream = new MediaStream([waitingTrack])
+        streams[pId2cId[producerId]] = stream
     }
 }
 
@@ -640,6 +651,18 @@ const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
     return stream;
 }
 
+function getUserInfo(){
+    // Currently unpopulated. Once user database stuff is done, populate data with the user's info, and remember
+    // to grab the info on the server side.
+    const msg = {
+        type: 'retrieveDetails',
+        data: {
+
+        }
+    }
+    socket.send(JSON.stringify(msg));
+}
+
 // async function getMicrophone(){
 //     const audio = await navigator.mediaDevices.getUserMedia({audio: true})
 //     return new MediaStream([audio.getTracks()[0]]);
@@ -659,9 +682,11 @@ async function getScreenShare(){
 //==================
 async function debug_setClientIdTo1(){
     clientId = '1';
+    console.log('Client ID set to 1')
 }
 async function debug_setClientIdTo2(){
     clientId = '2';
+    console.log('Client ID set to 2')
 }
 
 // We'll be needing these, probably.

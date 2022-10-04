@@ -19,4 +19,5 @@ export const types = {
         download: "download",
     },
     getAllProducers: "getAllProducers",
+    retrieveDetails: "retrieveDetails"
 }

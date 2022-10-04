@@ -7,6 +7,8 @@ import { statuses } from "./misc/statuses";
 import { types } from "./misc/types";
 import { fileTransferDispatcher } from "./fileTransfer/fileTransfer";
 
+let numClients = 1;
+
 const WebsocketConnection = async (websock: WebSocket.Server) => {
     websock.on('connection', (ws: WebSocket) => {
         ws.on('message', (message: string) => {
@@ -56,6 +58,9 @@ const WebsocketConnection = async (websock: WebSocket.Server) => {
                 case types.getAllProducers:
                     onGetAllProducers(event, ws)
                     break
+                case types.retrieveDetails:
+                    onRetrieveDetails(event, ws)
+                    break;
                 default:
                     break;
             }
@@ -230,6 +235,10 @@ const WebsocketConnection = async (websock: WebSocket.Server) => {
         }
     }
 
+    const onRetrieveDetails = (event: any, ws: WebSocket) => {
+        // Grab user details. Right now it just sends a client ID that gets incremented.
+        send(ws, statuses.SUCCESS, event.type, {clientId: numClients++});
+    }
 
     const IsJsonString = (str: string) => {
         try {
