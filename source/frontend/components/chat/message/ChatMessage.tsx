@@ -95,7 +95,7 @@ export class ChatMessage extends Component<ChatMessageProps, ChatMessageViewStat
 							<span>{this.state.showChildren ? "Hide" : "Show"} {replies.length} {replies.length > 1 ? "replies" : "reply"}</span>
 						</Button>
 					}
-					{this.props.onReplyFocus &&
+					{this.props.onReplyFocus && this.shouldShowReplies() &&
 						<Button slim inverted onClick={(_) => this.props.onReplyFocus(this.props.message)}>
 							<Icon iconName="reply" />
 							<span>Reply</span>
