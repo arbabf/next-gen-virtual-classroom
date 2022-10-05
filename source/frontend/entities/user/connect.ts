@@ -2,31 +2,13 @@ import * as mediasoup from 'mediasoup-client';
 import { RtpCapabilities } from 'mediasoup-client/lib/RtpParameters';
 import { Transport } from 'mediasoup-client/lib/Transport';
 
-let bntSub;
-let bntCam;
-let bntScreen;
-let btnPause;
-let chatMsg;
-let sendChatBtn;
-let chatDisp;
-let textPublish;
-let textWebcam;
-let textScreen;
-let textSubscribe;
-let localVideo;
-let remoteVideo: any;
 let remoteStream: any;
 let device: mediasoup.Device;
 let producer;
 let producer2;
-let producerPaused = false;
 let transport: Transport;
 let consumeTransport: Transport;
-let consumerTemp;
-let userId;
 let isWebcam: boolean;
-let produceCallback, produceErrback;
-let consumerCallback, ConsumerErrback;
 const websocketURL = 'ws://localhost:8002/ws';
 
 let producers: any = {};
@@ -38,60 +20,13 @@ let callbacks: any = {};
 let transportCallbacks: any = {};
 
 let currRoomId: number;
-let clientId: string = '400000';
+let clientId: string;
 let producerId_global: string;
 
 let socket: WebSocket;
 
-/*document.addEventListener("DOMContentLoaded", function() {
-    bntCam = document.getElementById('btn_webcam');
-    bntScreen = document.getElementById('btn_screen');
-    bntSub = document.getElementById('btn_subscribe');
-    bntMute = document.getElementById('btn_mute');
-    textWebcam = document.getElementById('webcam_status');
-    textScreen = document.getElementById('screen_status');
-    textSubscribe = document.getElementById('subscribe_status');
-    textMute = document.getElementById('mute_status');
-    localVideo = document.getElementById('localVideo');
-    remoteVideo = document.getElementById('remoteVideo');
-    //chat button input and display
-    sendChatBtn =  document.getElementById('send_chat');
-    chatMsg = document.getElementById('messageBox');
-    chatDisp = document.getElementById('messages');
-
-    //button event listeners
-    bntCam.addEventListener('click', publish);
-    bntScreen.addEventListener('click', publish);
-    bntSub.addEventListener('click', getAllProducers);
-    // bntMute.addEventListener('click', test);
-
-    
-    bntCreateRoom = document.getElementById("btn_createRoom")
-    bntJoinRoom = document.getElementById("btn_joinRoom")
-    btnLeaveRoom = document.getElementById("btn_leaveRoom")
-    bntSubmit = document.getElementById("btn_submit")
-    chatContent = document.getElementById("chatContent")
-
-    //button event listeners
-    bntCreateRoom.addEventListener('click', createRoom);
-    bntJoinRoom.addEventListener('click', joinRoom);
-    bntSubmit.addEventListener("click", submitMessage)
-    btnLeaveRoom.addEventListener("click", leaveRoom)
-});*/
-
 const connect = () => {
     socket = new WebSocket(websocketURL);
-    /*socket.onopen = () => {
-        // start our socket request.
-        const msg = {
-            type: "getRouterRtpCapabilities",
-            data: {
-                currRoomId: document.getElementById("currRoomId").value,
-            }
-        }
-        const resp = JSON.stringify(msg);
-        socket.send(resp);
-    }*/
 
     socket.onmessage = (event) => {
         const jsonValidation = IsJsonString(event.data);
@@ -137,8 +72,6 @@ const connect = () => {
                 break;
             case "getAllProducers":
                 document.getElementById("remoteVideoSection").innerHTML = "";
-                //producers = new Array();
-                //resp.data.producers.forEach((val) => producers.push(val));
                 producers = resp.data.producers;
                 pId2cId = {};
                 for (let cId in producers) {
@@ -160,8 +93,6 @@ const connect = () => {
         console.log("Connected!")
     }
 }
-
-//connect();
 
 const onSubConnected = (resp: any) => {
     console.log('sub connected ?')
@@ -214,17 +145,14 @@ const onProducerTransportCreated = async (event: any) => {
     transport.on('connectionstatechange', (state) => {
         switch (state) {
             case 'connecting':
-                //textPublish.innerHTML = 'publishing.....';
                 console.log('publishing...')
                 break;
             case 'connected':
                 //localVideo.srcObject = stream;
                 console.log('published')
-                //textPublish.innerHTML = 'published';
                 break;
             case 'failed':
                 transport.close();
-                //textPublish.innerHTML = 'failed';
             default:
                 console.log(state)
                 break;
@@ -235,6 +163,7 @@ const onProducerTransportCreated = async (event: any) => {
     let stream: any;
     try {
         stream = await getUserMedias(transport, isWebcam);
+        console.log(stream)
         if (!isWebcam)
         {
             // sharing screen/system audio
@@ -256,7 +185,7 @@ const onProducerTransportCreated = async (event: any) => {
         else{
             // sharing microphone/webcam
             // necessary to separate audio/video tracks in case we want to share microphone, webcam, both or none
-            if (stream.getAudioTracks.length > 0){
+            if (stream.getAudioTracks().length > 0){
                 const track = stream.getAudioTracks()[0];
                 console.log("DEBUG track: " + track.kind)
     
@@ -275,7 +204,6 @@ const onProducerTransportCreated = async (event: any) => {
         
     } catch (error) {
         console.error(error);
-        //textPublish.innerHTML = 'failed!';
     }
 }
 
@@ -313,27 +241,13 @@ const subTransportListen = async (transport: Transport) => {
         console.log(state)
         switch (state) {
             case 'connecting':
-                //textSubscribe.innerHTML = 'subscribing...';
                 break;
             case 'connected':
-                //remoteVideo.srcObject = remoteStream;
-                /*const msg = {
-                    type: "resume",
-                    data: {
-                        currRoomId,
-                        id: consumerIds.get(transport.id),
-                        isProducer: false
-                    }
-                }
-                const resp = JSON.stringify(msg);
-                socket.send(resp);*/
                 console.log('subscribed');
-                //textSubscribe.innerHTML = 'subscribed';
                 break;
             case 'failed':
                 console.log("failed")
                 transport.close();
-                //textSubscribe.innerHTML = 'Failed';
                 break;
             default:
                 console.log("others")
@@ -346,7 +260,6 @@ const subTransportListen = async (transport: Transport) => {
 
 const consume = async (tId: any) => {
     const { rtpCapabilities } = device;
-    //for (const pId of producers) {
     for (let cId in producers) {
         if (cId == clientId) {
             continue
@@ -422,13 +335,11 @@ const onSubscribed = async (resp: any) => {
         rtpParameters,
     } = resp.data;
 
-    //let codecOptions = {};
     const consumer = await consumeTransport.consume({
         id,
         producerId,
         kind,
         rtpParameters
-        //codecOptions,
     });
 
     let waitingTrack: MediaStreamTrack = undefined;
@@ -474,14 +385,24 @@ const onSubscribed = async (resp: any) => {
         // Stream not created. This is due to video not existing but audio existing.
         stream = new MediaStream([waitingTrack])
         streams[pId2cId[producerId]] = stream
+        let videoSect = document.getElementById("remoteVideoSection")
+        let videoDiv = document.createElement("div")
+        videoDiv.className = "my-1 px-1 w-full overflow-hidden sm:my-px sm:px-px md:my-px md:px-px lg:my-1 lg:px-1 lg:w-1/2 xl:my-1 xl:px-1"
+        let video = document.createElement("video")
+        video.className = "w-full"
+        video.setAttribute('controls', '')
+        video.setAttribute('autoplay', '')
+        video.setAttribute('playsinline', '')
+        video.srcObject = stream
+        videoDiv.appendChild(video)
+        let remoteName = document.createTextNode(pId2cId[producerId] + ":")
+        videoSect.appendChild(remoteName)
+        videoSect.appendChild(videoDiv)
     }
 }
 
 const publish = (caller: string) => {
     isWebcam = caller === "cam";
-    //textPublish = isWebcam ? textWebcam : textScreen;
-    //bntScreen.disabled = false;
-    //bntCam.disabled = false;
 
     const message = {
         type: 'createTransport',
@@ -514,12 +435,11 @@ function onRoomCreated(resp: any) {
     const { roomId } = resp.data
     currRoomId = roomId
     console.log("New room id is: " + currRoomId)
-    //document.getElementById("currRoomId").value = currRoomId;
 }
 
 function joinRoom() {
     let temp = document.getElementById("roomId").value
-    if (temp) currRoomId = temp as unknown as number; // terrible, very bad but it's only for debug so it's okay
+    if (temp) currRoomId = temp as unknown as number;
     socket.send(JSON.stringify({
         type: "joinRoom",
         data: {
@@ -527,9 +447,6 @@ function joinRoom() {
             clientId: clientId
         }
     }))
-
-    //currRoomId = document.getElementById("currRoomId").value;
-    //clientId = document.getElementById("clientId").value;
 
     const msg = {
         type: "getRouterRtpCapabilities",
@@ -545,25 +462,13 @@ function submitMessage() {
     socket.send(JSON.stringify({
         type: "chat",
         data: {
-            //currRoomId: document.getElementById("currRoomId").value, 
-            //clientId: document.getElementById("clientId").value,
-            //message: document.getElementById("chatMsg").value
+
         }
     }))
-
-    //divChat = document.getElementById("div_chat")
-    //divChat.appendChild(document.createTextNode(`${document.getElementById("clientId").value}: ${document.getElementById("chatMsg").value}`))
-    //divChat.appendChild(document.createElement("br"))
-    
-    //document.getElementById("chatMsg").value = ""
 }
 
 function onChat(resp: any) {
-    //divChat = document.getElementById("div_chat")
-
     const {from, message} = resp.data
-    //divChat.appendChild(document.createTextNode(`${from}: ${message}`))
-    //divChat.appendChild(document.createElement("br"))
 }
 
 function leaveRoom() {
@@ -609,13 +514,8 @@ const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
         console.error('cannot produce video');
         return;
     }
-    // let stream;
     try {
-        // stream = isWebcam ?
-        // await navigator.mediaDevices.getUserMedia({video: true, audio: true}) :
-        // await navigator.mediaDevices.getDisplayMedia({video: true});
         if (isWebcam){
-            // TODO: split camera, microphone share
             let stream1: MediaStream = undefined
             let stream2: MediaStream = undefined
             try {
@@ -640,7 +540,6 @@ const getUserMedias = async (transport: Transport, isWebcam: boolean) => {
             if (!stream1 && !stream2) throw 'No suitable user media found!';
             console.log("audio and video share");
         }else{
-            // stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
             stream = await getScreenShare();
             console.log('got', stream.getTracks());
         }
@@ -663,11 +562,6 @@ function getUserInfo(){
     socket.send(JSON.stringify(msg));
 }
 
-// async function getMicrophone(){
-//     const audio = await navigator.mediaDevices.getUserMedia({audio: true})
-//     return new MediaStream([audio.getTracks()[0]]);
-// }
-
 async function getScreenShare(){
     const stream = await navigator.mediaDevices.getDisplayMedia({video: true, audio: true});
     if (stream.getTracks().length == 1){
@@ -677,19 +571,6 @@ async function getScreenShare(){
     return new MediaStream([stream.getVideoTracks()[0], stream.getAudioTracks()[0]]);
 }
 
-//==================
-//      DEBUG
-//==================
-async function debug_setClientIdTo1(){
-    clientId = '1';
-    console.log('Client ID set to 1')
-}
-async function debug_setClientIdTo2(){
-    clientId = '2';
-    console.log('Client ID set to 2')
-}
-
 // We'll be needing these, probably.
 // Remove as required.
-export { connect, createRoom, joinRoom, submitMessage, leaveRoom, consume, getAllProducers,
-        subscribe, publish, getUserMedias, getScreenShare, debug_setClientIdTo1, debug_setClientIdTo2 }
+export { connect, createRoom, joinRoom, submitMessage, leaveRoom, getAllProducers, publish, getScreenShare}

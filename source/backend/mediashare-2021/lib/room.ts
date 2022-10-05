@@ -114,7 +114,7 @@ class Room {
     async onProduce(clientId: string, transportId: string, kind: MediaKind, rtpParameters: RtpParameters) {
         const producer = await this.getTransport(transportId).produce({kind, rtpParameters, appData: {clientId}});
         this.producers.push(producer);
-
+        console.log(roomManager.getAllProducers(this.id))
         producer.on("transportclose", () => {
             this.producers = this.producers.filter((p) => p.id != producer.id)
             if (!producer.closed) {
