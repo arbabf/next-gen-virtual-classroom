@@ -5,7 +5,7 @@ import styles from '../styles/pages/Home.module.css';
 import ScreenContainer from '../components/screen/screencontainer/ScreenContainer';
 import ButtonSet from '../components/common/buttonset/buttonset';
 import Button from '../components/common/button/button';
-import { connect, getAllProducers, createRoom, joinRoom, leaveRoom, publish } from '../entities/user/connect';
+import { connect, getAllProducers, createRoom, joinRoom, leaveRoom, publish } from '../lib/connect';
 
 const Home: NextPage = () => {
 	return (

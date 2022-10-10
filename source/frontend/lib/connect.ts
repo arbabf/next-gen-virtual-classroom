@@ -126,6 +126,7 @@ const onProducerTransportCreated = async (event: any) => {
     //start transport on producer
     transport.on('produce', async ({kind, rtpParameters}, callback, errback) => {
         const message = {
+            //TODO: maybe this will help?
             type: 'produce',
             data: {
                 roomId: currRoomId,
