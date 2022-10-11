@@ -79,6 +79,7 @@ const connect = () => {
                     pId2cId[producers[cId]["audio"]] = cId;
                 }
                 subscribe();
+                break;
             case "retrieveDetails":
                 clientId = resp.data.clientId;
                 console.log(`Your client ID is: ${clientId}`)

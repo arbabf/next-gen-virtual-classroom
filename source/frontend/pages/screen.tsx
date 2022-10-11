@@ -43,25 +43,25 @@ const Home: NextPage = () => {
 				<div>PLACEHOLDER TEXT</div>
 				<div>PLACEHOLDER TEXT</div>
 				<ButtonSet>
-					<Button onClick={connect}>
+					<Button onClick={connect} className='connect'>
 							<span>{'Connect'}</span>
 					</Button>
-					<Button onClick={createRoom}>
+					<Button onClick={createRoom} className='create'>
 							<span>{'Create Room'}</span>
 					</Button>
-					<Button onClick={joinRoom}>
+					<Button onClick={joinRoom} className='join'>
 							<span>{'Join Room'}</span>
 					</Button>
-					<Button onClick={leaveRoom}>
+					<Button onClick={leaveRoom} className='leave'>
 							<span>{'Leave Room'}</span>
 					</Button>
-					<Button onClick={() => publish("cam")}> 
-							<span>{'Share camera/microphone'}</span> 
+					<Button onClick={() => publish("cam")} className='camera'> 
+							<span>{'Share camera and microphone'}</span> 
 					</Button>
-					<Button onClick={() => publish("scrn")}>
+					<Button onClick={() => publish("scrn")} className='screen'>
 							<span>{'Share screen'}</span>
 					</Button>
-					<Button onClick={getAllProducers}>
+					<Button onClick={getAllProducers} className='subscribe'>
 							<span>{'Subscribe'}</span>
 					</Button>
 				</ButtonSet>
