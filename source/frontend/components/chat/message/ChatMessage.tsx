@@ -95,7 +95,7 @@ export class ChatMessage extends Component<ChatMessageProps, ChatMessageViewStat
 							<span>{this.state.showChildren ? "Hide" : "Show"} {replies.length} {replies.length > 1 ? "replies" : "reply"}</span>
 						</Button>
 					}
-					{this.props.onReplyFocus && this.shouldShowReplies() &&
+					{this.props.onReplyFocus && this.notMaxDepth() &&
 						<Button slim inverted onClick={(_) => this.props.onReplyFocus(this.props.message)}>
 							<Icon iconName="reply" />
 							<span>Reply</span>
@@ -125,9 +125,17 @@ export class ChatMessage extends Component<ChatMessageProps, ChatMessageViewStat
 	private shouldShowReplies(): boolean {
 		const replies = this.props.replyMap.get(this.props.message.id);
 
-		if (this.props.depth <= ChatDisplay.maxDepth && replies && replies.length > 0)
+		if (this.notMaxDepth() && replies && replies.length > 0)
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 * Checks whether this message has reached max depth.
+	 * @returns true if not at max depth
+	 */
+	private notMaxDepth(): boolean {
+		return this.props.depth <= ChatDisplay.maxDepth;
 	}
 }
