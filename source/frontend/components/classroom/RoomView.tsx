@@ -152,8 +152,10 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 
 				<RoomSpace room={this.props.room} currentUser={this.state.currentUser} roamingArea={roamingArea} stageArea={stageArea} tableArea={tableArea} screenArea={screenArea} />
 
-				<SettingsPage user={this.state.currentUser} hidden={!this.state.settingsVisible} />
-				<ChatUI user={this.state.currentUser} room={this.props.room} hidden={!this.state.chatVisible} />
+				<aside>
+					<ChatUI user={this.state.currentUser} room={this.props.room} hidden={!this.state.chatVisible} />
+					<SettingsPage user={this.state.currentUser} hidden={!this.state.settingsVisible} />
+				</aside>
 			</>
 		);
 	}
@@ -273,40 +275,40 @@ export default class RoomView extends Component<RoomViewProps, RoomViewState> {
 				this.editTableState(prevTable.id, newState);
 			});
 
-/**
- * const prevTable = this.state.tables.find(table =>{
-			
-			// find user
-			const user = table.state?.participants.find(participant =>
-				participant.globalInfo.id === this.state.currentUser.globalInfo.id
-			)
-			// if user found
-			if(user){
-				console.log("Found User " + user.getName());
-				return true
-			}
-			console.log("User not found - linw 259");
-			return false
-		})
-
-
+		/**
+		 * const prevTable = this.state.tables.find(table =>{
+					
+					// find user
+					const user = table.state?.participants.find(participant =>
+						participant.globalInfo.id === this.state.currentUser.globalInfo.id
+					)
+					// if user found
+					if(user){
+						console.log("Found User " + user.getName());
+						return true
+					}
+					console.log("User not found - linw 259");
+					return false
+				})
 		
-		// have prev table,
-		if (prevTable){
-			// remove from prevTable
-			console.log("Prev table's index: " + prevTable.id)
-			//const userIndex = prevTable?.state?.participants.findIndex(participant => {
-			//	participant.globalInfo.id === this.state.currentUser.globalInfo.id;
-			//});
-			//assert(userIndex, "Participant must be found in table state");
-			//console.log("User index " + userIndex);
-
-			prevTable.state?.participants.filter((user) => user.globalInfo.id !== this.state.currentUser.globalInfo.id);
-			let newState = new TableState(prevTable, prevTable.state?.participants);
-			this.editTableState(prevTable.id,newState);
-		}
- */
 		
+				
+				// have prev table,
+				if (prevTable){
+					// remove from prevTable
+					console.log("Prev table's index: " + prevTable.id)
+					//const userIndex = prevTable?.state?.participants.findIndex(participant => {
+					//	participant.globalInfo.id === this.state.currentUser.globalInfo.id;
+					//});
+					//assert(userIndex, "Participant must be found in table state");
+					//console.log("User index " + userIndex);
+		
+					prevTable.state?.participants.filter((user) => user.globalInfo.id !== this.state.currentUser.globalInfo.id);
+					let newState = new TableState(prevTable, prevTable.state?.participants);
+					this.editTableState(prevTable.id,newState);
+				}
+		 */
+
 		// add to curr table
 		const newUser = this.state.currentUser;
 
