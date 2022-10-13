@@ -60,10 +60,7 @@ export class LoginFlow extends Component<LoginFlowProps, LoginFlowState> {
 		if (this.state.email) UserAPI.loginSubmitEmail(this.state.email)
 			.then((response) => {
 				if (!response) this.props.onSignUp();
-				else if (response instanceof EmailFlowResponse) {
-					console.log("Got flow: " + response.flow);
-					this.setState({ currentFlow: response.flow });
-				}
+				else this.setState({ currentFlow: response.flow });
 			});
 	}
 }
