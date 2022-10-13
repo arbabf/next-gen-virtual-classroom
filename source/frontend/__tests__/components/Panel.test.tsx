@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Panel from '../../components/screen/panel/panel';
-import { act } from 'react-dom/test-utils';
 
 describe('Panel', () => {
 	it('Includes a Panel', () => {
