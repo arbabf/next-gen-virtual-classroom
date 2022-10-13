@@ -96,7 +96,14 @@ export class ChatMessage extends Component<ChatMessageProps, ChatMessageViewStat
 						</Button>
 					}
 					{this.props.onReplyFocus && this.notMaxDepth() &&
-						<Button slim inverted onClick={(_) => this.props.onReplyFocus(this.props.message)}>
+						<Button slim inverted
+							onClick={
+								(_) => {
+									if (this.props.onReplyFocus)
+										this.props.onReplyFocus(this.props.message);
+								}
+							}
+						>
 							<Icon iconName="reply" />
 							<span>Reply</span>
 						</Button>
