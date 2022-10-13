@@ -23,7 +23,7 @@ describe('ScreenContainer', () => {
 		expect(panelElem).toBeInTheDocument();
 	});
 
-    it('Does not render a panel when it doesn\'t need to', () => {
+    it('Renders the correct components when Panel is not shown', () => {
 		render(<ScreenContainer mediaSelectorOn mediaOn/>);
         const containerElem = screen.getByText('Sharing media');
         containerElem.click();
@@ -41,6 +41,7 @@ describe('ScreenContainer', () => {
 
 		expect(buttonElem).toBeInTheDocument();
         expect(otherButtomElem).toBeInTheDocument();
+        // no panels on screen
         expect(screenElem).not.toBeInTheDocument();
 	});
 
