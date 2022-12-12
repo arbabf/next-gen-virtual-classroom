@@ -1,7 +1,7 @@
 # NGVC
 
 A next-generation virtual classroom focusing on making virtual learning
-engaging and interactive.
+engaging and interactive, built for web browsers. Originally created as part of a university project, this incomplete software is as we left it when the deadline expired (with some minor changes afterward). Feel free to browse, or use the code however you see fit.
 
 ## Getting Started
 
