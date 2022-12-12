@@ -1,6 +1,5 @@
 /**
  * Panels. These can be clicked to be expanded and clicked again to be shrunken, but by default they do nothing.
- * Author: Arbab Ahmed, Group 15 [Project 5]
  * Last modified: 11/08/2022
  */
 
